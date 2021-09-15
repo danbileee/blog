@@ -4,12 +4,12 @@
   "singleQuote": true,
   "trailingComma": "all",
   "arrowParens": "always",
+  "semi": true,
+  "printWidth": 80,
   "overrides": [
     {
       "files": "*.md",
       "options": {
-        "printWidth": 70,
-        "useTabs": false,
         "trailingComma": "none",
         "proseWrap": "never"
       }

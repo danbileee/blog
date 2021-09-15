@@ -5,13 +5,12 @@
     "browser": true
   },
   "extends": [
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
     "airbnb",
     "next",
-    "prettier"
+    "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -29,30 +28,20 @@
   ],
   "rules": {
     "no-console": "off",
+    "no-unused-vars": "warn",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
     "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
-    "prettier/prettier": [
-      "error",
-      {},
-      {
-        "usePrettierrc": true
-      }
-    ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-var-requires": "warn",
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "argsIgnorePattern": "^_"
-      }
-    ],
     "import/no-unresolved": "off",
     "import/extensions": "off",
+    "import/no-anonymous-default-export": "off",
+    "import/prefer-default-export": "off",
     "jsx-a11y/label-has-for": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/alt-text": "off",

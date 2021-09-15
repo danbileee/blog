@@ -1,5 +1,12 @@
-import type { NextPage } from 'next';
+import { NextPage } from 'next';
 
-const Home: NextPage = () => <div>Hello World</div>;
+import { GlobalStyle } from '../styles';
+
+const Home: NextPage = () => (
+  <div>
+    <GlobalStyle />
+    <div>Hello World</div>
+  </div>
+);
 
 export default Home;
