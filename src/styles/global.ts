@@ -1,14 +1,17 @@
-/* eslint-disable prettier/prettier */
 import { css } from '@emotion/react';
 
 export const global = css`
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
   :root {
-    line-height: 1.5;
-    text-size-adjust: 100%;
+    --primary-color: #47f6cb;
+    --secondary-color: #4263eb;
+    --text-color: #121111;
   }
 
   html {
     scroll-behavior: smooth;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -19,6 +22,9 @@ export const global = css`
   *::before,
   *::after {
     box-sizing: border-box;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+      Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+      'Noto Sans KR', 'Malgun Gothic', sans-serif;
   }
 
   hr {

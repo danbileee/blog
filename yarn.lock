@@ -1792,6 +1792,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^16.11.3":
+  version: 16.11.3
+  resolution: "@types/node@npm:16.11.3"
+  checksum: 65682d01d2c10b9658d9b3c160ae72f0b2d626d7d02459434b21a9476518dbab38c852586c160a7a10f7e4271266e11001dd9fa605b4c7a53d3c0c045eaf4a65
+  languageName: node
+  linkType: hard
+
 "@types/parse-json@npm:^4.0.0":
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
@@ -2410,6 +2417,7 @@ __metadata:
     "@emotion/babel-plugin": ^11.3.0
     "@emotion/eslint-plugin": ^11.2.0
     "@emotion/react": ^11.4.1
+    "@types/node": ^16.11.3
     "@types/react": ^17.0.20
     "@types/react-dom": ^17.0.9
     "@typescript-eslint/eslint-plugin": ^4.31.1

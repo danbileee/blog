@@ -45,6 +45,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/babel-plugin", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:11.3.0"],
             ["@emotion/eslint-plugin", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:11.2.0"],
             ["@emotion/react", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:11.4.1"],
+            ["@types/node", "npm:16.11.3"],
             ["@types/react", "npm:17.0.20"],
             ["@types/react-dom", "npm:17.0.9"],
             ["@typescript-eslint/eslint-plugin", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:4.31.1"],
@@ -2955,6 +2956,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/node", [
+        ["npm:16.11.3", {
+          "packageLocation": "./.yarn/cache/@types-node-npm-16.11.3-511ca0a173-65682d01d2.zip/node_modules/@types/node/",
+          "packageDependencies": [
+            ["@types/node", "npm:16.11.3"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:16.9.1", {
           "packageLocation": "./.yarn/cache/@types-node-npm-16.9.1-bde6d3b0c9-41afcf183a.zip/node_modules/@types/node/",
           "packageDependencies": [
@@ -3764,6 +3772,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/babel-plugin", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:11.3.0"],
             ["@emotion/eslint-plugin", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:11.2.0"],
             ["@emotion/react", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:11.4.1"],
+            ["@types/node", "npm:16.11.3"],
             ["@types/react", "npm:17.0.20"],
             ["@types/react-dom", "npm:17.0.9"],
             ["@typescript-eslint/eslint-plugin", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:4.31.1"],

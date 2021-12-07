@@ -4,7 +4,7 @@
   "description": "개발 관련 기록을 저장하는 곳",
   "main": "index.js",
   "repository": "https://github.com/blocktobody/blog.git/",
-  "author": "이단비(Frontend) <danbi.lee@myrealtrip.com>",
+  "author": "Danbi Lee <blocktobody@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.15.4",
@@ -25,6 +25,7 @@
     "@babel/preset-typescript": "^7.15.0",
     "@emotion/babel-plugin": "^11.3.0",
     "@emotion/eslint-plugin": "^11.2.0",
+    "@types/node": "^16.11.3",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "dotenv": "^10.0.0",
