@@ -10,6 +10,13 @@ const Home: NextPage = () => (
     >
       Hello World
     </div>
+    <h1
+      css={css`
+        color: var(--primary-color);
+      `}
+    >
+      안녕
+    </h1>
   </div>
 );
 
