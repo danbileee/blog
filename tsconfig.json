@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "types": ["node", "@emotion/react"],
+    "types": [
+      "node",
+      "@emotion/react"
+    ],
     "lib": [
       "dom",
       "dom.iterable",
@@ -20,12 +23,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "jsxImportSource": "@emotion/react"
+    "jsxImportSource": "@emotion/react",
+    "incremental": true
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx",
-    "babel.config.js"
+    "src/**/*.tsx"
   ],
   "exclude": [
     "node_modules"
