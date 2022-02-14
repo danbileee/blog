@@ -6,7 +6,9 @@ export const global = css`
   :root {
     --primary-color: #47f6cb;
     --secondary-color: #4263eb;
-    --text-color: #121111;
+    --gray-900: #121111;
+    --gray-100: #f5f5f5;
+    --white: #ffffff;
   }
 
   html {
@@ -43,6 +45,7 @@ export const global = css`
   a {
     text-decoration: none;
     margin: 0;
+    color: var(--gray-900);
   }
 
   button {
@@ -51,6 +54,7 @@ export const global = css`
     padding: 0;
     border: none;
     outline: none;
+    color: var(--gray-900);
   }
 
   ol,

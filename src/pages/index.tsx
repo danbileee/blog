@@ -1,11 +1,13 @@
 import { NextPage } from 'next';
 import { css } from '@emotion/react';
 
+import Layout from 'components/layout';
+
 const Home: NextPage = () => (
-  <div>
+  <Layout>
     <div
       css={css`
-        color: var(--text-color);
+        color: var(--gray-900);
       `}
     >
       Hello World
@@ -17,7 +19,7 @@ const Home: NextPage = () => (
     >
       안녕
     </h1>
-  </div>
+  </Layout>
 );
 
 export default Home;

@@ -29,6 +29,7 @@
   "rules": {
     "no-console": "off",
     "no-unused-vars": "off",
+    "no-use-before-define": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
     "react/jsx-filename-extension": "off",
