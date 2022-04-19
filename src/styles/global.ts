@@ -7,6 +7,7 @@ export const global = css`
     --primary-color: #47f6cb;
     --secondary-color: #4263eb;
     --gray-900: #121111;
+    --gray-300: #c4c4c4;
     --gray-100: #f5f5f5;
     --white: #ffffff;
   }

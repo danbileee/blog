@@ -21,7 +21,7 @@ export default function Header() {
           return (
             <NavAnchor
               key={menu}
-              href={isBlog ? BASE_BLOG_URL : `${BASE_PORTFOLIO_URL}/${menu}`}
+              href={isBlog ? BASE_BLOG_URL : `${BASE_PORTFOLIO_URL}${menu}`}
               isBlog={isBlog}
             >
               {menu}
