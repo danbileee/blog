@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import mediaQuery from '@styles/media-query';
+import mediaQuery from '@styles/mediaQuery';
 import { Post } from '@constants/types';
 
 const Container = styled.a`

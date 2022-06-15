@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { BREAK_POINTS } from '@styles/media-query';
+import { BREAK_POINTS } from '@styles/mediaQuery';
 
 export function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);

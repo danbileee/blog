@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import Layout from '@components/layout';
 import { useGlobalContext } from '@contexts/global';
-import mediaQuery from '@styles/media-query';
+import mediaQuery from '@styles/mediaQuery';
 
 const Home: NextPage = () => {
   const { isMobile } = useGlobalContext();

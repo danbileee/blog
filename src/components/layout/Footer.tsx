@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
-import mediaQuery from '@styles/media-query';
+import mediaQuery from '@styles/mediaQuery';
 
 interface FooterLink {
   icon: string;

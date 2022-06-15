@@ -1,6 +1,6 @@
-import { metaInfo, Pathname } from '@constants/meta-info';
+import { metaInfo, Pathname } from '@constants/metaInfo';
 import styled from '@emotion/styled';
-import mediaQuery from '@styles/media-query';
+import mediaQuery from '@styles/mediaQuery';
 import getEmoji from '@utils/getEmoji';
 
 interface Props {

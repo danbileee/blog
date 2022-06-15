@@ -1,4 +1,4 @@
-import { metaInfo } from '@constants/meta-info';
+import { metaInfo } from '@constants/metaInfo';
 
 export function getMenuLink(currentMenu: string) {
   const [link] =

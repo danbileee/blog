@@ -1,4 +1,4 @@
-import { metaInfo, Pathname, pathnames } from '@constants/meta-info';
+import { metaInfo, Pathname, pathnames } from '@constants/metaInfo';
 
 function isValidPath(pathname: string) {
   return pathname in pathnames;

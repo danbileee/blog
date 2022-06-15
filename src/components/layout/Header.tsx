@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { menus as menusConst } from 'constants/meta-info';
+import { menus as menusConst } from '@constants/metaInfo';
 import { useRouter } from 'next/router';
 
-import mediaQuery from '@styles/media-query';
+import mediaQuery from '@styles/mediaQuery';
 import { getMenuLink } from '@utils/getMenuLink';
 import { getMetaInfo } from '@utils/getMetaInfo';
 

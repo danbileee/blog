@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 
-import mediaQuery from '@styles/media-query';
+import mediaQuery from '@styles/mediaQuery';
 
 import Header from './Header';
 import Footer from './Footer';
