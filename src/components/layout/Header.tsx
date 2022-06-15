@@ -1,33 +1,35 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { menus as menusConst } from 'constants/meta-info';
+import { useRouter } from 'next/router';
+
+import mediaQuery from '@styles/media-query';
+import { getMenuLink } from '@utils/getMenuLink';
+import { getMetaInfo } from '@utils/getMetaInfo';
 
 import Logo from './Logo';
 
-const BASE_PORTFOLIO_URL = 'https://blocktobody.com/';
-const BASE_BLOG_URL = 'https://blog.blocktobody.com/';
-
-const menus: string[] = ['works', 'about', 'blog'];
+const menus: string[] = Object.values(menusConst).map((menu) => menu);
 
 export default function Header() {
+  const { pathname } = useRouter();
+  const { menu: currentMenu } = getMetaInfo(pathname);
+
   return (
     <Container>
-      <LogoAnchor href={BASE_PORTFOLIO_URL}>
+      <LogoAnchor href="/">
         <StyledLogo />
       </LogoAnchor>
       <Nav>
-        {menus.map((menu) => {
-          const isBlog = menu === 'blog';
-
-          return (
-            <NavAnchor
-              key={menu}
-              href={isBlog ? BASE_BLOG_URL : `${BASE_PORTFOLIO_URL}${menu}`}
-              isBlog={isBlog}
-            >
-              {menu}
-            </NavAnchor>
-          );
-        })}
+        {menus.map((menu) => (
+          <NavAnchor
+            key={menu}
+            href={getMenuLink(menu)}
+            isActive={menu === currentMenu}
+          >
+            {menu}
+          </NavAnchor>
+        ))}
       </Nav>
     </Container>
   );
@@ -41,14 +43,25 @@ const Container = styled.header`
   align-items: center;
   justify-content: space-between;
   width: 100vw;
+  max-width: 100%;
   height: 110px;
-  padding: 0 calc(50vw - 500px);
-  background-color: var(--white);
+  padding: 0 calc(50vw - 430px);
+  background-color: ${({ theme }) => theme.colors.white};
+
+  ${mediaQuery.mobile} {
+    height: 70px;
+    padding: 0 20px;
+  }
 `;
 
 const LogoAnchor = styled.a`
   width: 30px;
   height: 34px;
+
+  ${mediaQuery.mobile} {
+    width: 26px;
+    height: 29px;
+  }
 
   &:hover {
     .cls-1 {
@@ -64,8 +77,7 @@ const LogoAnchor = styled.a`
 `;
 
 const StyledLogo = styled(Logo)`
-  width: 30px;
-  height: 31px;
+  width: 100%;
 `;
 
 const Nav = styled.nav`
@@ -73,12 +85,21 @@ const Nav = styled.nav`
   align-items: center;
   justify-content: flex-end;
   gap: 45px;
+
+  ${mediaQuery.mobile} {
+    gap: 28px;
+  }
 `;
 
-const NavAnchor = styled.a<{ isBlog: boolean }>`
+const NavAnchor = styled.a<{ isActive: boolean }>`
   position: relative;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 800;
+
+  ${mediaQuery.mobile} {
+    font-size: 18px;
+    font-weight: 800;
+  }
 
   &::after {
     content: '';
@@ -86,14 +107,14 @@ const NavAnchor = styled.a<{ isBlog: boolean }>`
     position: absolute;
     width: 0px;
     height: 2px;
-    background-color: var(--gray-900);
+    background-color: ${({ theme }) => theme.colors.gray900};
     opacity: 0;
     left: 0;
     bottom: -10px;
     transition: all ease-in-out 0.2s;
 
-    ${({ isBlog }) =>
-      isBlog &&
+    ${({ isActive }) =>
+      isActive &&
       css`
         width: 25px;
         opacity: 1;

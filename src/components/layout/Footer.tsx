@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
+import mediaQuery from '@styles/media-query';
+
 interface FooterLink {
   icon: string;
   link: string;
@@ -28,9 +30,9 @@ export default function Footer() {
     <Container>
       <Links>
         {links.map(({ icon, link, channel }) => (
-          <a key={channel} href={link} rel="noopener noreferrer">
+          <Link key={channel} href={link} rel="noopener noreferrer">
             <Image src={icon} width={24} height={24} alt={channel} />
-          </a>
+          </Link>
         ))}
       </Links>
       <Infos>
@@ -46,27 +48,54 @@ export default function Footer() {
 
 const Container = styled.footer`
   width: 100vw;
-  padding: 0 calc(50vw - 500px);
+  max-width: 100%;
+  padding: 0 calc(50vw - 430px);
   margin-bottom: 50px;
+
+  ${mediaQuery.mobile} {
+    padding: 0 20px;
+    margin-bottom: 30px;
+  }
 `;
 
 const Links = styled.ul`
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+
+  ${mediaQuery.mobile} {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 
   & > a:not(:last-of-type) {
     margin-right: 24px;
   }
 `;
 
+const Link = styled.a`
+  opacity: 0.85;
+`;
+
 const Infos = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  ${mediaQuery.mobile} {
+    flex-direction: column;
+  }
 `;
 
 const Contacts = styled.div`
   display: flex;
   align-items: center;
+
+  ${mediaQuery.mobile} {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
 
   & > a:not(:last-of-type) {
     position: relative;
@@ -79,7 +108,7 @@ const Contacts = styled.div`
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      background: var(--gray-300);
+      background: ${({ theme }) => theme.colors.gray300};
       right: -16px;
       top: calc(50% - 1px);
       cursor: auto;
@@ -88,6 +117,11 @@ const Contacts = styled.div`
 `;
 
 const Copyright = styled.p`
-  color: var(--gray-300);
+  color: ${({ theme }) => theme.colors.gray300};
   font-size: 14px;
+
+  ${mediaQuery.mobile} {
+    font-size: 12px;
+    font-weight: 300;
+  }
 `;

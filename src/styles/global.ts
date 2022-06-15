@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 
 export const global = css`
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
 
   :root {
     --primary-color: #47f6cb;
