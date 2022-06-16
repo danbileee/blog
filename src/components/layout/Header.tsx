@@ -93,27 +93,27 @@ const NavAnchor = styled.a<{ isActive: boolean }>`
     font-weight: 600;
   }
 
-  ${mediaQuery.desktop} {
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 0px;
-      height: 2px;
-      background-color: ${({ theme }) => theme.colors.gray900};
-      opacity: 0;
-      left: 0;
-      bottom: -10px;
-      transition: all ease-in-out 0.2s;
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0px;
+    height: 2px;
+    background-color: ${({ theme }) => theme.colors.gray900};
+    opacity: 0;
+    left: 0;
+    bottom: -10px;
+    transition: all ease-in-out 0.2s;
 
-      ${({ isActive }) =>
-        isActive &&
-        css`
-          width: 25px;
-          opacity: 1;
-        `}
-    }
+    ${({ isActive }) =>
+      isActive &&
+      css`
+        width: 25px;
+        opacity: 1;
+      `}
+  }
 
+  @media (hover: hover) and (pointer: fine) {
     &:hover {
       &::after {
         width: 25px;

@@ -23,8 +23,6 @@ const Title = styled.h2`
   margin-bottom: 80px;
 
   ${mediaQuery.mobile} {
-    font-size: 22px;
-    line-height: 32px;
-    margin-bottom: 72px;
+    display: none;
   }
 `;
