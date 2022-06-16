@@ -17,3 +17,15 @@ export interface Post {
   frontMatter: FrontMatter;
   slug: string;
 }
+
+export interface Career {
+  company: string;
+  period: string;
+  description: string;
+  techStacks: string[];
+  careerIds: string[];
+  logoSize: {
+    width: number;
+    height: number;
+  };
+}

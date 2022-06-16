@@ -14,16 +14,17 @@ export default function PageMeta({ path }: Props) {
 }
 
 const Title = styled.h2`
-  font-family: 'Lato';
-  font-size: 40px;
-  font-weight: 900;
-  line-height: 50px;
-  letter-spacing: 0.01em;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: -0.02px;
   white-space: pre-line;
-  margin-bottom: 40px;
+  text-align: center;
+  margin-bottom: 80px;
 
   ${mediaQuery.mobile} {
-    font-size: 32px;
-    line-height: 38px;
+    font-size: 22px;
+    line-height: 32px;
+    margin-bottom: 72px;
   }
 `;

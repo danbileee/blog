@@ -20,6 +20,6 @@ const Main = styled.main`
   padding: 230px calc(50vw - 430px) 150px;
 
   ${mediaQuery.mobile} {
-    padding: 120px 20px 100px;
+    padding: 140px 20px 100px;
   }
 `;

@@ -7,18 +7,25 @@ import mediaQuery from '@styles/mediaQuery';
 import { getMenuLink } from '@utils/getMenuLink';
 import { getMetaInfo } from '@utils/getMetaInfo';
 
-import Logo from './Logo';
+import Image from 'next/image';
+import { useGlobalContext } from '@contexts/global';
 
 const menus: string[] = Object.values(menusConst).map((menu) => menu);
 
 export default function Header() {
+  const { isMobile } = useGlobalContext();
   const { pathname } = useRouter();
   const { menu: currentMenu } = getMetaInfo(pathname);
 
   return (
     <Container>
       <LogoAnchor href="/">
-        <StyledLogo />
+        <Image
+          width={isMobile ? 28 : 36}
+          height={isMobile ? 28 : 36}
+          src="/logo.png"
+          alt="logo"
+        />
       </LogoAnchor>
       <Nav>
         {menus.map((menu) => (
@@ -47,37 +54,22 @@ const Container = styled.header`
   height: 110px;
   padding: 0 calc(50vw - 430px);
   background-color: ${({ theme }) => theme.colors.white};
+  z-index: 10;
 
   ${mediaQuery.mobile} {
-    height: 70px;
+    height: 80px;
     padding: 0 20px;
   }
 `;
 
 const LogoAnchor = styled.a`
-  width: 30px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
 
   ${mediaQuery.mobile} {
-    width: 26px;
-    height: 29px;
+    width: 28px;
+    height: 28px;
   }
-
-  &:hover {
-    .cls-1 {
-      transition: transform ease-in-out 0.5s !important;
-      transform: translateX(5%);
-    }
-
-    .cls-2 {
-      transition: transform ease-in-out 0.5s !important;
-      transform: translateX(-5%);
-    }
-  }
-`;
-
-const StyledLogo = styled(Logo)`
-  width: 100%;
 `;
 
 const Nav = styled.nav`
@@ -87,7 +79,7 @@ const Nav = styled.nav`
   gap: 45px;
 
   ${mediaQuery.mobile} {
-    gap: 28px;
+    gap: 24px;
   }
 `;
 
@@ -98,33 +90,35 @@ const NavAnchor = styled.a<{ isActive: boolean }>`
 
   ${mediaQuery.mobile} {
     font-size: 18px;
-    font-weight: 800;
+    font-weight: 700;
   }
 
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 0px;
-    height: 2px;
-    background-color: ${({ theme }) => theme.colors.gray900};
-    opacity: 0;
-    left: 0;
-    bottom: -10px;
-    transition: all ease-in-out 0.2s;
+  ${mediaQuery.desktop} {
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0px;
+      height: 2px;
+      background-color: ${({ theme }) => theme.colors.gray900};
+      opacity: 0;
+      left: 0;
+      bottom: -10px;
+      transition: all ease-in-out 0.2s;
 
-    ${({ isActive }) =>
-      isActive &&
-      css`
+      ${({ isActive }) =>
+        isActive &&
+        css`
+          width: 25px;
+          opacity: 1;
+        `}
+    }
+
+    &:hover {
+      &::after {
         width: 25px;
         opacity: 1;
-      `}
-  }
-
-  &:hover {
-    &::after {
-      width: 25px;
-      opacity: 1;
+      }
     }
   }
 `;

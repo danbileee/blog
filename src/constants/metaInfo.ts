@@ -35,8 +35,7 @@ export const metaInfo: Record<Pathname, MetaInfo> = {
   },
   blog: {
     title: 'Blog',
-    description:
-      '\n새로 알게 됐거나,\n사실은 잘 몰랐던 것들에 대해 기록합니다.',
+    description: '\n새로 알게 됐거나,\n공유하고 싶은 것을 기록합니다.',
     menu: menus.blog,
     emoji: ['1f4da'],
   },
