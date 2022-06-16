@@ -23,7 +23,7 @@ export const metaInfo: Record<Pathname, MetaInfo> = {
   career: {
     title: 'Career',
     description:
-      '\n웹 에이전시, SaaS, 커머스 플랫폼에서\n프론트엔드 개발을 해왔습니다.',
+      '\n웹 에이전시, SaaS, 커머스 플랫폼에서\n프론트엔드 개발 경험이 있습니다.',
     menu: menus.career,
     emoji: ['1f4bb'],
   },

@@ -140,6 +140,7 @@ const ThumbGrid = styled.div<{ itemHeight: number }>`
 
 const Thumb = styled.a<{ src: string }>`
   cursor: pointer;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -151,7 +152,20 @@ const Thumb = styled.a<{ src: string }>`
 
   ${mediaQuery.mobile} {
     height: 200px;
-    filter: grayscale(0.4);
+    filter: grayscale(0);
+
+    &::after {
+      position: absolute;
+      display: block;
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-color: ${({ theme }) => theme.colors.gray900};
+      opacity: 0.15;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
   }
 
   @media (hover: hover) and (pointer: fine) {

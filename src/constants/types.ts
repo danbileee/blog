@@ -29,3 +29,8 @@ export interface Career {
     height: number;
   };
 }
+
+export interface AboutMe {
+  keyword: string;
+  description: string;
+}
