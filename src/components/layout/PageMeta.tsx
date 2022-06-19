@@ -10,19 +10,19 @@ interface Props {
 export default function PageMeta({ path }: Props) {
   const { description, emoji = [] } = metaInfo[path] ?? {};
 
-  return <Title>{`${getEmoji(emoji)} ${description}`}</Title>;
+  return <Title>{`${getEmoji(emoji)}\n${description}`}</Title>;
 }
 
 const Title = styled.h2`
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
-  line-height: 48px;
+  line-height: 1.6;
   letter-spacing: -0.02px;
   white-space: pre-line;
   text-align: center;
   margin-bottom: 80px;
 
   ${mediaQuery.mobile} {
-    display: none;
+    font-size: 20px;
   }
 `;

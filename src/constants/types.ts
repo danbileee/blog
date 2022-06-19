@@ -5,7 +5,7 @@ export interface MetaInfo {
   emoji?: string[];
 }
 
-export interface FrontMatter {
+export interface PostFrontMatter {
   title: string;
   publishedAt: string;
   updatedAt: string;
@@ -14,7 +14,7 @@ export interface FrontMatter {
 }
 
 export interface Post {
-  frontMatter: FrontMatter;
+  frontMatter: PostFrontMatter;
   slug: string;
 }
 
@@ -28,6 +28,17 @@ export interface Career {
     width: number;
     height: number;
   };
+}
+
+export interface CareerFrontMatter {
+  title: string;
+  link: string;
+  demo?: {
+    title: string;
+    link: string;
+  };
+  description: string;
+  tags: string[];
 }
 
 export interface AboutMe {

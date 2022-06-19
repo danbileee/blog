@@ -6,16 +6,7 @@ export const careers: Career[] = [
     period: '2020-',
     description:
       '여행 플랫폼 마이리얼트립에서 프론트엔드 개발자로 근무중입니다.',
-    techStacks: [
-      'React',
-      'Typescript',
-      'HTML',
-      'CSS',
-      'Git',
-      'emotion',
-      'recoil',
-      'react-query',
-    ],
+    techStacks: ['React', 'Typescript', 'HTML', 'CSS', 'Git'],
     careerIds: ['myrealtrip'],
     logoSize: {
       width: 215,
@@ -27,15 +18,7 @@ export const careers: Career[] = [
     period: '2019-2020',
     description:
       '이메일 마케팅 자동화 소프트웨어 배리의 프론트엔드 개발자로 근무하였습니다.',
-    techStacks: [
-      'React',
-      'Typescript',
-      'HTML',
-      'CSS',
-      'Git',
-      'emotion',
-      'redux',
-    ],
+    techStacks: ['React', 'Typescript', 'HTML', 'CSS', 'Git'],
     careerIds: ['vary'],
     logoSize: {
       width: 125,

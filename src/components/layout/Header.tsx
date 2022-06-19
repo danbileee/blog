@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 
 import mediaQuery from '@styles/mediaQuery';
 import { getMenuLink } from '@utils/getMenuLink';
-import { getMetaInfo } from '@utils/getMetaInfo';
 
 import Image from 'next/image';
 import { useGlobalContext } from '@contexts/global';
@@ -15,29 +14,30 @@ const menus: string[] = Object.values(menusConst).map((menu) => menu);
 export default function Header() {
   const { isMobile } = useGlobalContext();
   const { pathname } = useRouter();
-  const { menu: currentMenu } = getMetaInfo(pathname);
 
   return (
     <Container>
-      <LogoAnchor href="/">
-        <Image
-          width={isMobile ? 28 : 36}
-          height={isMobile ? 28 : 36}
-          src="/logo.png"
-          alt="logo"
-        />
-      </LogoAnchor>
-      <Nav>
-        {menus.map((menu) => (
-          <NavAnchor
-            key={menu}
-            href={getMenuLink(menu)}
-            isActive={menu === currentMenu}
-          >
-            {menu}
-          </NavAnchor>
-        ))}
-      </Nav>
+      <Wrapper>
+        <LogoAnchor href="/">
+          <Image
+            width={isMobile ? 28 : 36}
+            height={isMobile ? 28 : 36}
+            src="/logo.png"
+            alt="logo"
+          />
+        </LogoAnchor>
+        <Nav>
+          {menus.map((menu) => (
+            <NavAnchor
+              key={menu}
+              href={getMenuLink(menu)}
+              isActive={pathname.includes(menu)}
+            >
+              {menu}
+            </NavAnchor>
+          ))}
+        </Nav>
+      </Wrapper>
     </Container>
   );
 }
@@ -46,15 +46,18 @@ const Container = styled.header`
   position: fixed;
   top: 0;
   left: 0;
+  width: 100vw;
+  max-width: 100%;
+  background-color: ${({ theme }) => theme.colors.white};
+  z-index: 10;
+`;
+
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100vw;
-  max-width: 100%;
   height: 110px;
   padding: 0 calc(50vw - 430px);
-  background-color: ${({ theme }) => theme.colors.white};
-  z-index: 10;
 
   ${mediaQuery.mobile} {
     height: 80px;
@@ -90,7 +93,6 @@ const NavAnchor = styled.a<{ isActive: boolean }>`
 
   ${mediaQuery.mobile} {
     font-size: 18px;
-    font-weight: 600;
   }
 
   &::after {

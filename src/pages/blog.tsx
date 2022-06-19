@@ -4,10 +4,9 @@ import matter from 'gray-matter';
 
 import Layout from '@components/layout';
 import PostCard from '@components/cards/PostCard';
-import { getPath } from '@utils/getPath';
+import { getContentsPath } from '@utils/getPath';
 import { getSlug } from '@utils/getSlug';
 import { Post } from '@constants/types';
-import PageMeta from '@components/layout/PageMeta';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -17,7 +16,6 @@ interface Props {
 const Blog: NextPage<Props> = ({ posts }) => {
   return (
     <Layout>
-      <PageMeta path="blog" />
       <PostCardList>
         {posts.map((post) => (
           <PostCard key={post.slug} post={post} />
@@ -30,11 +28,13 @@ const Blog: NextPage<Props> = ({ posts }) => {
 export default Blog;
 
 export async function getStaticProps() {
-  const files = fs.readdirSync(getPath('posts'));
-
+  const files = fs.readdirSync(getContentsPath('posts'));
   const posts = files
     .map((filename) => {
-      const mdxWithMeta = fs.readFileSync(getPath('posts', filename), 'utf-8');
+      const mdxWithMeta = fs.readFileSync(
+        getContentsPath('posts', filename),
+        'utf-8',
+      );
       const { data: frontMatter } = matter(mdxWithMeta);
 
       return {

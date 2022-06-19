@@ -14,7 +14,7 @@ export default function PostCard({ post }: Props) {
   } = post;
 
   return (
-    <Container href={slug}>
+    <Container href={`/blog/${slug}`}>
       <Content>
         <Title>{title}</Title>
         <PublishedAt>{publishedAt}</PublishedAt>
@@ -59,6 +59,7 @@ const Content = styled.div`
 
 const Title = styled.h3`
   font-size: 20px;
+  line-height: 1.6;
   ${getEllipsisStyle(2)}
 `;
 
@@ -68,7 +69,7 @@ const PublishedAt = styled.p`
 `;
 
 const Description = styled.p`
-  line-height: 1.5;
+  line-height: 1.6;
   ${getEllipsisStyle(2)}
 `;
 

@@ -30,11 +30,9 @@ export default function CareerCard({ career }: Props) {
         <Period>{period}</Period>
       </Wrapper>
       <Description>{description}</Description>
-      {!isMobile && (
-        <Stacks>
-          {Children.toArray(techStacks.map((stack) => <Stack>{stack}</Stack>))}
-        </Stacks>
-      )}
+      <Stacks>
+        {Children.toArray(techStacks.map((stack) => <Stack>{stack}</Stack>))}
+      </Stacks>
       {careerIds.length === 1 ? (
         <Thumb src={getBgPath(careerId)} href={`/career/${careerId}`}>
           <Logo
@@ -100,7 +98,7 @@ const Description = styled.p`
 
   ${mediaQuery.mobile} {
     line-height: 1.6;
-    margin: 8px 0 20px;
+    margin: 8px 0 16px;
   }
 `;
 
@@ -113,6 +111,7 @@ const Stacks = styled.ul`
 
   ${mediaQuery.mobile} {
     gap: 8px 10px;
+    margin-bottom: 24px;
   }
 `;
 

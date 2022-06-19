@@ -35,10 +35,10 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: calc(100vh - 493px);
+  height: calc(100vh - 490px);
 
   ${mediaQuery.mobile} {
-    height: calc(100vh - 340px);
+    height: calc(100vh - 360px);
   }
 `;
 
