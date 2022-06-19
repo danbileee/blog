@@ -10,5 +10,8 @@ export function getMetaInfo(pathname: string) {
     ? (menu as Pathname)
     : 'home';
 
-  return metaInfo[normalizedPath];
+  return {
+    key: normalizedPath,
+    value: metaInfo[normalizedPath],
+  };
 }

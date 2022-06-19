@@ -8,12 +8,14 @@ import { getMenuLink } from '@utils/getMenuLink';
 
 import Image from 'next/image';
 import { useGlobalContext } from '@contexts/global';
+import { getMetaInfo } from '@utils/getMetaInfo';
 
 const menus: string[] = Object.values(menusConst).map((menu) => menu);
 
 export default function Header() {
   const { isMobile } = useGlobalContext();
   const { pathname } = useRouter();
+  const { key } = getMetaInfo(pathname) ?? {};
 
   return (
     <Container>
@@ -31,7 +33,7 @@ export default function Header() {
             <NavAnchor
               key={menu}
               href={getMenuLink(menu)}
-              isActive={pathname.includes(menu)}
+              isActive={menu.includes(key)}
             >
               {menu}
             </NavAnchor>

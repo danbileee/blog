@@ -9,7 +9,8 @@ import ThemeProvider, { theme } from '@styles/ThemeProvider';
 
 function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
-  const { title, description } = getMetaInfo(pathname) ?? {};
+  const { value } = getMetaInfo(pathname) ?? {};
+  const { title, description } = value ?? {};
 
   return (
     <>
