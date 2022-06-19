@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import fs from 'fs';
 import matter from 'gray-matter';
 
-import Layout from '@components/layout';
 import PostCard from '@components/cards/PostCard';
 import { getContentsPath } from '@utils/getPath';
 import { getSlug } from '@utils/getSlug';
@@ -15,13 +14,13 @@ interface Props {
 
 const Blog: NextPage<Props> = ({ posts }) => {
   return (
-    <Layout>
+    <>
       <PostCardList>
         {posts.map((post) => (
           <PostCard key={post.slug} post={post} />
         ))}
       </PostCardList>
-    </Layout>
+    </>
   );
 };
 

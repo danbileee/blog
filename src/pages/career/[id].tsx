@@ -1,5 +1,4 @@
 import CareerItem from '@components/items/CareerItem';
-import Layout from '@components/layout';
 import { CareerFrontMatter } from '@constants/types';
 import { getContentsPath } from '@utils/getPath';
 import fs from 'fs';
@@ -12,11 +11,11 @@ interface Props {
 }
 
 const CareerDetail = ({ id, frontMatter }: Props) => {
-  return (
-    <Layout>
-      {frontMatter && <CareerItem id={id} frontMatter={frontMatter} />}
-    </Layout>
-  );
+  if (!frontMatter) {
+    return null;
+  }
+
+  return <CareerItem id={id} frontMatter={frontMatter} />;
 };
 
 export default CareerDetail;

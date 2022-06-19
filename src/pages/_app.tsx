@@ -6,6 +6,7 @@ import { GlobalContextProvider } from '@contexts/global';
 import GlobalStyle from '@styles/GlobalStyle';
 import { getMetaInfo } from '@utils/getMetaInfo';
 import ThemeProvider, { theme } from '@styles/ThemeProvider';
+import Layout from '@components/layout';
 
 function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
@@ -48,7 +49,9 @@ function App({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <ThemeProvider>
         <GlobalContextProvider>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </GlobalContextProvider>
       </ThemeProvider>
     </>
