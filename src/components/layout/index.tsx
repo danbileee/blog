@@ -30,7 +30,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: 230px calc(50vw - 430px) 12vh;
+  padding: 230px calc(50vw - 430px) 138px;
 
   ${mediaQuery.mobile} {
     padding: 200px 20px;
