@@ -1,9 +1,10 @@
-import CareerItem from '@components/items/CareerItem';
-import { CareerFrontMatter } from '@constants/types';
-import { getContentsPath } from '@utils/getPath';
 import fs from 'fs';
 import matter from 'gray-matter';
 import { GetStaticPropsContext } from 'next';
+
+import Career from '@components/career';
+import { CareerFrontMatter } from '@constants/types';
+import { getContentsPath } from '@utils/getPath';
 
 interface Props {
   id: string;
@@ -15,7 +16,7 @@ const CareerDetail = ({ id, frontMatter }: Props) => {
     return null;
   }
 
-  return <CareerItem id={id} frontMatter={frontMatter} />;
+  return <Career id={id} frontMatter={frontMatter} />;
 };
 
 export default CareerDetail;

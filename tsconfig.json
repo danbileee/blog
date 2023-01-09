@@ -38,7 +38,8 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.mdx"
+    "src/**/*.mdx",
+    "next.config.js"
   ],
   "exclude": [
     "node_modules"

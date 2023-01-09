@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     <>
       <Container>
         <TitleContainer>
-          <Title>I like to build things up!</Title>
+          <Title>{`a developer,\nworking with building blocks on the web`}</Title>
           <ImageContainer>
             <Image
               width={isMobile ? 320 : 650}
@@ -37,18 +37,19 @@ const Container = styled.div`
   height: calc(100vh - 490px);
 
   ${mediaQuery.mobile} {
-    height: calc(100vh - 360px);
+    height: calc(100vh - 410px);
   }
 `;
 
 const Title = styled.h1`
   font-weight: 900;
   font-size: 36px;
-  line-height: 1.2;
-  letter-spacing: -0.02px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  white-space: pre-line;
 
   ${mediaQuery.mobile} {
-    font-size: 24px;
+    font-size: 26px;
   }
 `;
 
@@ -60,11 +61,11 @@ const TitleContainer = styled.div`
 const ImageContainer = styled.div`
   position: absolute;
   right: -20px;
-  bottom: -200px;
+  bottom: -280px;
   z-index: -1;
 
   ${mediaQuery.mobile} {
     right: -10px;
-    bottom: -140px;
+    bottom: -120px;
   }
 `;

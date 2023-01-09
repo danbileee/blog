@@ -10,10 +10,12 @@ export function useIsMobile() {
   }
 
   useEffect(() => {
-    window.addEventListener('resize', resizeHandler);
-    resizeHandler();
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', resizeHandler);
+      resizeHandler();
+    }
 
-    return window.removeEventListener('resize', resizeHandler);
+    return window?.removeEventListener('resize', resizeHandler);
   }, []);
 
   return isMobile;

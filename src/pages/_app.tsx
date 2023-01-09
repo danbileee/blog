@@ -20,7 +20,10 @@ function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{`${title} | Danbi Lee`}</title>
         <meta name="description" content={description} />
-        <meta name="msapplication-TileColor" content={theme.colors.secondary} />
+        <meta
+          name="msapplication-TileColor"
+          content={theme.colors.cornflowerblue}
+        />
         <meta name="theme-color" content={theme.colors.white} />
         <link
           rel="apple-touch-icon"
@@ -43,7 +46,7 @@ function App({ Component, pageProps }: AppProps) {
         <link
           rel="mask-icon"
           href="/safari-pinned-tab.svg"
-          color={theme.colors.primary}
+          color={theme.colors.skyblue}
         />
       </Head>
       <GlobalStyle />

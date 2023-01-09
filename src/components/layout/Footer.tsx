@@ -1,58 +1,72 @@
 import styled from '@emotion/styled';
-import Image from 'next/image';
 
 import mediaQuery from '@styles/mediaQuery';
+import Image from 'next/image';
 
 interface FooterLink {
-  icon: string;
   link: string;
+  icon: string;
   channel: string;
 }
 
 const links: FooterLink[] = [
   {
-    icon: 'https://cdn1.iconfinder.com/data/icons/logotypes/32/github-256.png',
-    link: 'https://github.com/blocktobody',
+    link: 'https://github.com/danbileee',
+    icon: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-social-github-64.png',
     channel: 'github',
   },
   {
-    icon: 'https://cdn1.iconfinder.com/data/icons/social-media-circle-7/512/Circled_Linkedin_svg-256.png',
-    link: 'https://www.linkedin.com/in/danbi-lee-7469061ab/',
+    link: 'https://www.linkedin.com/in/danbileee/',
+    icon: 'https://cdn4.iconfinder.com/data/icons/social-icons-16/512/LinkedIn_alt-64.png',
     channel: 'linkedin',
+  },
+  {
+    link: 'mailto:hello@danbileee.com',
+    icon: 'https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_send-64.png',
+    channel: 'email',
   },
 ];
 
-const MAIL = 'blocktobody@gmail.com';
-const TEL = '+81-10-4503-5219';
+interface Props {
+  isFooterVisible: boolean;
+}
 
-export default function Footer() {
+export default function Footer({ isFooterVisible }: Props) {
   return (
-    <Container>
+    <Container isVisible={isFooterVisible}>
       <Links>
-        {links.map(({ icon, link, channel }) => (
-          <Link key={channel} href={link} rel="noopener noreferrer">
-            <Image src={icon} width={24} height={24} alt={channel} />
+        {links.map(({ link, icon, channel }) => (
+          <Link key={link} href={link} rel="noopener noreferrer">
+            <Image
+              width={20}
+              height={20}
+              src={icon}
+              alt={`${channel} 아이콘`}
+            />
           </Link>
         ))}
       </Links>
-      <Infos>
-        <Contacts>
-          <a href={`mailto:${MAIL}`}>{MAIL}</a>
-          <a href={`tel:${TEL}`}>{TEL}</a>
-        </Contacts>
-        <Copyright>Copyright © Danbi Lee</Copyright>
-      </Infos>
+      <Copyright>© Danbi Lee</Copyright>
     </Container>
   );
 }
 
-const Container = styled.footer`
-  width: 100vw;
+const Container = styled.footer<{ isVisible: boolean }>`
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   max-width: 100%;
-  padding: 0 calc(50vw - 430px);
-  margin-bottom: 50px;
+  padding: 0 calc(50vw - 430px) 50px;
+  left: 0;
+  bottom: 0;
+  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
+  transform: translateY(${({ isVisible }) => (isVisible ? 0 : 100)}px);
+  transition: all ease-in-out 150ms;
 
   ${mediaQuery.mobile} {
+    flex-direction: column;
     padding: 0 20px;
     margin-bottom: 30px;
   }
@@ -65,54 +79,31 @@ const Links = styled.ul`
 
   ${mediaQuery.mobile} {
     justify-content: center;
-    margin-bottom: 20px;
   }
 
   & > a:not(:last-of-type) {
-    margin-right: 24px;
+    margin-right: 20px;
   }
 `;
 
 const Link = styled.a`
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: transparent;
+  padding: 8px;
+  border-radius: 4px;
   opacity: 0.85;
-`;
+  transition: background-color ease-in-out 150ms;
 
-const Infos = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  ${mediaQuery.mobile} {
-    flex-direction: column;
-  }
-`;
-
-const Contacts = styled.div`
-  display: flex;
-  align-items: center;
-
-  ${mediaQuery.mobile} {
-    font-size: 14px;
-    font-weight: 300;
-    margin-bottom: 10px;
-  }
-
-  & > a:not(:last-of-type) {
-    position: relative;
-    margin-right: 26px;
-
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: ${({ theme }) => theme.colors.gray300};
-      right: -16px;
-      top: calc(50% - 1px);
-      cursor: auto;
+  ${mediaQuery.hover} {
+    :hover {
+      background-color: var(--skyblue);
     }
+  }
+
+  ${mediaQuery.mobile} {
+    font-size: 15px;
   }
 `;
 

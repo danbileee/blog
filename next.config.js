@@ -1,6 +1,6 @@
-/** @type {import('next').NextConfig} */
 module.exports = {
   images: {
-    domains: ['cdn1.iconfinder.com'],
+    domains: ['cdn4.iconfinder.com', 'img1.daumcdn.net'],
+    deviceSizes: [600, 1080, 1920],
   },
 };

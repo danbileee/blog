@@ -14,7 +14,7 @@ tags: ['정규표현식']
 
 예문
 
-```
+```regex
 sales1.xls
 orders3.xls
 sales2.xls
@@ -30,7 +30,7 @@ ca1.xls
 
 정규표현식
 
-```
+```regex
 [ns]a.\.xls
 ```
 
@@ -46,13 +46,13 @@ ca1.xls
 
 예문
 
-```
+```regex
 The Phrase "regular expression" is often abbreviated as RegEx or regex.
 ```
 
 정규표현식
 
-```
+```regex
 [Rr]eg[Ee]x
 ```
 
@@ -66,7 +66,7 @@ The Phrase "regular expression" is often abbreviated as RegEx or regex.
 
 정규표현식
 
-```
+```regex
 [ns]a[0-9]\.xls
 ```
 
@@ -81,7 +81,7 @@ The Phrase "regular expression" is often abbreviated as RegEx or regex.
 
 정규표현식
 
-```
+```regex
 [A-Za-z0-9]
 ```
 
@@ -93,7 +93,7 @@ RGB 값은 빨강, 초록, 파랑 정도에 따라 16진수로 색을 표시하�
 
 정규표현식
 
-```
+```regex
 #[0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]
 ```
 
@@ -103,10 +103,30 @@ RGB 값은 빨강, 초록, 파랑 정도에 따라 16진수로 색을 표시하�
 
 정규표현식
 
-```
+```regex
 [ns]a[^0-9]\.xls
 ```
 
 결과
 
 > **sam.xls**
+
+## 자바스크립트 테스트
+
+```js
+const iife = (async function () {
+  const response = await fetch('https://www.abc.com');
+
+  return response.data;
+})();
+```
+
+## 타입스크립트 테스트
+
+```ts
+const iife: number = (async function () {
+  const response = await fetch('https://www.abc.com');
+
+  return response.data;
+})();
+```
