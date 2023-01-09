@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     <>
       <Container>
         <TitleContainer>
-          <Title>{`a developer,\nworking with building blocks on the web`}</Title>
+          <Title>{`Hi, I'm a web developer,\nwho loves building useful things.`}</Title>
           <ImageContainer>
             <Image
               width={isMobile ? 320 : 650}
