@@ -11,6 +11,7 @@ export interface PostFrontMatter {
   updatedAt: string;
   description: string;
   tags: string[];
+  devOnly?: boolean;
 }
 
 export interface Post {

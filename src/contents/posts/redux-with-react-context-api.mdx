@@ -1,0 +1,96 @@
+---
+title: Redux와 React Context API 함께 사용하기
+publishedAt: '2020-09-18'
+updatedAt: '2020-09-18'
+description: 처음 리액트를 배웠을 때는 자바스크립트는 물론 코딩 자체에 입문하는 단계였다. 도움을 받아야겠다 싶어서 강의를 들었다. 첫 시간부터 상태 관리라는 것이 왜 필요한지도 모르면서 `this.state` 를 따라 쓰고, 또 `this.setState` 를 따라 썼다.
+tags: ['vary', 'js', 'react', 'redux']
+---
+
+처음 리액트를 배웠을 때는 자바스크립트는 물론 코딩 자체에 입문하는 단계였다. 도움을 받아야겠다 싶어서 강의를 들었다. 첫 시간부터 상태 관리라는 것이 왜 필요한지도 모르면서 `this.state` 를 따라 쓰고, 또 `this.setState` 를 따라 썼다. 그러다가 작은 것이라도 직접 만들어 봐야 할 필요성을 느꼈다. 그래서 누구나 시작할 때 한 번씩 만들어 본다는 투두 리스트([링크](https://codesandbox.io/s/autumn-dew-pmq8h?fontsize=14&hidenavigation=1&theme=dark))를 만들었다. 프로젝트 구조를 보면 나와있듯이 리덕스를 적용한 예제를 따라 만들었다.
+
+# Redux로 상태를 관리하는 방법
+
+상태 관리는 동적 페이지를 만들기 위한 시작이다. 예를 들어 어떤 내용을 입력한 후 버튼을 눌러 제출하는 아주 사소한 기능을 구현하는 데 있어서도 상태 관리가 필요하다. 즉 사용자의 행동으로 인한 변화를 페이지에 반영하기 위해서는 어떤 변화가 있었는지를 기록하고 그 중 필요한 내용을 표시할 수 있어야 한다는 뜻이다. 이 개념을 투두 리스트에 적용하면 어떻게 될까? 우선 투두 리스트에서 요구되는 기본적인 기능은 다음의 세 가지가 있다.
+
+1. 해야 할 일 입력 후 제출하기
+2. 완료한 일 체크하기
+3. 특정 항목 삭제하기
+
+각각의 기능은 사용자의 행동(Action)을 받아서 상태(State)를 변화시켜야 한다. 리덕스는 이 과정을 쉽게 만들어주는 라이브러리다. 액션의 타입과 액션을 처리하는 순수 함수를 정의한 후, 액션이 일어났을 때 리듀서(Reducer)에서 해당 함수를 실행한다. 컴포넌트에서는 액션이 일어났을 때 `dispatch` 해주고, 표시할 내용들을 스토어에서 선택하여 표시해 주면 된다. 따라서 구현해야 할 기능은 다음과 같이 구체화된다.
+
+| action type | state change     |
+| :---------- | :--------------- |
+| SUBMIT_TODO | 항목 추가        |
+| TOGGLE_TODO | 항목에 체크 표시 |
+| REMOVE_TODO | 항목 삭제        |
+
+결과적으로 이 프로젝트의 스토어(Store) 형태는 다음과 같다. 추가를 할 때는 배열에 항목이 하나 삽입되고, 체크 표시를 할 때는 해당 항목의 `complete` 값이 `true` 또는 `false` 로 토글되며, 삭제를 할 때는 배열에서 해당 항목이 없어지면 된다.
+
+```js
+{
+  todos: [
+    {
+      id: '1',
+      content: 'do something',
+      complete: false,
+    },
+    {
+      id: '2',
+      content: 'do nothing',
+      complete: true,
+    },
+    // continues...
+  ];
+}
+```
+
+이처럼 리덕스의 상태 관리 메커니즘은 간단하다. 하지만 실제 리덕스 사용이 권장되는 경우는 간단함과는 거리가 멀다. 리덕스가 편리한 이유는 상태를 하나의 글로벌 스토어에서 관리한다는 점에 있다. 이로 인해 서로 다른 층위의 컴포넌트들에서 상태를 공유하는 것이 편해지고, 그렇기 때문에 프로젝트의 규모가 작을 때는 굳이 리덕스를 쓰지 않아도 된다고들 이야기한다. 또 반대로 생각해 보면 규모가 크고 기능이 많아질수록 리덕스 스토어가 복잡해진다는 뜻이기도 하다. 배리 에디터를 만들기 시작할 때는 그런 문제를 생각 못하고 모든 상태를 리덕스로 관리했다. 조금씩 복잡해지는 것 같은데 -> 괜찮겠지 -> 그러다 기능이 추가되고 -> 스토어는 더 복잡해지고 -> 마침내 문제가 있다고 느꼈을 즈음에는 구조를 바꾸기가 이미 힘든 상태가 되었다.
+
+# React의 Context API
+
+배리의 프론트엔드에서는 이 문제를 해결하기 위해서 React의 [Context API](https://reactjs.org/docs/context.html)를 함께 사용했다. `createContext` 로 새로운 컨텍스트를 생성한 뒤, 해당 컨텍스트에 포함될 상태들을 `Provider` 의 `value` 값으로 넘겨준다. `Provider` 로는 상태를 공유하고 싶은 범위 내의 최상위 컴포넌트를 감싸주고, 그 하위 컴포넌트들에서 `useContext` 훅을 사용해 상태에 접근할 수 있게 된다. 이때 상태값과 액션에 따른 상태 변화를 정의하기 위해서는 `useState` 또는 `useReducer` 훅을 사용한다. 결과적으로 `Context API`를 활용해 상태를 관리하는 방법은 다음과 같이 정리할 수 있다.
+
+```js
+// create new context
+const NewContext = createContext(null);
+
+// create provider
+const NewContextProvider = ({ children }) => {
+  // define state
+  const [state, setState] = useState('');
+
+  return (
+    <NewContext.Provider value={{ state, setState }}>
+      {children}
+    </NewContext.Provider>
+  );
+};
+
+// define custom context hook
+const useNewContext = () => {
+  const state = useContext(NexContext);
+
+  if (state == null) {
+    throw new Error('context should not be null.');
+  }
+
+  return state;
+};
+
+// use new context
+const Component = () => {
+  const { state, setState } = useNewContext();
+
+  return (
+    <NewContextProvider>
+      <input value={state} onChange={(e) => setState(e.target.value)} />
+    </NewContextProvider>
+  );
+};
+```
+
+`Context API` 를 함께 사용하면 리덕스의 복잡한 스토어 문제도 해결된다. 프로젝트 전체적으로 공유할 필요가 있는 상태들에 한에서만 리덕스의 글로벌 스토어를 사용하고, 특정 부분에서만 공유하는 상태들의 경우에 컨텍스트를 사용하면 된다.
+
+# 비동기 처리를 구현하려면
+
+이렇게 상태 관리의 개념을 이해하고 적절한 방법으로 구현하는 것까지 성공했다. 그런데 만약 상태의 변화가 일련의 과정을 따라 순차적으로 일어나야 하는 경우라면 어떻게 될까? 여기서 비동기 처리에 대한 필요성이 생겨난다. 배리 프로젝트에서는 이를 구현하기 위해 `redux-observable` 과 이의 기반 라이브러리인 `rxjs` 를 활용했다. 이에 대한 자세한 내용을 다음 글에서 정리해보기로 하겠다.

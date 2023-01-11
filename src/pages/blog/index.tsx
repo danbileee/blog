@@ -47,7 +47,10 @@ export async function getStaticProps() {
 
   return {
     props: {
-      posts,
+      posts:
+        process.env.NODE_ENV === 'production'
+          ? posts.filter(({ frontMatter }) => !frontMatter.devOnly)
+          : posts,
     },
   };
 }
