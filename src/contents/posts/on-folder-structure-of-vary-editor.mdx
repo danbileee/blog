@@ -1,0 +1,210 @@
+---
+title: 프로젝트 폴더 구조의 변화, 바꾼 이유, 그리고 느낀 점
+publishedAt: '2020-09-23'
+updatedAt: '2020-09-23'
+description: 배리의 에디터는 아주 작은 단위부터 고민해 본 나의 첫 프로젝트이다. 시작하려고 보니 첫 컴포넌트를 어떤 폴더의 어떤 파일명으로 만들어야 할지가 고민이었다. 그때 조언을 구하며  `container`  컴포넌트와 `presentational` 컴포넌트로 구분하는 방법이 있다는 것을 알았다.
+tags: ['vary', 'js', 'react']
+---
+
+배리의 에디터는 아주 작은 단위부터 고민해 본 나의 첫 프로젝트이다. 시작하려고 보니 첫 컴포넌트를 어떤 폴더의 어떤 파일명으로 만들어야 할지가 고민이었다. 그때 조언을 구하며 `container` 컴포넌트와 `presentational` 컴포넌트로 구분하는 방법이 있다는 것을 알았다. 두 가지 개념의 특징을 정리해 보면 다음과 같다.
+
+# container와 presentational 컴포넌트 비교
+
+| 항목     | container                                  | presentational                         |
+| :------- | :----------------------------------------- | :------------------------------------- |
+| 데이터   | 직접 처리하여 자식에게 전달                | 부모에게서 전달받은 데이터를 표시만 함 |
+| 구성     | 데이터 처리 로직 및 하위 컴포넌트를 감싸기 | 마크업 및 스타일로 이루어진 UI         |
+| 상태관리 | stateful                                   | stateless                              |
+| 별칭     | smart component                            | dumb component                         |
+
+## 예시로 이해하기
+
+개념만 보기보다는 실제로 이 방식으로 컴포넌트를 만들어 보면 이해하기가 더 쉽다. 예를 들어 특정 나라의 실시간 뉴스 데이터를 받아와 표시해 주는 간단한 앱을 만들어 본다고 가정해 보자. 이 앱에서 `container` 는 뉴스 데이터를 받아오는 컴포넌트, `presentational` 은 그 데이터를 전달 받아서 표시만 해주는 컴포넌트라고 구분할 수 있다. 먼저 데이터를 받아오는 `NewsList` 라는 이름의 컴포넌트를 다음과 같이 작성한다.
+
+```js
+// NewsList.js
+import React, { Component } from 'react';
+import NewsItem from './NewsItem';
+import axios from 'axios';
+
+class NewsList extends Component {
+  state = {
+    articles: null,
+    loading: false,
+  };
+
+  loadData = async () => {
+    try {
+      this.setState({
+        loading: true,
+      });
+      const { category } = this.props;
+      const query = category === 'all' ? '' : `&category=${category}`;
+      const response = await axios.get(
+        `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=96ad711f82654d3cb0c55d9f39f6d514`,
+      );
+      this.setState({
+        articles: response.data.articles,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    this.setState({
+      loading: false,
+    });
+  };
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.category !== prevProps.category) {
+      this.loadData();
+    }
+  }
+
+  render() {
+    const { articles, loading } = this.state;
+
+    if (loading || !articles) {
+      return (
+        <div>
+          <p>로딩중입니다...</p>
+        </div>
+      );
+    }
+    return (
+      <div>
+        {articles.map((article) => (
+          <NewsItem key={article.url} article={article} />
+        ))}
+      </div>
+    );
+  }
+}
+
+export default NewsList;
+```
+
+`NewsList` 컴포넌트에서는 데이터를 받아와서 자식에게 전달해 주고, 또 이에 따른 로딩 상태를 변화시켜 주는 역할만 하고 있다. 받아온 데이터 어떻게 표시할지는 자식인 `NewsItem` 에 위임하고 있음을 알 수 있다. `articles` 데이터가 담긴 배열을 `map` 하여 개별 `article` 이라는 이름의 `prop` 으로 전달되는 부분이다. 그렇다면 이 데이터를 받아와 표시해 줄 `NewsItem` 컴포넌트를 만들어 보자.
+
+```js
+// NewsItem.js
+import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const NewsItemBlock = styled.div`
+  margin-bottom: 2rem;
+  overflow: hidden;
+
+  .thumbnail {
+    margin-right: 1rem;
+    float: left;
+    width: 160px;
+    height: 100px;
+    background-image: url(${(props) => props.urlToImage});
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .contents {
+    .title {
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+
+    .description {
+      line-height: 1.3;
+    }
+  }
+`;
+
+class NewItem extends Component {
+  render() {
+    const { title, description, url, urlToImage } = this.props.article;
+
+    return (
+      <NewsItemBlock urlToImage={urlToImage} color="blue">
+        {urlToImage && <div className="thumbnail" />}
+        <div className="content">
+          <h3 className="title">
+            <a href={url}>{title}</a>
+          </h3>
+          <div className="description">{description}</div>
+        </div>
+      </NewsItemBlock>
+    );
+  }
+}
+
+export default NewsItem;
+```
+
+부모에게서 전달된 개별 뉴스 데이터를 `this.props.article` 으로 받아와 필요한 내용만 표시해 주고 있다. 또한 `presentational` 컴포넌트에서는 스타일 설정도 상세하게 되어 있음을 볼 수 있다. 이것이 stateless하고 dumb한 `presentational` 컴포넌트의 특징이다.
+
+## 처음 시작은 이랬다
+
+이제 `container` 와 `presentational` 의 차이를 알았으니, 프로젝트를 시작해 볼까? 간단하게 다음과 같은 폴더 구조를 잡고, `presentational` 에 속하는 UI 컴포넌트 폴더를 `components` 로 이름지었다.
+
+```plain
+|— vary-editor
+  |— src
+    |— assets
+    |— components
+    |— container
+  |— .babel.config.js
+  |— package.json
+  |— tsconfig.json
+  |— webpack.config.js
+  |— yarn.lock
+```
+
+## 초심을 잃어가는 프로젝트의 폴더 구조 뜯어고치기
+
+그렇게 당찬 포부로 시작된 에디터 프로젝트가 계속되고, 구현되는 컴포넌트가 늘어나며, 처음 맞닥뜨리는 개발 과제의 여러 난관들을 헤쳐 나갈수록 상황은 악화되었다. `container` 와 `presentational` 컴포넌트의 경계는 점점 모호해졌고 더이상 폴더 구조를 통해 프로젝트의 구성을 예상할 수 있기는 커녕, 처음 이 구조를 만든 사람(나)이 `container` 와 `presentational` 의 개념을 이해는 하고 있는 것일까? 라는 의문이 들게 되었다. 이 폐해는 협업을 할 때 드러난다. 협업시 새로운 컴포넌트를 추가해야 할 경우 어떤 기준으로 어디에 추가해야 할지가 명확하지 않기 때문에 혼란을 초래하고 이로 인해 폴더의 구분은 더욱 모호해진다.
+
+또한 이맘때까지 프로젝트를 진행하면서 느낀 점은, `container` 와 `presentational` 이라는 구분 방법을 고수한다는 가정 하에 이러한 문제를 해결하기보다는 다른 방법을 생각해 보는 게 좋겠다는 것이었다. 그 이유는 다음과 같았다.
+
+1. `container` 와 `presentational` 라는 두 가지 기준으로 모든 컴포넌트를 구분하기에는 다른 경우의 수들이 많다.
+2. `presentational` 컴포넌트에서 직접 리덕스 글로벌 스토어에 접근하거나 상태 관리를 하고 싶은 경우가 생긴다.
+3. 다소 포괄적인 의미의 `container` 와 `presentational` 이라는 이름 대신 명확한 이름을 사용하고 싶다.
+
+그러나 에디터가 완성되지 않은 시점에서 구조를 전부 바꾸는 것은 적절하지 않아 보였고, 에디터는 물론 앱이 정식으로 출시되고 난 후에 시간을 내어 바꾸어보기로 결심하였다. 그렇게 기다림 끝에 바뀐 폴더 구조는 다음과 같다.
+
+```plain
+|— vary-editor
+  |— src
+    |— assets
+    |— components
+      |— buttons
+      |— editors
+      |— features
+      |— groups
+      |— modal
+      |— plugin
+      |— rich-editors
+      |— tabs
+      |— wrappers
+    |— executors
+    |— renderers
+    |— store
+  |— .babel.config.js
+  |— package.json
+  |— tsconfig.json
+  |— webpack.config.js
+  |— yarn.lock
+```
+
+훨씬 구분이 명확해졌다. 우선 `components` 폴더에는 컴포넌트들이 기능에 따라서 구분되어 있고, `executors` 폴더는 앱과 데이터를 주고받기 위한 로직, `renderers` 폴더는 에디터에서 편집한 내용을 다양한 형태로 렌더링하는 로직, `store` 는 리덕스 글로벌 스토어 관련 로직을 포함하고 있다. 마지막으로 결국 필요가 없어진 `container` 폴더는 사라졌다.
+
+## 시행착오는 교훈을 남긴다
+
+`container` 와 `components` 로 컴포넌트를 구분하는 방식은 현재로서는 잘 쓰이지 않는 방식이라고 한다. 내가 겪었던 문제와 같이, 프로젝트 규모가 커질수록 이 방식으로 모든 컴포넌트를 규정하기는 어렵기 때문일까 싶다. 리액트에서 상태를 관리하고 전달하는 매커니즘에 대해 익히기 위한 목적으로 간단한 예제를 만들어보는 경우라면 이 방식을 실습해 보는 것이 도움이 된다. 하지만 실제 프로젝트를 진행할 때는 프로젝트에 맞는 폴더 구조를 고민해 보고 적용하는 것이 좋겠다.

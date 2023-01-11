@@ -2,11 +2,23 @@ import { css } from '@emotion/react';
 
 export const global = css`
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
 
   :root {
-    --primary-color: #47f6cb;
-    --secondary-color: #4263eb;
-    --text-color: #121111;
+    --purple: #b200e9;
+    --cornflowerblue: #4263eb;
+    --skyblue: #47f6cb;
+    --green: #94d82d;
+    --yellow: #fff30d;
+    --orange: #fd7e14;
+    --red: #f03e3e;
+    --gray900: #121111;
+    --gray-800: #272822;
+    --gray600: #757575;
+    --gray300: #c4c4c4;
+    --gray200: #e1e1e1;
+    --gray100: #f5f5f5;
+    --white: #ffffff;
   }
 
   html {
@@ -43,6 +55,7 @@ export const global = css`
   a {
     text-decoration: none;
     margin: 0;
+    color: var(--gray900);
   }
 
   button {
@@ -51,6 +64,7 @@ export const global = css`
     padding: 0;
     border: none;
     outline: none;
+    color: var(--gray900);
   }
 
   ol,
