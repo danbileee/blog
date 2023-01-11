@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     <>
       <Container>
         <TitleContainer>
-          <Title>{`Hi, I'm a web developer,\nwho loves building useful things.`}</Title>
+          <Title>{`I'm a web developer,\ntrying to build useful things.`}</Title>
           <ImageContainer>
             <Image
               width={isMobile ? 320 : 650}
@@ -34,10 +34,10 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: calc(100vh - 490px);
+  height: calc(100vh - 588px);
 
   ${mediaQuery.mobile} {
-    height: calc(100vh - 410px);
+    height: calc(100vh - 500px);
   }
 `;
 
@@ -66,6 +66,6 @@ const ImageContainer = styled.div`
 
   ${mediaQuery.mobile} {
     right: -10px;
-    bottom: -120px;
+    bottom: -140px;
   }
 `;

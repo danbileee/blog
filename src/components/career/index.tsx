@@ -68,12 +68,12 @@ const Content = styled.div`
   }
 `;
 
-const Title = styled.h4`
-  font-size: 28px;
+const Title = styled.h1`
+  font-size: 30px;
   margin-bottom: 12px;
 
   ${mediaQuery.mobile} {
-    font-size: 24px;
+    font-size: 28px;
   }
 `;
 

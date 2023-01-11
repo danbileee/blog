@@ -1,28 +1,46 @@
-import { metaInfo, Pathname } from '@constants/metaInfo';
-import styled from '@emotion/styled';
-import mediaQuery from '@styles/mediaQuery';
-import getEmoji from '@utils/getEmoji';
+import { theme } from '@styles/ThemeProvider';
+import Head from 'next/head';
 
 interface Props {
-  path: Pathname;
+  title: string;
+  description: string;
 }
 
-export default function PageMeta({ path }: Props) {
-  const { description, emoji = [] } = metaInfo[path] ?? {};
-
-  return <Title>{`${getEmoji(emoji)}\n${description}`}</Title>;
+export default function PageMeta({ title, description }: Props) {
+  return (
+    <Head>
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>{`${title} | Danbi Lee`}</title>
+      <meta name="description" content={description} />
+      <meta
+        name="msapplication-TileColor"
+        content={theme.colors.cornflowerblue}
+      />
+      <meta name="theme-color" content={theme.colors.white} />
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/apple-touch-icon.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/favicon-32x32.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/favicon-16x16.png"
+      />
+      <link rel="manifest" href="/site.webmanifest" />
+      <link
+        rel="mask-icon"
+        href="/safari-pinned-tab.svg"
+        color={theme.colors.skyblue}
+      />
+    </Head>
+  );
 }
-
-const Title = styled.h2`
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.6;
-  letter-spacing: -0.02em;
-  white-space: pre-line;
-  text-align: center;
-  margin-bottom: 80px;
-
-  ${mediaQuery.mobile} {
-    font-size: 20px;
-  }
-`;

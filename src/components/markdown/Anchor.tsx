@@ -9,7 +9,7 @@ export default function Anchor({ children, ...props }: ComponentProps<'a'>) {
         transition: color ease-in-out 0.15s;
 
         :hover {
-          color: var(--purple);
+          color: var(--cornflowerblue);
         }
       `}
       {...props}

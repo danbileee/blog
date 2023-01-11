@@ -6,6 +6,7 @@ import { PostFrontMatter } from '@constants/types';
 import { getContentsPath } from '@utils/getPath';
 import Post from '@components/post';
 import PostMeta from '@components/post/PostMeta';
+import PageMeta from '@components/layout/PageMeta';
 
 interface Props {
   frontMatter: PostFrontMatter | null;
@@ -19,6 +20,10 @@ const Slug = ({ frontMatter, content }: Props) => {
 
   return (
     <>
+      <PageMeta
+        title={frontMatter.title}
+        description={frontMatter.description}
+      />
       <PostMeta frontMatter={frontMatter} />
       <Post content={content} />
     </>

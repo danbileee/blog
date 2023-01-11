@@ -19,7 +19,7 @@ export default function useScrollDirection() {
       setDirection(window.scrollY > lastScrollY ? 'down' : 'up');
 
       lastScrollY = window.scrollY;
-    }, 200);
+    }, 500);
 
     window.addEventListener('scroll', handleScroll);
 

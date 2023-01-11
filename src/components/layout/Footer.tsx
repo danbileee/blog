@@ -27,13 +27,9 @@ const links: FooterLink[] = [
   },
 ];
 
-interface Props {
-  isFooterVisible: boolean;
-}
-
-export default function Footer({ isFooterVisible }: Props) {
+export default function Footer() {
   return (
-    <Container isVisible={isFooterVisible}>
+    <Container>
       <Links>
         {links.map(({ link, icon, channel }) => (
           <Link key={link} href={link} rel="noopener noreferrer">
@@ -51,8 +47,7 @@ export default function Footer({ isFooterVisible }: Props) {
   );
 }
 
-const Container = styled.footer<{ isVisible: boolean }>`
-  position: fixed;
+const Container = styled.footer`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -61,14 +56,10 @@ const Container = styled.footer<{ isVisible: boolean }>`
   padding: 0 calc(50vw - 430px) 50px;
   left: 0;
   bottom: 0;
-  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-  transform: translateY(${({ isVisible }) => (isVisible ? 0 : 100)}px);
-  transition: all ease-in-out 150ms;
 
   ${mediaQuery.mobile} {
     flex-direction: column;
-    padding: 0 20px;
-    margin-bottom: 30px;
+    padding: 0 20px 30px;
   }
 `;
 

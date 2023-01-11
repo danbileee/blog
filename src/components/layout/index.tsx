@@ -1,42 +1,26 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
 
-import ElementObserver from '@components/shared/ElementObserver';
 import mediaQuery from '@styles/mediaQuery';
 
 import Header from './Header';
 import Footer from './Footer';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
-  const [isFooterVisible, setIsFooterVisible] = useState(false);
-  const { pathname } = useRouter();
-  const hasContentMargin = pathname !== '/';
-  const contentMargin = hasContentMargin ? 120 : 0;
-
   return (
     <>
       <Header />
-      <Main>
-        <Content contentMargin={contentMargin}>{children}</Content>
-        <ElementObserver callback={setIsFooterVisible} />
-      </Main>
-      <Footer isFooterVisible={isFooterVisible} />
+      <Main>{children}</Main>
+      <Footer />
     </>
   );
 }
 
 const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  min-height: calc(100vh - 98px);
   padding: 230px calc(50vw - 430px) 138px;
 
   ${mediaQuery.mobile} {
     padding: 200px 20px;
   }
-`;
-
-const Content = styled.div<{ contentMargin: number }>`
-  margin-bottom: ${({ contentMargin }) => contentMargin}px;
 `;

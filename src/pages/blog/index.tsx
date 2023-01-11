@@ -1,13 +1,12 @@
 import { NextPage } from 'next';
 import fs from 'fs';
 import matter from 'gray-matter';
+import styled from '@emotion/styled';
 
 import PostCard from '@components/post/PostCard';
 import { getContentsPath } from '@utils/getPath';
 import { getSlug } from '@utils/getSlug';
 import { Post } from '@constants/types';
-import styled from '@emotion/styled';
-import mediaQuery from '@styles/mediaQuery';
 
 interface Props {
   posts: Post[];

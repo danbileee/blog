@@ -5,6 +5,7 @@ import { GetStaticPropsContext } from 'next';
 import Career from '@components/career';
 import { CareerFrontMatter } from '@constants/types';
 import { getContentsPath } from '@utils/getPath';
+import PageMeta from '@components/layout/PageMeta';
 
 interface Props {
   id: string;
@@ -16,7 +17,15 @@ const CareerDetail = ({ id, frontMatter }: Props) => {
     return null;
   }
 
-  return <Career id={id} frontMatter={frontMatter} />;
+  return (
+    <>
+      <PageMeta
+        title={frontMatter.title}
+        description={frontMatter.description}
+      />
+      <Career id={id} frontMatter={frontMatter} />
+    </>
+  );
 };
 
 export default CareerDetail;
