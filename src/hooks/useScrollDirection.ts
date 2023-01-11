@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 
 export type ScrollDirection = 'init' | 'up' | 'down';
 
-export default function useScrollDirection() {
+export default function useScrollDirection(initPosition: number) {
   const [direction, setDirection] = useState<ScrollDirection>('init');
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
     const handleScroll = throttle(() => {
-      if (window.scrollY === 0) {
+      if (window.scrollY < initPosition) {
         setDirection('init');
 
         return;
@@ -24,7 +24,7 @@ export default function useScrollDirection() {
     window.addEventListener('scroll', handleScroll);
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [initPosition]);
 
   return direction;
 }

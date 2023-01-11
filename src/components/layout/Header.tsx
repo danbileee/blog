@@ -11,11 +11,15 @@ import { getMetaInfo } from '@utils/getMetaInfo';
 import useScrollDirection, { ScrollDirection } from '@hooks/useScrollDirection';
 
 const menus: string[] = Object.values(menusConst).map((menu) => menu);
+const DESKTOP_HEADER_HEIGHT = 110;
+const MOBILE_HEADER_HEIGHT = 80;
 
 export default function Header() {
   const { isMobile } = useGlobalContext();
   const { pathname } = useRouter();
-  const direction = useScrollDirection();
+  const direction = useScrollDirection(
+    isMobile ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT,
+  );
   const { key } = getMetaInfo(pathname) ?? {};
 
   return (
@@ -44,9 +48,6 @@ export default function Header() {
     </Container>
   );
 }
-
-const DESKTOP_HEADER_HEIGHT = 110;
-const MOBILE_HEADER_HEIGHT = 80;
 
 const Container = styled.header<{ direction: ScrollDirection }>`
   position: fixed;
