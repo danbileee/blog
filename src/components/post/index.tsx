@@ -14,6 +14,9 @@ import Blockquote from '@components/markdown/Blockquote';
 import Table, { TableRow } from '@components/markdown/Table';
 import Anchor from '@components/markdown/Anchor';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type MarkdownProps = ComponentProps<any>;
+
 function getHeadingOverride(
   as: HeadingElementType,
   props: ComponentProps<typeof as>,
@@ -31,8 +34,8 @@ function isChildString(child: ReactNode): child is string {
   return typeof child === 'string';
 }
 
-function cloneChildren(props: ComponentProps<any>) {
-  return cloneElement(<>{props.children}</>, { ...props });
+function cloneChildren({ children, ...props }: MarkdownProps) {
+  return cloneElement(<>{children}</>, { ...props });
 }
 
 const options: MarkdownToJSX.Options = {
@@ -44,7 +47,7 @@ const options: MarkdownToJSX.Options = {
     h3: (props) => getHeadingOverride('h4', props),
     h4: (props) => getHeadingOverride('h5', props),
     h5: (props) => getHeadingOverride('h6', props),
-    p: (props: ComponentProps<any>) => {
+    p: (props: MarkdownProps) => {
       if (props?.children?.some(isChildString)) {
         return <Paragraph {...props} />;
       }

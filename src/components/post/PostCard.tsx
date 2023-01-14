@@ -44,7 +44,8 @@ const Container = styled.a`
 
 const Title = styled.h3`
   font-size: 24px;
-  line-height: 1.6;
+  font-weight: 700;
+  line-height: 1.4;
   color: ${({ theme }) => theme.colors.gray900};
   transition: color ease-in-out 0.2s;
   ${getEllipsisStyle(2)}

@@ -9,21 +9,19 @@ const Home: NextPage = () => {
   const { isMobile } = useGlobalContext();
 
   return (
-    <>
-      <Container>
-        <TitleContainer>
-          <Title>{`I'm a web developer,\ntrying to build useful things.`}</Title>
-          <ImageContainer>
-            <Image
-              width={isMobile ? 320 : 650}
-              height={isMobile ? 149 : 298}
-              src="/blocks.jpeg"
-              alt="blocks"
-            />
-          </ImageContainer>
-        </TitleContainer>
-      </Container>
-    </>
+    <Container>
+      <TitleContainer>
+        <Title>{`I'm a web developer,\ntrying to build useful things.`}</Title>
+        <ImageContainer>
+          <Image
+            width={isMobile ? 320 : 650}
+            height={isMobile ? 149 : 298}
+            src="/blocks.jpeg"
+            alt="blocks"
+          />
+        </ImageContainer>
+      </TitleContainer>
+    </Container>
   );
 };
 

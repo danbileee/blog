@@ -4,15 +4,19 @@ import Head from 'next/head';
 interface Props {
   title: string;
   description: string;
+  tags?: string[];
 }
 
-export default function PageMeta({ title, description }: Props) {
+export default function PageMeta({ title, description, tags = [] }: Props) {
   return (
     <Head>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>{`${title} | Danbi Lee`}</title>
       <meta name="description" content={description} />
+      {Boolean(tags?.length) && (
+        <meta name="keywords" content={tags.join(',')} />
+      )}
       <meta
         name="msapplication-TileColor"
         content={theme.colors.cornflowerblue}

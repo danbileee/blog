@@ -23,6 +23,7 @@ const Slug = ({ frontMatter, content }: Props) => {
       <PageMeta
         title={frontMatter.title}
         description={frontMatter.description}
+        tags={frontMatter.tags}
       />
       <PostMeta frontMatter={frontMatter} />
       <Post content={content} />

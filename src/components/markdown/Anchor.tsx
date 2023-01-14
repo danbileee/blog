@@ -5,6 +5,7 @@ export default function Anchor({ children, ...props }: ComponentProps<'a'>) {
   return (
     <a
       css={css`
+        word-break: break-all;
         text-decoration: underline;
         transition: color ease-in-out 0.15s;
 

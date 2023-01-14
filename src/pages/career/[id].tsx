@@ -22,6 +22,7 @@ const CareerDetail = ({ id, frontMatter }: Props) => {
       <PageMeta
         title={frontMatter.title}
         description={frontMatter.description}
+        tags={frontMatter.tags}
       />
       <Career id={id} frontMatter={frontMatter} />
     </>
