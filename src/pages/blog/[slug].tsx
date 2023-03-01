@@ -24,6 +24,7 @@ const Slug = ({ frontMatter, content }: Props) => {
         title={frontMatter.title}
         description={frontMatter.description}
         tags={frontMatter.tags}
+        ogImage={frontMatter.ogImage}
       />
       <PostMeta frontMatter={frontMatter} />
       <Post content={content} />
@@ -54,19 +55,11 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
     'utf-8',
   );
   const { data: frontMatter, content } = matter(markdownWithMeta);
-  const { title, publishedAt, updatedAt, description, tags } =
-    frontMatter ?? {};
 
   return {
     props: {
       slug,
-      frontMatter: {
-        title,
-        publishedAt,
-        updatedAt,
-        description,
-        tags,
-      },
+      frontMatter,
       content,
     },
   };

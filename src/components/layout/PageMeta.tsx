@@ -5,15 +5,42 @@ interface Props {
   title: string;
   description: string;
   tags?: string[];
+  subtitle?: string;
+  ogImage?: string;
 }
 
-export default function PageMeta({ title, description, tags = [] }: Props) {
+export default function PageMeta({
+  title,
+  description,
+  tags = [],
+  subtitle,
+  ogImage,
+}: Props) {
+  const siteName = `${title} | Danbi Lee`;
+  const ogTitle = `${subtitle ? `${subtitle} - ` : ''}${title}`;
+
   return (
     <Head>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>{`${title} | Danbi Lee`}</title>
-      <meta name="description" content={description} />
+      <title>{siteName}</title>
+      <meta property="og:type" content={ogImage ? 'blog' : 'website'} />
+      <meta property="og:url" content="https://danbileee.com/" />
+      <meta property="og:title" name="title" content={ogTitle} />
+      <meta
+        property="og:description"
+        name="description"
+        content={description}
+      />
+      <meta property="og:site_name" content={siteName} />
+      <meta property="og:locale" content="ko_KR" />
+      {ogImage && (
+        <>
+          <meta property="og:image" content={ogImage} />
+          <meta property="og:image:width" content="400" />
+          <meta property="og:image:height" content="224" />
+        </>
+      )}
       {Boolean(tags?.length) && (
         <meta name="keywords" content={tags.join(',')} />
       )}

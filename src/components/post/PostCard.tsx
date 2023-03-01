@@ -11,15 +11,16 @@ interface Props {
 
 export default function PostCard({ post }: Props) {
   const {
-    frontMatter: { title, publishedAt, description },
+    frontMatter: { subtitle, title, publishedAt, description },
     slug,
   } = post;
 
   return (
     <Container href={`/blog/${slug}`}>
+      {subtitle && <Subtitle>{subtitle}</Subtitle>}
       <Title>{title}</Title>
-      <PublishedAt>{getDisplayDate(publishedAt)}</PublishedAt>
       <Description>{description}</Description>
+      <PublishedAt>{getDisplayDate(publishedAt)}</PublishedAt>
     </Container>
   );
 }
@@ -35,18 +36,26 @@ const Container = styled.a`
     :hover {
       transform: translateY(-5px);
 
-      > h3 {
+      > h3,
+      h4 {
         color: ${({ theme }) => theme.colors.cornflowerblue};
       }
     }
   }
 `;
 
+const Subtitle = styled.h4`
+  color: ${({ theme }) => theme.colors.gray900};
+  font-weight: 600;
+  transition: color ease-in-out 0.2s;
+`;
+
 const Title = styled.h3`
+  color: ${({ theme }) => theme.colors.gray900};
   font-size: 24px;
   font-weight: 700;
   line-height: 1.4;
-  color: ${({ theme }) => theme.colors.gray900};
+  margin: 8px 0 16px;
   transition: color ease-in-out 0.2s;
   ${getEllipsisStyle(2)}
 `;
@@ -54,7 +63,7 @@ const Title = styled.h3`
 const PublishedAt = styled.p`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.gray300};
-  margin: 8px 0 16px;
+  margin-top: 16px;
 `;
 
 const Description = styled.p`

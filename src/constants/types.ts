@@ -6,11 +6,13 @@ export interface MetaInfo {
 }
 
 export interface PostFrontMatter {
+  subtitle?: string;
   title: string;
   publishedAt: string;
   updatedAt: string;
   description: string;
   tags: string[];
+  ogImage: string;
   devOnly?: boolean;
 }
 
