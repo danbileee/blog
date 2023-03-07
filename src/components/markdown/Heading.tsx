@@ -43,15 +43,15 @@ const headingStyles: Record<HeadingElementType, SerializedStyles> = {
     ${commonHeadingStyle}
   `,
   h3: css`
-    font-size: 22px;
-    ${commonHeadingStyle}
-  `,
-  h4: css`
     font-size: 20px;
     ${commonHeadingStyle}
   `,
-  h5: css`
+  h4: css`
     font-size: 18px;
+    ${commonHeadingStyle}
+  `,
+  h5: css`
+    font-size: 17px;
     ${commonHeadingStyle}
   `,
   h6: css`

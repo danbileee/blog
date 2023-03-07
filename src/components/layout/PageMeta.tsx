@@ -5,7 +5,7 @@ interface Props {
   title: string;
   description: string;
   tags?: string[];
-  subtitle?: string;
+  category?: string;
   ogImage?: string;
 }
 
@@ -13,11 +13,11 @@ export default function PageMeta({
   title,
   description,
   tags = [],
-  subtitle,
+  category,
   ogImage,
 }: Props) {
   const siteName = `${title} | Danbi Lee`;
-  const ogTitle = `${subtitle ? `${subtitle} - ` : ''}${title}`;
+  const ogTitle = `${category ? `${category} - ` : ''}${title}`;
 
   return (
     <Head>

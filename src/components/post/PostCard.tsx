@@ -11,13 +11,13 @@ interface Props {
 
 export default function PostCard({ post }: Props) {
   const {
-    frontMatter: { subtitle, title, publishedAt, description },
+    frontMatter: { title, publishedAt, description },
     slug,
   } = post;
 
   return (
     <Container href={`/blog/${slug}`}>
-      {subtitle && <Subtitle>{subtitle}</Subtitle>}
+      {/* {category && <Subtitle>{category}</Subtitle>} */}
       <Title>{title}</Title>
       <Description>{description}</Description>
       <PublishedAt>{getDisplayDate(publishedAt)}</PublishedAt>
@@ -44,11 +44,11 @@ const Container = styled.a`
   }
 `;
 
-const Subtitle = styled.h4`
-  color: ${({ theme }) => theme.colors.gray900};
-  font-weight: 600;
-  transition: color ease-in-out 0.2s;
-`;
+// const Subtitle = styled.h4`
+//   color: ${({ theme }) => theme.colors.gray900};
+//   font-weight: 600;
+//   transition: color ease-in-out 0.2s;
+// `;
 
 const Title = styled.h3`
   color: ${({ theme }) => theme.colors.gray900};

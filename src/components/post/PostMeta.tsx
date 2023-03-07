@@ -8,11 +8,11 @@ interface Props {
 }
 
 export default function PostMeta({ frontMatter }: Props) {
-  const { subtitle, title, publishedAt, updatedAt } = frontMatter;
+  const { title, publishedAt, updatedAt } = frontMatter;
 
   return (
     <Section id="postMeta">
-      {subtitle && <Subtitle>{subtitle}</Subtitle>}
+      {/* {category && <Subtitle>{category}</Subtitle>} */}
       <Title>{title}</Title>
       <Date>
         <span>작성 </span>
@@ -30,11 +30,11 @@ const Section = styled.section`
   margin-bottom: 60px;
 `;
 
-const Subtitle = styled.h2`
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
-`;
+// const Subtitle = styled.h2`
+//   font-size: 18px;
+//   font-weight: 600;
+//   margin-bottom: 12px;
+// `;
 
 const Title = styled.h1`
   font-size: 32px;

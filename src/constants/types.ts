@@ -6,7 +6,7 @@ export interface MetaInfo {
 }
 
 export interface PostFrontMatter {
-  subtitle?: string;
+  category?: string;
   title: string;
   publishedAt: string;
   updatedAt: string;

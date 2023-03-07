@@ -58,5 +58,5 @@ export async function getStaticProps() {
 const PostCardList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 120px;
 `;
