@@ -30,11 +30,11 @@ const links: FooterLink[] = [
   //   icon: 'https://cdn0.iconfinder.com/data/icons/google-material-design-3-0/48/ic_book_48px-64.png',
   //   channel: 'bookmarks',
   // },
-  // {
-  //   link: 'https://danbileee.com/feed.xml',
-  //   icon: 'https://cdn2.iconfinder.com/data/icons/font-awesome/1792/rss-64.png',
-  //   channel: 'rss',
-  // },
+  {
+    link: 'https://danbileee.com/feed.xml',
+    icon: 'https://cdn2.iconfinder.com/data/icons/font-awesome/1792/rss-64.png',
+    channel: 'rss',
+  },
 ];
 
 export default function Footer() {

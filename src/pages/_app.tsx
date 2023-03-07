@@ -26,13 +26,13 @@ export function reportWebVitals({
 
 function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
-  const { value } = getMetaInfo(pathname) ?? {};
+  const { value, isDynamic } = getMetaInfo(pathname) ?? {};
   const { title, description } = value ?? {};
 
   return (
     <>
       <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
-      <PageMeta title={title} description={description} />
+      {!isDynamic && <PageMeta title={title} description={description} />}
       <GlobalStyle />
       <ThemeProvider>
         <GlobalContextProvider>

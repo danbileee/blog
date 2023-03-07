@@ -5,7 +5,7 @@ function isValidPath(pathname: string) {
 }
 
 export function getMetaInfo(pathname: string) {
-  const [, menu] = pathname.split('/');
+  const [, menu, dynamic] = pathname.split('/');
   const normalizedPath: Pathname = isValidPath(menu)
     ? (menu as Pathname)
     : 'home';
@@ -13,5 +13,6 @@ export function getMetaInfo(pathname: string) {
   return {
     key: normalizedPath,
     value: metaInfo[normalizedPath],
+    isDynamic: Boolean(dynamic),
   };
 }
