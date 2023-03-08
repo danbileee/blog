@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 import PostCard from '@components/post/PostCard';
 import { getContentsPath, getPublicPath } from '@utils/getPath';
 import { getSlug } from '@utils/getSlug';
-import { Post } from '@constants/types';
+import { Post, PostFrontMatter } from '@constants/types';
 
 interface Props {
   posts: Post[];
@@ -27,7 +27,7 @@ export default Blog;
 
 const URL = 'https://danbileee.com';
 
-async function getPosts() {
+async function getPosts(): Promise<Post[]> {
   const files = fs.readdirSync(getContentsPath('posts'));
 
   const sorted = files
@@ -36,10 +36,10 @@ async function getPosts() {
         getContentsPath('posts', filename),
         'utf-8',
       );
-      const { data: frontMatter } = matter(mdxWithMeta);
+      const { data } = matter(mdxWithMeta);
 
       return {
-        frontMatter,
+        frontMatter: data as PostFrontMatter,
         slug: getSlug(filename),
       };
     })
@@ -72,7 +72,7 @@ async function generateRssFeedAndReturnPosts() {
       title: fm.title,
       description: fm.description,
       url: `${URL}/blog/${slug}`,
-      categories: [fm.category],
+      categories: fm.category ? [fm.category] : undefined,
       date: fm.publishedAt,
       enclosure: {
         url: fm.ogImage,

@@ -7,7 +7,7 @@ import { getContentsPath } from '@utils/getPath';
 import Post from '@components/post';
 import PostMeta from '@components/post/PostMeta';
 import PageMeta from '@components/layout/PageMeta';
-import Script from 'next/script';
+// import Script from 'next/script';
 
 interface Props {
   frontMatter: PostFrontMatter | null;
@@ -21,13 +21,13 @@ const Slug = ({ frontMatter, content }: Props) => {
 
   return (
     <>
-      <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" />
       <PageMeta
         title={frontMatter.title}
         description={frontMatter.description}
         tags={frontMatter.tags}
         ogImage={frontMatter.ogImage}
       />
+      {/* <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" /> */}
       <PostMeta frontMatter={frontMatter} />
       <Post content={content} />
     </>

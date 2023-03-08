@@ -6,36 +6,66 @@ updatedAt: '2022-10-03'
 description: 1. 자바스크립트는 스크립트 언어이다. JS는 스크립트 언어여서 싱글 스레드 언어인가? 2. 자바스크립트는 싱글 스레드 환경에서 구동된다. 그렇다면 비동기 처리는 어떻게 이루어지는 걸까?
 tags: ['javascript', 'single-threaded', '싱글스레드']
 ogImage: 'https://blog.kakaocdn.net/dn/blWtDi/btr1nD3SDbW/K2KUIyn8Ty8QumnkgrCkh0/img.png'
-devOnly: true
 ---
 
 # 첫번째 질문
 
-> 자바스크립트는 스크립트 언어이다. JS는 스크립트 언어여서 싱글 스레드 언어인가?
+자바스크립트는 스크립트 언어이다. JS는 스크립트 언어여서 싱글 스레드 언어인가?
 
-언어 자체가 싱글 스레드라는 말은 애매 모호하긴 한데 틀린 명제에 더 가까운 것 같다. 싱글 스레드는 언어가 구동되는 런타임 환경에 대한 설명이고, 언어 자체가 싱글 스레드인지 여부를 논하는 것은 좀 어렵다. 언어가 싱글 스레드 환경을 염두에 두고 설계되었다고 표현할 수는 있다. 다만 스크립트 언어여도 멀티스레딩이 구현 가능한 환경이 제공되는 케이스도 있으며 (파이썬, 루비 등) 자바스크립트도 Worker 객체 등을 사용해 일종의 멀티스레딩을 지원하긴 한다. 또한 대부분의 언어가 설계되었을 당시에는 컴퓨터 하드디스크 사양이 지금처럼 발전되어 있지 않아서 크게 멀티스레딩 환경을 고려하지 않았을 수도 있다는 의견도 있었다. 멀티스레딩 개념 자체는 컴퓨터가 발명된 초창기부터 있어온 개념이기 때문에 반론하는 의견도 있었으므로 참고만 하면 될 것 같다.
+## 언어가 싱글 스레드일 수 있을까?
 
-### 첫번째 질문에 대한 참고
+언어 자체가 싱글 스레드라는 말은 틀렸다고 할 수 있다. 반면 자바스크립트가 **싱글 스레드 기반의 언어** 라고 한다면 이는 적절한 표현이다. 싱글 스레드는 언어가 구동되는 환경에 대한 설명이다. 자바스크립트를 비롯해서 파이썬, 루비 등은 인터프리터 언어이기 때문에 한번에 하나의 작업만 수행한다. 다만 인터프리터 언어여도 멀티스레딩이 구현 가능하도록 언어 차원에서 지원하기도 한다. 자바스크립트도 Worker 객체 등을 사용해 일종의 멀티스레딩을 지원한다. 그러니 언어의 주된 실행 환경은 싱글 스레드이지만, 만약 필요한 유즈케이스가 있다면 구현 방법에 따라 멀티 스레드를 활용할 수도 있다고 정리할 수 있다.
 
-- [https://stackoverflow.com/questions/62126441/is-javascript-single-threaded](https://stackoverflow.com/questions/62126441/is-javascript-single-threaded)
-- [https://stackoverflow.com/questions/3086467/confused-are-languages-like-python-ruby-single-threaded-unlike-say-java-for](https://stackoverflow.com/questions/3086467/confused-are-languages-like-python-ruby-single-threaded-unlike-say-java-for)
-- [https://www.reddit.com/r/AskProgramming/comments/e3w9k5/why_was_javascript_designed_as_a_single_threaded/](https://www.reddit.com/r/AskProgramming/comments/e3w9k5/why_was_javascript_designed_as_a_single_threaded/)
+또한 언어가 싱글 스레드 환경을 염두에 두고 설계되었다고 할 수도 있다. 레퍼런스를 찾다 보니 대부분의 언어가 설계되었을 당시에는 컴퓨터 하드디스크 사양이 지금처럼 발전되어 있지 않아서 멀티스레딩 환경을 특별히 고려하지 않았을 수도 있다는 의견도 있었다. 멀티스레딩 개념 자체는 컴퓨터가 발명된 초창기부터 있어온 개념이라는 반론도 있었지만, 실제로 멀티스레딩이 활발히 연구되고 패러다임화 된 것은 90년대부터라고 한다. 적어도 자바스크립트에 한해서 본다면 1995년에 출시된 언어이다 보니 멀티스레딩 환경을 고려하지 않았을 법하다고 생각된다. 특히나 자바스크립트의 초창기 설계 목적이 복잡한 웹 애플리케이션을 만들기 위한 것이 아니었기 때문에 더욱 그럴 수 있다.
 
 # 두번째 질문
 
-> 자바스크립트는 싱글 스레드 환경에서 구동된다. 그렇다면 비동기 처리는 어떻게 이루어지는 걸까?
+자바스크립트는 싱글 스레드 환경에서 구동된다. 그렇다면 비동기 처리는 어떻게 이루어지는 걸까?
+
+## 자바스크립트의 비동기 처리
 
 자바스크립트 엔진(V8)은 **메모리 힙**, **콜 스택** 두가지로 이루어져 있고 이를 실행 컨텍스트라고 한다.
 
 - 메모리 힙: 운영체제의 빈 메모리 공간을 사용하여 JS 프로그램에 필요한 메모리를 할당
 - 콜 스택: JS 프로그램에 정의된 로직을 라인별로 실행
 
-즉, 하나의 콜 스택만이 존재하므로 확실히 싱글 스레드 환경이라 할 수 있다. 다만 JS에 포함되지 않은 Web API 로직들(DOM event 처리, Ajax 요청, setTimeout 등)에 대해서 비동기 처리가 가능한 이유는 **콜백 큐**와 **이벤트 루프**라는 브라우저에서 제공하는 런타임 환경이 더해지기 때문이다.
+즉, 하나의 콜 스택만이 존재하므로 확실히 싱글 스레드 환경이라 할 수 있다. 다만 자바스크립트에 포함되지 않은 Web API 로직들(DOM event 처리, Ajax 요청, setTimeout 등)에 대해서 비동기 처리가 가능한 이유는 **콜백 큐**와 **이벤트 루프**라는 브라우저에서 제공하는 런타임 환경이 더해지기 때문이다.
 
 - 콜백 큐: 인터프리터가 Web API 로직을 만나면 콜 스택이 아닌 콜백 큐로 보내 비동기적으로 처리를 기다리도록 한다.
 - 이벤트 루프: 콜 스택이 비었을 때 큐에 쌓여있던 비동기 로직을 콜 스택으로 보내주는 역할을 한다.
 
-### 두번째 질문에 대한 참고
+## 자바스크립트의 동시성 구현
 
+### 클라이언트 사이드
+
+자바스크립트는 클라이언트 사이드인 웹 브라우저에서 주로 실행된다. 대부분의 클라이언트 사이드 프로그래밍은 웹 페이지에 약간의 동적 기능을 더하는 정도였기 때문에 동시성(concurrency)에 대해 고민할 필요가 거의 없었다. 그러나 언어 자체의 개선과 생태계 발전 덕분에 이제는 웹으로 구현할 수 있는 것들에 대한 가능성에 제약이 거의 없어졌다. 기존에도 이벤트 루프를 통해 비동기 처리가 가능한 부분이 있었지만, 만약 어떤 함수가 너무 오래 실행되어 이벤트 루프를 점유한다면 브라우저는 더 이상 사용자 입력에 반응할 수 없게 된다. 이미지 처리와 같은 계산 집약적인 작업을 한다거나 아주 복잡한 웹 애플리케이션을 만들어야 하는 경우, 그러한 제약을 우회하고자 한다면 워커 스레드를 생성하여 메인 스레드 및 이벤트 루프와 완전히 분리 독립된 환경에서 자바스크립트를 실행할 수 있다. 다만 워커 스레드를 생성하는 것 역시 가벼운 작업은 아니기 때문에 웬만큼 무거운 작업이 아닌 이상 이벤트 루프에서 실행하는 것으로 충분할 수 있다. 작업 시 트레이드 오프를 잘 확인하여 판단하는 것이 좋다.
+
+### 서버 사이드
+
+노드는 서버 사이드에서 실행되는 자바스크립트 런타임이다. 자바스크립트 완벽 가이드 정의에 의하면 *노드의 가장 분명한 특징은 태생부터 비동기적인 API를 바탕으로 한, 싱글 스레드의 이벤트 기반 병렬 환경*이라고 한다. 노드는 브라우저 환경의 자바스크립트 실행 방식을 차용하여 이벤트 기반의 비동기(asynchronous)/비차단(nonblocking) API를 적극적으로 활용한 동시성을 구현한다. 노드 코어는 운영체제와 연결되어 있으므로 운영체제에 이벤트 핸들러를 등록하여 작업이 완료되었을 때 알림을 받는다. 노드가 운영체제의 프로세스를 여러 개 실행하거나, 일종의 별도 스레드인 Worker를 생성하면 해당 프로그램은 싱글 스레드가 아닌 여러 개의 코드를 병렬 실행하는 멀티스레드 프로그램이 된다. 다만 프로세스 또는 스레드를 생성하고 그들 간의 통신을 구현하는 것 역시 비용을 요하는 작업이므로 일반적인 입출력 위주의 웹 서버 용도로 노드를 사용하는 경우보다는 CPU 집약적인 작업을 하는 프로그램에 필요한 기법이라고 할 수 있다.
+
+# Use Case
+
+클라이언트 사이드를 비롯해서 서버 사이드까지도 싱글 스레드 방식을 채택한 건 전문 지식을 오랫동안 공부하지 않아도 쉽게 서버를 구현할 수 있도록 하기 위해서였다고 한다. 멀티 스레드로 정확하게 원하는 동작을 프로그래밍하는 것과 디버깅의 난이도가 높고, 스레드 자체가 무겁기 때문에 많은 요청을 멀티스레드로 처리하려면 메모리 자원을 많이 소모하게 된다. 또한 자바스크립트의 스레드 간 통신은 메시지 이벤트 기반으로 이루어지기 때문에 필연적으로 비동기적이다. 메인 스레드와 빈번한 통신을 통해 원하는 작업을 수행하려면 그만큼 개발 편의성 및 성능이 희생될 수밖에 없다.
+
+일례로 분리된 자바스크립트 실행 환경이 요구되는 real-world problem을 알아 보자. 서비스 상에 제 삼자가 얼마든지 원하는 기능을 플러그인으로 구현할 수 있도록 API와 함께 플러그인 실행 환경을 제공하고자 한다. 플러그인 코드를 작성하면서 플랫폼이 제공하는 API와 통신할 때마다 비동기 처리를 해야 한다면 굉장히 번거로울 것이다. 그렇다고 해서 동기적 처리를 가능하게 하기 위해 플러그인이 메인 스레드 상에서 실행되도록 한다면 보안적인 위험이 있을 것이다. 이 문제는 피그마가 플러그인 샌드박스를 구현할 때 맞닥뜨렸던 것인데, 이들은 안전하면서도 가볍고 빠른 플러그인 실행 환경을 제공하고 싶어서 결국 `ShadowRealm` 을 채택했다. 도입 당시에는 Agoric이라는 팀에서 제공하는 `Realms` 라는 API였는데 현재는 ECMAScript 공식 스펙으로 제안 단계에 있는 기능이다. [(참고: ShadowRealm API)](https://tc39.es/proposal-shadowrealm/)
+
+`ShadowRealm` 에서 실행되는 코드는 메인 코드가 실행되는 단일 스레드 내에서 동기적으로 실행되지만 분리된 모듈 스페이스를 가진다. `eval()`과 비슷하지만 보다 안정성이 강화된 API를 통해서 코드를 실행한다고 이해할 수 있다. 일반적이기보다는 특정한 유즈케이스에 적용될 수 있는 기능인데, 싱글 스레드 기반 언어인 자바스크립트로 분리된 코드 실행 환경을 구현하고자 할 때 고려할 수 있는 몇 가지 키워드(iframe, web worker 등)와 함께 기억해 두면 좋을 것 같다. 참고로 제안서에서 정리한 유즈케이스로는 다음과 같은 것들이 있다.
+
+- Third Party Scripts
+- Code Testing
+- Codebase segmentation
+- Template libraries
+- DOM Virtualization
+
+# Reference
+
+- [자바스크립트 완벽 가이드](https://product.kyobobook.co.kr/detail/S000001033131)
+- [https://stackoverflow.com/questions/62126441/is-javascript-single-threaded](https://stackoverflow.com/questions/62126441/is-javascript-single-threaded)
+- [https://stackoverflow.com/questions/3086467/confused-are-languages-like-python-ruby-single-threaded-unlike-say-java-for](https://stackoverflow.com/questions/3086467/confused-are-languages-like-python-ruby-single-threaded-unlike-say-java-for)
+- [https://www.reddit.com/r/AskProgramming/comments/e3w9k5/why_was_javascript_designed_as_a_single_threaded/](https://www.reddit.com/r/AskProgramming/comments/e3w9k5/why_was_javascript_designed_as_a_single_threaded/)
 - [https://www.geeksforgeeks.org/why-javascript-is-a-single-thread-language-that-can-be-non-blocking/](https://www.geeksforgeeks.org/why-javascript-is-a-single-thread-language-that-can-be-non-blocking/)
 - [https://dev.to/bbarbour/if-javascript-is-single-threaded-how-is-it-asynchronous-56gd](https://dev.to/bbarbour/if-javascript-is-single-threaded-how-is-it-asynchronous-56gd)
+- [Multithreading (computer architecture)](<https://en.wikipedia.org/wiki/Multithreading_(computer_architecture))
+- [ShadowRealms – an ECMAScript proposal for a better eval()](https://2ality.com/2022/04/shadow-realms.html)
+- [How to build a plugin system on the web and also sleep well at night](https://www.figma.com/blog/how-we-built-the-figma-plugin-system/)
