@@ -29,9 +29,7 @@ export function ListItem({ children }: ComponentProps<'li'>) {
       return;
     }
 
-    if (
-      isListItem(parentElement?.parentElement?.parentElement?.parentElement)
-    ) {
+    if (isListItem(parentElement?.parentElement?.parentElement?.parentElement)) {
       ref.current.style.listStyleType = 'square';
 
       return;

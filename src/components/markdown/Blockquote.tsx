@@ -1,10 +1,7 @@
 import { css } from '@emotion/react';
 import { ComponentProps } from 'react';
 
-export default function Blockquote({
-  children,
-  ...props
-}: ComponentProps<'blockquote'>) {
+export default function Blockquote({ children, ...props }: ComponentProps<'blockquote'>) {
   return (
     <blockquote
       css={css`

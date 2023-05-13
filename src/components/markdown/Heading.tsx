@@ -8,17 +8,20 @@ export type HeadingElementType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 interface Props extends HTMLAttributes<HTMLHeadingElement> {
   as: HeadingElementType;
+  withHeadlineAnchor?: boolean;
 }
 
-export default function Heading({ id, as, children, ...props }: Props) {
+export default function Heading({ id, as, children, withHeadlineAnchor = true, ...props }: Props) {
   const Component = as;
 
   return (
     <Component id={id} css={headingStyles[as]} {...props}>
       {children}
-      <Link href={`#${id}`}>
-        <LinkIcon />
-      </Link>
+      {withHeadlineAnchor && (
+        <Link href={`#${id}`}>
+          <LinkIcon />
+        </Link>
+      )}
     </Component>
   );
 }
@@ -43,15 +46,15 @@ const headingStyles: Record<HeadingElementType, SerializedStyles> = {
     ${commonHeadingStyle}
   `,
   h3: css`
-    font-size: 22px;
-    ${commonHeadingStyle}
-  `,
-  h4: css`
     font-size: 20px;
     ${commonHeadingStyle}
   `,
-  h5: css`
+  h4: css`
     font-size: 18px;
+    ${commonHeadingStyle}
+  `,
+  h5: css`
+    font-size: 17px;
     ${commonHeadingStyle}
   `,
   h6: css`

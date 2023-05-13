@@ -25,6 +25,11 @@ const links: FooterLink[] = [
     icon: 'https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_send-64.png',
     channel: 'email',
   },
+  {
+    link: 'https://danbileee.com/feed.xml',
+    icon: 'https://cdn2.iconfinder.com/data/icons/font-awesome/1792/rss-64.png',
+    channel: 'rss',
+  },
 ];
 
 export default function Footer() {
@@ -32,13 +37,8 @@ export default function Footer() {
     <Container>
       <Links>
         {links.map(({ link, icon, channel }) => (
-          <Link key={link} href={link} rel="noopener noreferrer">
-            <Image
-              width={20}
-              height={20}
-              src={icon}
-              alt={`${channel} 아이콘`}
-            />
+          <Link key={link} href={link} target="_blank" rel="noopener noreferrer">
+            <Image width={20} height={20} src={icon} alt={`${channel} 아이콘`} />
           </Link>
         ))}
       </Links>

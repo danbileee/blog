@@ -1,0 +1,103 @@
+---
+category: 에디터 개발 여정
+title: 이메일 에디터 데모를 소개합니다
+publishedAt: '2023-03-07'
+updatedAt: '2023-03-07'
+description: 이메일 에디터는 3년 전 프론트엔드 개발자로서 첫 발을 내딛으며 담당했던 프로젝트이다. 비즈니스 로직 없이 이메일 에디터를 체험할 수 있는 데모 버전을 오픈하게 되었다. 데모라는 말의 뜻에서 짐작 가능하듯이 앞으로 정식 버전 개발도 계획하고 있다.
+tags: ['react', 'redux', 'email editor', 'wysiwyg', '이메일 에디터']
+ogImage: 'https://blog.kakaocdn.net/dn/oi43m/btr02yXAoom/VLfjo5x3dTKNvKnrYav2rk/img.png'
+devOnly: true
+---
+
+# 나의 첫 프로젝트
+
+이메일 에디터는 3년 전 프론트엔드 개발자로서 첫 발을 내딛으며 담당했던 프로젝트이다. 첫 회사는 이메일 마케팅을 자동화하는 SaaS [배리](https://vary.one)였는데, 여기에 내재화된 이메일 에디터를 구현하는 프로젝트였다. 당시 완성된 에디터에서 비즈니스 로직을 제외하고 포트폴리오처럼 활용할 수 있을지 대표님에게 여쭤보았고, 동의 하에 데모 버전을 오픈하게 되었다. 데모라는 말의 뜻에서 짐작 가능하듯이 앞으로 정식 버전 개발도 계획하고 있다. 2년이 지난 지금 그때의 코드를 보며 다시 만들어야겠다는 강한 동기부여를 얻기도 했고, 기술적으로도 에디터 분야에 많은 관심을 가지게 되었기 때문이다. 구체적인 계획을 세우기 전에 앞서 데모 버전에 대한 기록을 남겨두고자 이 글을 적는다.
+
+참고로 데모 버전은 데스크탑에서만 지원되며 다음 링크를 통해 확인할 수 있다. [이메일 에디터 데모 보러가기](https://danbileee.github.io/vary-code/)
+
+# 데모 버전으로 할 수 있는 것
+
+1. 기본 블록과 블록 세트로 이메일을 제작할 수 있다.
+2. 블록의 위치, 내용, 디자인을 편집하고 저장할 수 있다.
+3. 이미지 블록의 경우 로컬 이미지를 업로드하거나 pexels 이미지를 검색하여 적용할 수 있다.
+4. 편집 내용을 undo, redo 할 수 있다.
+5. 제목을 지정한 후 html 파일로 저장할 수 있다.
+
+# 멋진 이메일을 누구보다 쉽게 만들고 싶다면
+
+이메일 에디터를 만들 때 가장 염두에 두었던 것은 다음 두 가지였다. 첫째, 이메일 제작 과정이 쉬울 것. 둘째, 결과물의 디자인 완성도가 높을 것.
+
+이메일 제작 과정이 쉬우려면 우선 기존 툴의 어려움을 해결해야 했다. 개발 착수 전에 타 서비스에 대한 리서치를 면밀하게 진행했던 이유도 그냥 쉬운 게 아니라 누구보다도 쉬운 걸 만들 고 싶었기 때문이다. 객관적으로 그 목표를 달성했는지 판단하기는 어렵겠지만, 개인적으로는 타 서비스에서 불편하게 느꼈던 점들이 개선되었기 때문에 만족하고 있다. 예를 들어 블록 세트를 제공하여 백지부터 편집하는 것보다 어려움을 덜어주거나, 블록 별로 내용과 디자인 탭을 분리하여 일관적인 편집 경험을 제공하고자 했다. 또 아이콘을 적극 활용하여 직관적으로 어떤 기능인지 알 수 있게 하거나, 라벨이 없는 경우에는 반드시 툴팁을 다는 등 사소한 부분에 있어서도 사용자의 인지 부하를 줄이고자 했다.
+
+디자인 역시 제한적인 이메일 마크업 환경에서 table 요소를 활용하여 어떤 클라이언트에서 이메일을 열어도 예외 없이 적용될 수 있는 완성도로 구현하였다. 편집시 결과물의 스타일 일관성에 대한 우려 없이 블록의 너비, 여백, 정렬 등 스타일 관련 요소들을 자유롭게 지정할 수 있다. 또한 이메일 오픈율에 대한 통계를 보면 데스크탑에 비해 모바일 사용자가 압도적으로 많은 것을 알 수 있다. 그럼에도 우리는 모바일 친화적이지 않은 이메일 디자인을 여전히 많이 접하고 있다. 데모 페이지에 들어가서 블록 하나를 추가하면 보이듯이 이 에디터는 프리뷰를 모바일 우선으로 제공한다. 이메일 클라이언트 별로 미디어 쿼리 지원 스펙이 다르기 때문에 width, max-width, min-width 스타일을 다소 우회적인 방식으로 계산하여 반응형을 지원하도록 했다. [(참고: The Fab Four technique to create Responsive Emails without Media Queries)](https://www.freecodecamp.org/news/the-fab-four-technique-to-create-responsive-emails-without-media-queries-baf11fdfa848/)
+
+## 마크업 예시
+
+예를 들어 옅은 파란색 전체 배경, 흰색 본문 배경, 붉은 배경에 흰색 텍스트를 가진 버튼을 왼쪽 정렬한 콘텐츠의 마크업 결과는 다음과 같다.
+
+```html
+<table
+  border="0"
+  cellpadding="0"
+  cellspacing="0"
+  style="width: 100%; background-color: rgba(74, 144, 226, .08); background-size: cover; background-position: center; background-repeat: no-repeat; background-image: none;"
+>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" style="width: 100%;">
+        <table
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+          style="table-layout: fixed; width: 100%; max-width: 600px; margin: 0 auto; padding: 0; background-color: white; background-size: cover; background-position: center; background-repeat: no-repeat; background-image: none;"
+        >
+          <tbody>
+            <tr>
+              <td align="center" valign="top" style="width: 100%;">
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  style="width: calc(100% - 0px); margin: 0px 0px 0px 0px;"
+                >
+                  <tbody>
+                    <tr>
+                      <td
+                        align="left"
+                        valign="top"
+                        style="width: 100%;background-color: transparent; background-size: cover; background-position: center; background-repeat: no-repeat; background-image: none; border-width: 0px; border-style: solid; border-color: transparent; border-radius: 0px; padding: 10px 10px 10px 10px;"
+                        class="button"
+                      >
+                        <a
+                          style="background-color: #ff6f61; padding: 10px 40px 10px 40px; color: white; font-family: 'Noto Sans KR', AppleSDGothic, 'apple sd gothic neo', 'noto sans korean', 'noto sans korean regular', 'noto sans cjk kr', 'noto sans cjk', 'nanum gothic', 'malgun gothic', dotum, arial, helvetica, 'MS Gothic', sans-serif; font-size: 14px; font-weight: normal; border-width: 0px; border-style: solid; border-color: transparent; border-radius: 4px; text-decoration: none; text-align: center; display: inline-block;"
+                          >버튼 텍스트</a
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+```
+
+## 템플릿 예시
+
+또한 이미지와 색상을 적극적으로 사용했을 때 디자인 퀄리티가 올라가는 점을 고려하여 블록의 배경 색상과 배경 이미지를 적용할 수 있도록 했다. 이 배경 스타일은 블록과 블록 세트에 개별로 적용되는데, 그로 인해 다채로운 템플릿 제작이 가능해졌다. 데모 버전에는 템플릿이 제공되지 않지만, 배리 서비스를 사용한다면 아래와 같은 다양한 템플릿 예시를 직접 선택하여 이메일을 제작할 수 있다.
+
+![배리에서 제공되는 템플릿 예시|400](https://blog.kakaocdn.net/dn/ljHZ9/btr2m3g63dj/JcjKkBfOtNB6wEVKfMUmzk/img.png)
+
+# 다시 개발하고 싶은 이유
+
+이메일 에디터 개발은 웹으로 복잡한 문제를 해결해 보고 싶은 사람에게 흥미를 불러 일으키는 주제이다. 다만 개발에 대한 경험치가 0인 상황에서 만들었기 때문에, 그 경험을 통해 아주 많이 성장하기도 했지만 코드 퀄리티는 당연하게도 그리 좋지 않다. 가장 치명적인 문제는 확장성이 부족하다는 것이다. 이를 해결하려면 구조적인 변경이 필요하므로 다시 개발하는 방법밖에 없다.
+
+우선 모든 상태 관리를 redux로 전역에서 하다 보니 성능 측면에서도 취약하고 복잡도가 매우 높다. 또한 블록의 자료구조가 정적으로 정의되어 있는데, 이에 대한 설계를 더 깊이 고민한다면 훨씬 확장성 있는 플러그인 시스템을 구현할 수 있을 것이다. 블록을 하나 추가하는 데 있어서 코드 수정이 필요한 부분이 곳곳에 산재되어 있고 수정을 놓치거나 사이드 이펙트로 인한 버그 발생 확률이 높다는 것도 개선 요소이다.
+
+또 자료구조가 잘 정의된다면, 이라는 전제 하에 이야기지만 특히 블록이라는 요소의 확장성이 무한하다. 데모 버전에서 하나의 블록은 react 컴포넌트 또는 html 두 가지 방식으로 렌더링된다. 다만 여기에 새로운 렌더링 방식을 추가하고자 한다면 많은 난관이 예상되는데, 다시 개발한다면 손쉽게 처리 가능하도록 하고 싶다. 노션에서 데이터베이스가 여러 방식으로 시각화되는 것이나, 또는 피그마에서 플러그인 API를 통해 플랫폼을 확장하는 것 등이 이상적인 예시이다.
+
+물론 이런 것들이 빠른 시일 내에 완성할 수 있는 목표는 아니겠지만 멀리 있는 목표라도 그걸 향해 나아가는 시도가 중요하다고 생각한다. 이 블로그에는 에디터 개발 여정이라는 주제로 진척이 있을 때마다 다시 기록하려고 한다.

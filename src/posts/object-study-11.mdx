@@ -1,0 +1,397 @@
+---
+category: 스터디
+title: 오브젝트 11장 합성과 유연한 설계
+publishedAt: '2021-06-07'
+updatedAt: '2021-06-07'
+description: 상속과 합성은 객체지향 프로그래밍에서 가장 널리 사용되는 코드 재사용 기법이다. 그러나 코드 재사용이라는 동일한 목적을 제외하면 구현 방법부터 변경을 다루는 방식까지 모든 면에서 차이가 있다.
+tags:
+  [
+    'study',
+    'oop',
+    '오브젝트',
+    '오브젝트 스터디',
+    '11장 합성과 유연한 설계',
+    '객체지향 프로그래밍',
+  ]
+ogImage: 'https://blog.kakaocdn.net/dn/bDJwbY/btr1nxCAzk4/PDM6nonhgbPQheTfTT2uTK/img.png'
+---
+
+> <오브젝트 - 코드로 이해하는 객체지향 설계> (조영호 저, 위키북스 출판) 를 스터디하며 요약한 내용입니다.
+
+# 상속과 합성
+
+상속과 합성은 객체지향 프로그래밍에서 가장 널리 사용되는 코드 재사용 기법이다. 그러나 코드 재사용이라는 동일한 목적을 제외하면 구현 방법부터 변경을 다루는 방식까지 모든 면에서 차이가 있다.
+
+상속보다 합성을 이용하는 것이 좀 더 번거롭고 복잡하게 느껴질 수도 있지만, 설계는 변경과 관련된 것이다. 변경에 유연하게 대처할 수 있는 설계가 정답일 가능성이 높다. 따라서 코드 재사용을 위해서는 상속보다 합성이 더 좋은 방법이다.
+
+## 1. 상속을 합성으로 변경하기
+
+(10장에서 살펴본) 상속의 문제점
+
+- 불필요한 인터페이스 상속 문제
+  - 자식 클래스에는 부적합한 부모 클래스의 오퍼레이션도 상속되기 때문에 자식 클래스 인스턴스의 상태가 불안정해짐
+- 메서드 오버라이딩의 오작용 문제
+  - 자식 클래스가 부모 클래스의 메서드를 오버라이딩할 때 부모 클래스의 메서드 호출 방법에 영향을 받는 문제
+- 부모 클래스와 자식 클래스의 동시 수정 문제
+  - 개념적인 결합으로 인해 부모 클래스 변경시 자식 클래스도 변경해야 하는 문제
+
+합성을 사용하면 이 문제점들을 해결할 수 있다. 상속을 합성으로 바꾸는 방법은 간단하다. 자식 클래스에 선언된 상속 관계를 제거하고 부모 클래스의 인스턴스를 자식 클래스의 인스턴스 변수로 선언하면 된다. 10장의 상속 예제를 합성으로 바꾸며 살펴보자.
+
+### **불필요한 인터페이스 상속 문제**
+
+`Hashtable` 클래스와 `Properties` 클래스 사이의 상속 관계를 합성 관계로 바꿔보자.
+
+```java
+public class Properties {
+  private Hashtable<String, String> properties = new Hashtable<>();
+
+  public String setProperty(String key, String value) {
+    return properties.put(key, value);
+  }
+
+  public String getProperty(String key) {
+    return properties.get(key);
+  }
+}
+```
+
+합성으로 변경한 `Properties`는 `Hashtable`의 내부 구현에 대해 알지 못한다. 단지 `get`, `set` 오퍼레이션이 포함된 퍼블릭 인터페이스를 통해서만 `Hashtable`과 혐력할 수 있다. 이 외의 `Hashtable` 오퍼레이션을 사용할 수 없기 때문에 `String` 타입의 key, value만 허용하는 규칙을 어길 위험성은 사라진다.
+
+### **메서드 오버라이딩의 오작용 문제**
+
+`InstrumentedHashSet`도 `HashSet` 인스턴스를 내부에 포함한 후 `HashSet`의 퍼블릭 인터페이스에서 제공하는 오퍼레이션을 이용해 기능을 구현하면 된다. 그러나 앞의 예제와 달리 `InstrumentedHashSet`은 `HashSet`의 인터페이스를 그대로 제공해야 한다. 구현 결합도는 제거하면서도 퍼블릭 인터페이스를 그대로 상속받을 수 있는 방법은, 자바의 구현(`implement`) 인터페이스를 활용하면 된다. `Set` 인터페이스를 실체화하면서 내부에 `HashSet` 인스턴스를 합성하면 된다.
+
+```java
+public class InstrumentedHashSet<E> implements Set<E> {
+  private int addCount = 0;
+  private Set<E> set;
+
+  public InstrumentedHashSet(Set<E> set) {
+    this.set = set;
+  }
+
+  @Override
+  public boolean add(E e) {
+    addCount++;
+    return set.add(e);
+  }
+
+  @Override
+  public boolean addAll(Collection<? extends E> c) {
+    addCount += c.size();
+    return set.addAll(c);
+  }
+
+  public int getAddCount() {
+    return addCount;
+  }
+
+  /* 포워딩 메서드 */
+  @Override public boolean remove(Object o) { return set.remove(o); }
+  ...
+  @Oberride public boolean removeAll(Collection<?> c) { return set.removeAll(c); }
+}
+```
+
+> **포워딩 메서드(forwarding method)**:
+> 기존 클래스의 인터페이스를 외부에 그대로 제공하면서 구현에 대한 결합 없이 일부 작동 방식을 변경하고 싶은 경우에 사용하는 기법
+
+### **부모 클래스와 자식 클래스의 동시 수정 문제**
+
+`Playlist`의 경우는 합성으로 변경하더라도 가수별 노래 목록을 유지하기 위해 `PersonalPlaylist`를 함께 수정해야 하는 문제는 해결되지 않는다. 그래도 여전히 상속보다는 합성이 좋은데, 향후 `Playlist` 내부 구현을 변경하더라도 파급효과를 `PersonalPlaylist` 내부로 캡슐화할 수 있기 때문이다.
+
+```java
+public class PersonalPlaylist {
+  private Playlist playlist = new Playlist();
+
+  public void append(Song song) {
+    playlist.append(song);
+  }
+
+  public void remove(Song song) {
+    playlist.getTracks().remove(song);
+    palylist.getSingers().remove(song.getSinger());
+  }
+}
+```
+
+## 2. 상속으로 인한 조합의 폭발적인 증가
+
+작은 기능들을 조합해서 큰 기능을 수행하는 객체를 만들어야 할 때, 상속으로 인해 결합도가 높은 코드는 수정하는 데 필요한 작업이 과도하게 늘어나는 경향이 있다.
+
+- 하나의 기능을 추가하거나 수정하기 위해 불필요하게 많은 수의 클래스를 추가하거나 수정해야 한다.
+- 단일 상속만 지원하는 언어에서는 상속으로 인해 오히려 중복 코드가 늘어날 수 있다.
+
+### **기본 정책과 부가 정책 조합하기**
+
+지금부터는 핸드폰 요금제가 기본 정책과 부가 정책의 조합으로 구성되어야 한다. 부가 정책은 세금 정책, 또는 기본 요금 할인 정책이 추가될 수 있으며 다음과 같은 특성을 가진다.
+
+- 기본 정책의 계산 결과에 적용된다.
+  - e.g.) 기본 정책 계산이 끝난 결과에 세금을 부과한다.
+- 선택적으로 사용할 수 있다.
+  - e.g.) 기본 정책의 계산 결과에 세금 정책이 적용될 수도, 적용되지 않을 수도 있다.
+- 조합 가능하다.
+  - e.g.) 기본 정책에 세금 정책만 적용할 수도 있고, 기본 요금 할인 정책만 적용할 수도 있다. 또는 둘 다 적용하는 것도 가능하다.
+- 부가 정책은 임의의 순서로 적용 가능하다.
+  - e.g.) 부가 정책을 모두 적용할 경우 세금 정책 적용 후에 기본 요금 할인 정책을 적용할 수도 있고, 그 반대로 적용할 수도 있다.
+
+이렇게 조합 가능한 요금 계산 순서를 따져 보면 10가지 경우의 수가 나오는데, 상속을 이용해서 이 정책을 구현한다면 결과적으로 Phone을 상속하는 10개의 클래스를 추가해야 하는 결과로 이어진다. 예제를 통해 살펴보자.
+
+### **기본 정책에 세금 정책 조합하기**
+
+`RegularPhone` 클래스를 상속받은 `TaxableRegularPhone` 클래스를 추가하여 간단하게 구현해 보자. 단, 결합도를 낮추기 위해 부모 클래스에 새로운 추상 메서드 `afterCalculated를` 추가하고 자식 클래스에서 오버라이딩하여 결합도를 낮추도록 한다.
+
+```java
+public abstract class Phone {
+  private List<Call> calls = new AraryList<>();
+
+  public Money calculateFee() {
+    Money result = Money.ZERO
+
+    for(Call call : calls) {
+      result += result.plus(calculateCallFee(call));
+    }
+
+    return afterCalculated(result);
+  }
+
+  protected abstract Money calculateCallFee(Call call);
+  protected abstract Money afterCalculated(Money fee) {
+    /* 기본 구현과 함께 추가된 추상 메서드 */
+    return fee;
+  }
+}
+
+/* 부가 정책이 없는 RegularPhone과 NightlyDiscountPhone은 오버라이딩할 필요가 없다. */
+
+/* RegularPhone 계산 요금에 세금을 부과하는 TaxableRegularPhone */
+public class TaxableRegularPhone extends RegularPhone {
+  ...
+  @Override
+  protected Money afterCalculated(Money fee) {
+    return fee.plus(fee.times(texRate));
+  }
+}
+
+/* NightlyDiscountPhone 계산 요금에 세금을 부과하는 TaxableNightlyDiscountPhone */
+public class TaxableNightlyDiscountPhone extends NightlyDiscountPhone {
+  ...
+  @Override
+  protected Money afterCalculated(Money fee) {
+    return fee.plus(fee.times(texRate));
+  }
+}
+```
+
+위 코드를 보면 `TaxableRegularPhone` 과 `TaxableNightlyDiscountPhone` 사이에 코드가 부모 클래스 이름을 제외하면 거의 대부분 동일하다.
+
+이 방법대로 기본정책에 기본 요금 할인 정책을 조합하는 과정을 반복해 보면 중복 코드의 덫에 걸린다는 것을 알 수 있다. 부가 정책은 자유롭게 조합 가능해야 하고 적용 순서도 임의로 결정할 수 있어야 하는데 이 방법으로는 모든 가능한 조합별로 자식 클래스를 하나씩 추가해야 한다. 그 과정에서 중복 코드가 계속해서 늘어난다. 만약 기본 정책으로 '고정 요금제'를 추가한다고 하면 이를 상속하는 부가 정책이 조합된 클래스를 또 한 차례 만들어야 한다. 마지막에는 이러한 상태가 된다.
+
+여기서 새로운 부가정책을 하나 추가한다면? 몇 개의 클래스를 추가해야 하는지 고민해 보자. 이러한 경우를 클래스 폭발(Class Explosion) 문제라고 부른다. **컴파일타임에 결정되는 자식 클래스와 부모 클래스의 관계가 변경될 수 없기 때문에 다양한 조합이 필요한 상황에서 유일한 방법은 조합의 수만큼 새로운 클래스를 추가하는 것뿐이다.**
+
+## 3. 합성 관계로 변경하기
+
+합성은 컴파일타임 관계를 런타임 관계로 변경함으로써 문제를 해결한다. 구현 시점에 정책들 간의 관계를 고정시킬 필요 없이, 실행 시점에 정책간 관계를 동적으로 유연하게 변경할 수 있도록 한다. 실행 시점에 인스턴스를 조립하는 방법을 사용하는 것이다.
+
+### **기본 정책 합성하기**
+
+각 정책을 별도의 클래스로 구현하자. 먼저 핸드폰이라는 개념에서 요금 계산 방법이라는 개념을 분리해야 한다. 그리고 이를 `Phone` 안에서 합성하여 조합 가능하도록 만든다.
+
+```java
+public interface RatePolicy {
+  Money calculateFee(Phone phone);
+}
+
+/* 요금 계산 방식을 제외한 전체 처리 로직이 동일한 기본 정책 추상 클래스 */
+public abstract class BasicRatePolicy implements RatePolicy {
+  @Override
+  public Money calculateFee(Phone phone) {
+    Money result = Money.ZERO;
+
+    for (Call call : phone.getCalls()) {
+      result.plus(calculateCallFee(call));
+    }
+
+    return result;
+  }
+
+  protected abstract Money calculateCallFee(Call call);
+}
+
+/* 요금 계산 방식을 구현한 기본 정책 요금제 클래스 */
+public class RegularPolicy extends BasicRatePolicy {
+  ...
+  @Override
+  protected Money calculateCallFee(Call call) {
+    return amount.times(call.getDuration().getSeconds() / seconds.getSeconds());
+  }
+}
+
+public class NightlyDiscountPolicy extends BasicRatePolicy {
+  ...
+  @Override
+  protected Money calculateCallFee(Call call) {
+    if (call.getFrom().getHour() >= LATE_NIGHT_HOUR) {
+      return nightlyAmount.times(call.getDuration().getSeconds() / seconds.getSeconds());
+    }
+
+    return regularAmount.times(call.getDuration().getSeconds() / seconds.getSeconds());
+  }
+}
+
+/* 요금 계산이 반영되도록 Phone 수정 */
+public class Phone {
+  private RatePolicy ratePolicy;
+  private List<Call> calls = new ArrayList<>();
+
+  // RatePolicy에 대한 참조자가 포함되어 있음 (합성)
+  public Phone(RatePolicy ratePolicy) {
+    this.ratePolicy = ratePolicy;
+  }
+
+  public List<Call> getCAlls() {
+    return Collections.unmodifiableList(calls);
+  }
+
+  public Money calculateFee() {
+    return ratePolicy.calculateFee(this);
+  }
+}
+
+/* 인스턴스 합성 예제 */
+Phone regularPhone = new Phone(new RegularPolicy(
+    Money.wons(10), Duration.ofSeconds(10)
+  )
+);
+Phone nightlyDiscountPhone = new Phone(
+  new NightlyDiscountPolicy(
+    Money.wons(5), Money.wons(10), Duration.ofSeconds(10)
+  )
+);
+```
+
+### **부가 정책 적용하기**
+
+부가 정책 적용시 인스턴스 연결 관계를 고려하면, 다음 두 가지 제약이 있다.
+
+- 부가 정책은 기본 정책이나 다른 부가 정책의 인스턴스를 참조할 수 있어야 한다.
+  - 즉, 어떤 종류의 정책과도 합성될 수 있어야 한다.
+- 기본 정책과 부가 정책은 협력 안에서 동일한 역할을 수행해야 한다.
+  - 즉, 부가 정책이 기본 정책과 동일한 `RatePolicy` 인터페이스를 구현해야 한다.
+
+```java
+/* 부가 정책 추상 클래스 */
+public abstract class AdditionalRatePolicy implements RatePolicy {
+  private RatePolicy next;
+
+  public AdditionalRatePolicy(RatePolicy next) {
+    this.next = next;
+  }
+
+  @Override
+  public Money calculateFee(Phone phone) {
+    Money fee = next.calculateFee(phone); // 합성되는 요금 정책 인스턴스를 런타임 의존성으로 대체
+    return afterCalculated(fee);
+  }
+
+  abstract protected Money afterCalculated(Money fee);
+}
+
+/* 요금 계산 메서드를 오버라이딩하는 부가 정책 자식 클래스 */
+public class TaxablePolicy extends AdditionalRatePolicy {
+  ...
+  @Override
+  protected Money afterCalculated(Money fee) {
+    return fee.plus(fee.times(taxRatio));
+  }
+}
+
+public class RateDiscountablePolicy extends AdditionalRatePolicy {
+  ...
+  @Override
+  protected Money afterCalculated(Money fee) {
+    return fee.minus(discountAmount);
+  }
+}
+
+/* 인스턴스 합성 예제 */
+Phone taxablePhone = new Phone(
+  new TaxablePolicy(
+    0.05,
+    new RegularPolicy(...)
+  )
+);
+Phone rateDiscountableAndTaxablePhone = new Phone(
+  new TaxablePolicy(
+    0.05,
+    new RateDiscountablePolicy(
+      Money.wons(1000),
+      new RegularPolicy(...)
+    )
+  )
+);
+```
+
+위 예제를 살펴보면, 새로운 정책이 추가되더라도 합성을 이용한 설계에서는 하나의 클래스만 추가한 뒤 원하는 방식으로 조합하면 된다. 요구사항을 변경해야 할 때도 하나의 클래스만 수정하면 된다. (단일 책임 원칙 준수)
+
+**그렇다면 상속을 사용해서는 안되는 것일까?**
+
+상속을 구현 상속과 인터페이스 상속 두 가지로 나눈다는 사실을 이해한다면, 이번 장에서 살펴본 상속의 단점들은 구현 상속에 국한된다는 점 또한 이해할 수 있다.
+
+## 4. 믹스인
+
+> **믹스인(mixin)**:
+> 객체를 생성할 때 코드 일부를 클래스 안에 섞어 넣어 재사용하는 기법. 합성이 런타임에 객체를 조합한다면, 믹스인은 컴파일타임에 필요한 코드 조각을 조합하는 방법이다.
+
+믹스인은 상속과 유사해 보이지만 다르다. 상속의 결과는 부모 클래스와 자식 클래스가 동일한 개념적인 범주로 묶이지만, 믹스인은 말 그대로 코드를 다른 코드 안에 섞어 넣는 방법이다. 따라서 합성처럼 유연하면서도 쉽게 코드를 재사용할 수 있다. 스칼라 언어의 `trait` 를 이용해 믹스인을 구현해보자. (기본 구현은 자바와 비슷하여 생략)
+
+```scala
+/* 세금 정책 트레이트 */
+trait TaxablePolicy extends BasicRatePolicy {
+  ...
+  override def calculateFee(phone: Phone): Money = {
+    val fee = super.calculateFee(phone)
+    return fee + fee * taxRate
+  }
+}
+
+/* 비율 할인 정책 트레이트 */
+trait RateDiscountablePolicy extends BasicRatePolicy {
+  ...
+  override def calculateFee(phone: Phone): Money = {
+    val fee = super.calculateFee(phone)
+    return fee - discountableAmount
+  }
+}
+```
+
+트레이트에서 `extends` 는 상속의 개념이 아니라 해당 클래스의 자손에 해당하는 경우에만 믹스인될 수 있다는 의미이다. 즉, `TaxablePolicy가` 사용될 수 있는 문맥을 `BasicRatePolicy`를 상속받은 경우만으로 제한할 뿐이다. 실제로 어떤 코드에 믹스인될 것인지는 코드 작성 시점에 고정되지 않고 런타임에 결정된다.
+
+### **부가 정책 트레이트 믹스인하기**
+
+스칼라에서 믹스인하려는 대상 클래스의 부모 클래스는 extends를 이용해 상속받고, 트레이트는 `with`를 이용해 믹스인한다. 믹스인된 객체 인스턴스에 메시지를 전송했을 때, 스칼라는 특정 클래스에 믹스인한 클래스와 트레이트를 **선형화(linearization)**하여 어떤 메서드를 호출할지 결정한다.
+
+```scala
+/* 믹스인 예제 */
+class TaxableRegularPolicy(
+    amount: Money,
+    seconds: Duration,
+    val taxRate: Double)
+  extends RegularPolicy(amount, seconds)
+  with TaxablePolicy
+
+class RateDiscountableAndTaxableRegularPolicy(
+    amount: Money,
+    seconds: Duration,
+    val discaountAmount: Money,
+    val taxRate: Double)
+  extends RegularPolicy(amount, seconds)
+  with TaxablePolicy
+  with RateDiscountablePolicy
+```
+
+### **쌓을 수 있는 변경**
+
+믹스인은 상속 계층 안에서 확장한 클래스보다 하위에 위치한다. 즉, 자식 클래스 같은 용도로 만들어지기 때문에 **추상 서브클래스(abstract subclass)**라고 부르기도 한다.
+
+또한 믹스인을 사용하면 독립적으로 구현한 후 필요한 시점에 차례대로 추가할 수 있다. 이러한 특징을 **쌓을 수 있는 변경(stackable modification)**이라고 부르기도 한다.

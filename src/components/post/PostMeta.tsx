@@ -12,6 +12,7 @@ export default function PostMeta({ frontMatter }: Props) {
 
   return (
     <Section id="postMeta">
+      {/* {category && <Subtitle>{category}</Subtitle>} */}
       <Title>{title}</Title>
       <Date>
         <span>작성 </span>
@@ -28,6 +29,12 @@ export default function PostMeta({ frontMatter }: Props) {
 const Section = styled.section`
   margin-bottom: 60px;
 `;
+
+// const Subtitle = styled.h2`
+//   font-size: 18px;
+//   font-weight: 600;
+//   margin-bottom: 12px;
+// `;
 
 const Title = styled.h1`
   font-size: 32px;

@@ -1,28 +1,25 @@
 import styled from '@emotion/styled';
+import mediaQuery from '@styles/mediaQuery';
 import Image from 'next/image';
 import { ImgHTMLAttributes } from 'react';
 
 type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'placeholder'>;
 
-export default function ResponsiveImage({ src, alt, ...props }: Props) {
+export default function ResponsiveImage({ src, ...props }: Props) {
+  const [alt, size] = props?.alt?.split('|') ?? [];
+
   return (
-    <Figure>
-      <Image
-        src={src ?? ''}
-        layout="fill"
-        placeholder="empty"
-        alt={alt}
-        {...props}
-      />
+    <Figure size={size}>
+      <Image src={src ?? ''} layout="fill" placeholder="empty" alt={alt} {...props} />
       <FigCaption aria-hidden>{alt}</FigCaption>
     </Figure>
   );
 }
 
-const Figure = styled.figure`
+const Figure = styled.figure<{ size: string }>`
   position: relative;
-  width: 100%;
-  margin: 0;
+  width: ${({ size }) => (size ? `${size}px` : '100%')};
+  margin: 0 auto;
 
   > span {
     position: unset !important;
@@ -32,6 +29,10 @@ const Figure = styled.figure`
       position: relative !important;
       height: auto !important;
     }
+  }
+
+  ${mediaQuery.mobile} {
+    width: 100%;
   }
 `;
 

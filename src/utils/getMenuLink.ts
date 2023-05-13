@@ -1,8 +1,7 @@
-import { metaInfo } from '@constants/metaInfo';
+import { pageMeta } from '@constants';
 
 export function getMenuLink(currentMenu: string) {
-  const [link] =
-    Object.entries(metaInfo).find(([, { menu }]) => menu === currentMenu) ?? [];
+  const [link] = Object.entries(pageMeta).find(([, { menu }]) => menu === currentMenu) ?? [];
 
   return `/${link}` ?? '/';
 }

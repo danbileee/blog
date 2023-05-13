@@ -13,38 +13,39 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   options?: IntersectionObserverInit;
 }
 
-const ElementObserver = forwardRef<HTMLDivElement, Props>(
-  function ElementObserver({ callback, options, ...props }, ref) {
-    const observerRef = useRef<HTMLDivElement>(null);
+const ElementObserver = forwardRef<HTMLDivElement, Props>(function ElementObserver(
+  { callback, options, ...props },
+  ref,
+) {
+  const observerRef = useRef<HTMLDivElement>(null);
 
-    useImperativeHandle(ref, () => observerRef.current as HTMLDivElement, []);
+  useImperativeHandle(ref, () => observerRef.current as HTMLDivElement, []);
 
-    const handleIntersection: IntersectionObserverCallback = useCallback(
-      ([entry]) => {
-        callback(entry.isIntersecting);
-      },
-      [callback],
-    );
+  const handleIntersection: IntersectionObserverCallback = useCallback(
+    ([entry]) => {
+      callback(entry.isIntersecting);
+    },
+    [callback],
+  );
 
-    useEffect(() => {
-      const observer = new IntersectionObserver(handleIntersection, {
-        rootMargin: '0px',
-        threshold: 1,
-        ...options,
-      });
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleIntersection, {
+      rootMargin: '0px',
+      threshold: 1,
+      ...options,
+    });
 
-      if (observerRef.current) {
-        observer.observe(observerRef.current);
-      }
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
 
-      return () => {
-        observer.disconnect();
-      };
-    }, [handleIntersection, options]);
+    return () => {
+      observer.disconnect();
+    };
+  }, [handleIntersection, options]);
 
-    return <Observer ref={observerRef} {...props} />;
-  },
-);
+  return <Observer ref={observerRef} {...props} />;
+});
 
 const Observer = styled.div`
   width: 1px;
