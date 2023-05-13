@@ -1,4 +1,4 @@
-import { metaInfo, Pathname, pathnames } from '@constants/metaInfo';
+import { pageMeta, Pathname, pathnames } from '@constants';
 
 function isValidPath(pathname: string) {
   return pathname in pathnames;
@@ -6,13 +6,11 @@ function isValidPath(pathname: string) {
 
 export function getMetaInfo(pathname: string) {
   const [, menu, dynamic] = pathname.split('/');
-  const normalizedPath: Pathname = isValidPath(menu)
-    ? (menu as Pathname)
-    : 'home';
+  const normalizedPath: Pathname = isValidPath(menu) ? (menu as Pathname) : 'home';
 
   return {
     key: normalizedPath,
-    value: metaInfo[normalizedPath],
+    value: pageMeta[normalizedPath],
     isDynamic: Boolean(dynamic),
   };
 }

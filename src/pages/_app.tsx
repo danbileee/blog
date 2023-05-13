@@ -10,12 +10,7 @@ import ThemeProvider from '@styles/ThemeProvider';
 import Layout from '@components/layout';
 import PageMeta from '@components/layout/PageMeta';
 
-export function reportWebVitals({
-  id,
-  name,
-  label,
-  value,
-}: NextWebVitalsMetric) {
+export function reportWebVitals({ id, name, label, value }: NextWebVitalsMetric) {
   event(name, {
     category: label === 'web-vital' ? 'Web Vitals' : 'Next.js custom metric',
     value: Math.round(name === 'CLS' ? value * 1000 : value), // values must be integers

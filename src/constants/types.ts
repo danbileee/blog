@@ -22,29 +22,10 @@ export interface Post {
 }
 
 export interface Career {
+  id: string;
   company: string;
-  period: string;
+  startYear: number;
+  endYear?: number;
   description: string;
-  techStacks: string[];
-  careerIds: string[];
-  logoSize: {
-    width: number;
-    height: number;
-  };
-}
-
-export interface CareerFrontMatter {
-  title: string;
-  link: string;
-  demo?: {
-    title: string;
-    link: string;
-  };
-  description: string;
-  tags: string[];
-}
-
-export interface AboutMe {
-  keyword: string;
-  description: string;
+  content: string;
 }

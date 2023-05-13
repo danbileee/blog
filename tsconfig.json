@@ -1,15 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "types": [
-      "node",
-      "@emotion/react"
-    ],
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "types": ["node", "@emotion/react"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -28,20 +21,14 @@
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["./components/*"],
+      "@constants": ["./constants"],
       "@constants/*": ["./constants/*"],
       "@contexts/*": ["./contexts/*"],
       "@hooks/*": ["./hooks/*"],
       "@styles/*": ["./styles/*"],
-      "@utils/*": ["./utils/*"],
+      "@utils/*": ["./utils/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.mdx",
-    "next.config.js"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mdx", "next.config.js"],
+  "exclude": ["node_modules"]
 }

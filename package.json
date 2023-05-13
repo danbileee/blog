@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "개발 관련 기록을 저장하는 곳",
   "main": "index.js",
-  "repository": "https://github.com/blocktobody/blog.git/",
-  "author": "Danbi Lee <blocktobody@gmail.com>",
+  "repository": "https://github.com/danbileee/blog.git/",
+  "author": "Danbi Lee <hello@danbileee.com>",
   "license": "MIT",
   "dependencies": {
     "@emotion/react": "^11.4.1",

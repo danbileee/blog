@@ -5,7 +5,7 @@ import matter from 'gray-matter';
 import styled from '@emotion/styled';
 
 import PostCard from '@components/post/PostCard';
-import { getContentsPath, getPublicPath } from '@utils/getPath';
+import { getPostsPath, getPublicPath } from '@utils/getPath';
 import { getSlug } from '@utils/getSlug';
 import { Post, PostFrontMatter } from '@constants/types';
 
@@ -28,14 +28,11 @@ export default Blog;
 const URL = 'https://danbileee.com';
 
 async function getPosts(): Promise<Post[]> {
-  const files = fs.readdirSync(getContentsPath('posts'));
+  const files = fs.readdirSync(getPostsPath());
 
   const sorted = files
     .map((filename) => {
-      const mdxWithMeta = fs.readFileSync(
-        getContentsPath('posts', filename),
-        'utf-8',
-      );
+      const mdxWithMeta = fs.readFileSync(getPostsPath(filename), 'utf-8');
       const { data } = matter(mdxWithMeta);
 
       return {
@@ -58,11 +55,10 @@ async function generateRssFeedAndReturnPosts() {
   const posts = await getPosts();
   const feed = new RSS({
     title: 'Blog | Danbi Lee',
-    description: '웹과 개발과 컴퓨터에 대해 배운 것을 기록합니다.',
+    description: 'Personal archive on web, development, and work',
     site_url: URL,
     feed_url: `${URL}/feed.xml`,
-    image_url:
-      'https://blog.kakaocdn.net/dn/vs0qs/btr2wt0JQlj/xpYtJpYd4szYtdEt5pV27k/img.png',
+    image_url: 'https://blog.kakaocdn.net/dn/vs0qs/btr2wt0JQlj/xpYtJpYd4szYtdEt5pV27k/img.png',
     pubDate: new Date(),
     copyright: `© ${new Date().getFullYear()} Danbi Lee`,
   });

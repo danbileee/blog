@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title><![CDATA[Blog | Danbi Lee]]></title>
-        <description><![CDATA[웹과 개발과 컴퓨터에 대해 배운 것을 기록합니다.]]></description>
+        <description><![CDATA[Personal archive on web, development, and work]]></description>
         <link>https://danbileee.com</link>
         <image>
             <url>https://blog.kakaocdn.net/dn/vs0qs/btr2wt0JQlj/xpYtJpYd4szYtdEt5pV27k/img.png</url>
@@ -9,19 +9,10 @@
             <link>https://danbileee.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 08 Mar 2023 08:02:26 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 13 May 2023 13:17:39 GMT</lastBuildDate>
         <atom:link href="https://danbileee.com/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 08 Mar 2023 08:02:26 GMT</pubDate>
+        <pubDate>Sat, 13 May 2023 13:17:39 GMT</pubDate>
         <copyright><![CDATA[© 2023 Danbi Lee]]></copyright>
-        <item>
-            <title><![CDATA[이메일 에디터 데모를 소개합니다]]></title>
-            <description><![CDATA[이메일 에디터는 3년 전 프론트엔드 개발자로서 첫 발을 내딛으며 담당했던 프로젝트이다. 비즈니스 로직 없이 이메일 에디터를 체험할 수 있는 데모 버전을 오픈하게 되었다. 데모라는 말의 뜻에서 짐작 가능하듯이 앞으로 정식 버전 개발도 계획하고 있다.]]></description>
-            <link>https://danbileee.com/blog/introduce-email-editor-demo</link>
-            <guid isPermaLink="true">https://danbileee.com/blog/introduce-email-editor-demo</guid>
-            <category><![CDATA[에디터 개발 여정]]></category>
-            <pubDate>Tue, 07 Mar 2023 00:00:00 GMT</pubDate>
-            <enclosure url="https://blog.kakaocdn.net/dn/oi43m/btr02yXAoom/VLfjo5x3dTKNvKnrYav2rk/img.png" length="0" type="image/png"/>
-        </item>
         <item>
             <title><![CDATA[2022년을 돌아보며]]></title>
             <description><![CDATA[문득 내가 하고 있는 일들이 그저 내게 맡겨졌기에 하고 있던 것 아닌가 하는 생각이 들었다. 스스로 하고 싶은 일을 찾아서 해 보았고, 그 결과 장점과 단점이 모두 뚜렷한 경험을 하였다. 또한 그 어느 때보다도 협업의 힘을 많이 느낀 한 해였다.]]></description>
@@ -39,15 +30,6 @@
             <category><![CDATA[JS]]></category>
             <pubDate>Tue, 18 Oct 2022 00:00:00 GMT</pubDate>
             <enclosure url="https://blog.kakaocdn.net/dn/eHiSiE/btr1p0RZ3ra/xK6EjHKbyxZuvwHAwvyECk/img.png" length="0" type="image/png"/>
-        </item>
-        <item>
-            <title><![CDATA[JS는 싱글스레드 언어인가?]]></title>
-            <description><![CDATA[1. 자바스크립트는 스크립트 언어이다. JS는 스크립트 언어여서 싱글 스레드 언어인가? 2. 자바스크립트는 싱글 스레드 환경에서 구동된다. 그렇다면 비동기 처리는 어떻게 이루어지는 걸까?]]></description>
-            <link>https://danbileee.com/blog/shortqna-is-js-single-threaded</link>
-            <guid isPermaLink="true">https://danbileee.com/blog/shortqna-is-js-single-threaded</guid>
-            <category><![CDATA[JS]]></category>
-            <pubDate>Mon, 03 Oct 2022 00:00:00 GMT</pubDate>
-            <enclosure url="https://blog.kakaocdn.net/dn/blWtDi/btr1nD3SDbW/K2KUIyn8Ty8QumnkgrCkh0/img.png" length="0" type="image/png"/>
         </item>
         <item>
             <title><![CDATA[오브젝트 11장 합성과 유연한 설계]]></title>

@@ -10,13 +10,7 @@ export default function ResponsiveImage({ src, ...props }: Props) {
 
   return (
     <Figure size={size}>
-      <Image
-        src={src ?? ''}
-        layout="fill"
-        placeholder="empty"
-        alt={alt}
-        {...props}
-      />
+      <Image src={src ?? ''} layout="fill" placeholder="empty" alt={alt} {...props} />
       <FigCaption aria-hidden>{alt}</FigCaption>
     </Figure>
   );

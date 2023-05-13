@@ -1,26 +1,17 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
 import styled from '@emotion/styled';
 
-import { useGlobalContext } from '@contexts/global';
 import mediaQuery from '@styles/mediaQuery';
+import Navigation from '@components/layout/Navigation';
 
 const Home: NextPage = () => {
-  const { isMobile } = useGlobalContext();
-
   return (
     <Container>
-      <TitleContainer>
-        <Title>{`I'm a web developer,\ntrying to build useful things.`}</Title>
-        <ImageContainer>
-          <Image
-            width={isMobile ? 320 : 650}
-            height={isMobile ? 149 : 298}
-            src="/blocks.jpeg"
-            alt="blocks"
-          />
-        </ImageContainer>
-      </TitleContainer>
+      <Title>Hi, I&apos;m a web developer.</Title>
+      <Text>웹 에이전시, SaaS, 커머스 플랫폼에서 프론트엔드 개발 경험이 있습니다.</Text>
+      <Text>명확한 쓰임새와 좋은 UX를 가진 소프트웨어에 관심이 많습니다.</Text>
+      <Text>내가 쓰고 싶은 서비스를 만드는 사람이 되고 싶습니다.</Text>
+      <StyledNavigation />
     </Container>
   );
 };
@@ -28,9 +19,6 @@ const Home: NextPage = () => {
 export default Home;
 
 const Container = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
   width: 100%;
   height: calc(100vh - 588px);
 
@@ -45,25 +33,20 @@ const Title = styled.h1`
   line-height: 1.25;
   letter-spacing: -0.01em;
   white-space: pre-line;
+  margin-bottom: 32px;
 
   ${mediaQuery.mobile} {
     font-size: 26px;
   }
 `;
 
-const TitleContainer = styled.div`
-  position: relative;
-  width: 100%;
+const Text = styled.p`
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 12px;
 `;
 
-const ImageContainer = styled.div`
-  position: absolute;
-  right: -20px;
-  bottom: -280px;
-  z-index: -1;
-
-  ${mediaQuery.mobile} {
-    right: -10px;
-    bottom: -140px;
-  }
+const StyledNavigation = styled(Navigation)`
+  justify-content: flex-start;
+  margin-top: 60px;
 `;
