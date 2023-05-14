@@ -1,14 +1,31 @@
+import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ComponentProps } from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import atomOneDark from 'react-syntax-highlighter/dist/cjs/styles/prism/one-dark';
 
 export default function Code({ children, ...props }: ComponentProps<'pre'>) {
   const language = props?.className?.replace('lang-', '');
+  const { colors } = useTheme();
 
   if (language) {
     return (
-      <Pre {...props}>
-        <code className={`language-${language}`}>{children}</code>
-      </Pre>
+      <Container>
+        <SyntaxHighlighter
+          language={language}
+          style={atomOneDark}
+          customStyle={{
+            fontFamily: 'monospace',
+            color: colors.white,
+            background: colors.gray900,
+            padding: 20,
+            borderRadius: 6,
+            margin: 0,
+          }}
+        >
+          {children?.toString() ?? ''}
+        </SyntaxHighlighter>
+      </Container>
     );
   }
 
@@ -19,15 +36,20 @@ export default function Code({ children, ...props }: ComponentProps<'pre'>) {
   );
 }
 
-const Pre = styled.pre`
-  color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.gray800};
-  padding: 20px;
-  border-radius: 6px;
-  margin: 0;
-  overflow-x: scroll;
+const Container = styled.div`
+  > pre {
+    ::-webkit-scrollbar {
+      display: none;
+    }
 
-  ::-webkit-scrollbar {
-    display: none;
+    > code {
+      background: transparent !important;
+      color: ${({ theme }) => theme.colors.white} !important;
+      text-shadow: transparent !important;
+
+      > span {
+        font-family: 'Lucida Console', 'Monaco', monospace;
+      }
+    }
   }
 `;
