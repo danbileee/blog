@@ -9,4 +9,5 @@ module.exports = {
     ],
     deviceSizes: [600, 1080, 1920],
   },
+  transpilePackages: ['react-syntax-highlighter'],
 };

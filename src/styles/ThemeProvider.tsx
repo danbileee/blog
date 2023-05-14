@@ -22,8 +22,6 @@ export const theme = {
 
 export type ThemeType = typeof theme;
 
-export default function ThemeProvider({
-  children,
-}: PropsWithChildren<unknown>) {
+export default function ThemeProvider({ children }: PropsWithChildren<unknown>) {
   return <Provider theme={theme}>{children}</Provider>;
 }

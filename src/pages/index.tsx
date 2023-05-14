@@ -44,9 +44,13 @@ const Text = styled.p`
   font-size: 18px;
   line-height: 1.5;
   margin-bottom: 12px;
+
+  ${mediaQuery.mobile} {
+    font-size: 16px;
+  }
 `;
 
 const StyledNavigation = styled(Navigation)`
   justify-content: flex-start;
-  margin-top: 60px;
+  margin-top: 40px;
 `;
