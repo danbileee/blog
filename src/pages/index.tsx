@@ -43,7 +43,7 @@ const Title = styled.h1`
 const Text = styled.p`
   font-size: 18px;
   line-height: 1.5;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 
   ${mediaQuery.mobile} {
     font-size: 16px;

@@ -18,7 +18,7 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
 
 const Main = styled.main`
   min-height: calc(100vh - 98px);
-  padding: 230px calc(50vw - 430px) 138px;
+  padding: 230px calc(50vw - 380px) 138px;
 
   ${mediaQuery.mobile} {
     padding: 200px 20px;

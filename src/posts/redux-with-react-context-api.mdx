@@ -52,7 +52,7 @@ ogImage: 'https://blog.kakaocdn.net/dn/emfMOw/btr02AA7bUV/bA2KVDfI4UnrQ9mAYRFEp1
 
 배리의 프론트엔드에서는 이 문제를 해결하기 위해서 React의 [Context API](https://reactjs.org/docs/context.html)를 함께 사용했다. `createContext` 로 새로운 컨텍스트를 생성한 뒤, 해당 컨텍스트에 포함될 상태들을 `Provider` 의 `value` 값으로 넘겨준다. `Provider` 로는 상태를 공유하고 싶은 범위 내의 최상위 컴포넌트를 감싸주고, 그 하위 컴포넌트들에서 `useContext` 훅을 사용해 상태에 접근할 수 있게 된다. 이때 상태값과 액션에 따른 상태 변화를 정의하기 위해서는 `useState` 또는 `useReducer` 훅을 사용한다. 결과적으로 `Context API`를 활용해 상태를 관리하는 방법은 다음과 같이 정리할 수 있다.
 
-```js
+```jsx
 // create new context
 const NewContext = createContext(null);
 
@@ -61,11 +61,7 @@ const NewContextProvider = ({ children }) => {
   // define state
   const [state, setState] = useState('');
 
-  return (
-    <NewContext.Provider value={{ state, setState }}>
-      {children}
-    </NewContext.Provider>
-  );
+  return <NewContext.Provider value={{ state, setState }}>{children}</NewContext.Provider>;
 };
 
 // define custom context hook
