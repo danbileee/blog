@@ -2,6 +2,8 @@ import { css } from '@emotion/react';
 import { ComponentProps } from 'react';
 
 export default function Anchor({ children, ...props }: ComponentProps<'a'>) {
+  const target = props.href?.startsWith('#') ? '_self' : '_blank';
+
   return (
     <a
       css={css`
@@ -14,7 +16,7 @@ export default function Anchor({ children, ...props }: ComponentProps<'a'>) {
         }
       `}
       {...props}
-      target="_blank"
+      target={target}
       rel="noreferrer noopener"
     >
       {children}

@@ -2,7 +2,7 @@ import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ComponentProps } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import atomOneDark from 'react-syntax-highlighter/dist/cjs/styles/prism/one-dark';
+import highlighterStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/one-dark';
 
 export default function Code({ children, ...props }: ComponentProps<'pre'>) {
   const language = props?.className?.replace('lang-', '');
@@ -13,7 +13,7 @@ export default function Code({ children, ...props }: ComponentProps<'pre'>) {
       <Container>
         <SyntaxHighlighter
           language={language}
-          style={atomOneDark}
+          style={highlighterStyle}
           customStyle={{
             fontFamily: 'monospace',
             color: colors.white,

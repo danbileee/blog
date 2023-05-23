@@ -59,7 +59,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   height: ${DESKTOP_HEADER_HEIGHT}px;
-  padding: 0 calc(50vw - 380px);
+  padding: 0 calc(50vw - 350px);
 
   ${mediaQuery.mobile} {
     height: ${MOBILE_HEADER_HEIGHT}px;
