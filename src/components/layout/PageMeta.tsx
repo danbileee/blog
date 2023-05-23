@@ -39,6 +39,12 @@ export default function PageMeta({ title, description, tags = [], category, ogIm
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       <link rel="manifest" href="/site.webmanifest" />
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color={theme.colors.skyblue} />
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="Blog | Danbi Lee"
+        href="https://danbileee.com/feed.xml"
+      />
     </Head>
   );
 }
