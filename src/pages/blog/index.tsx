@@ -57,7 +57,7 @@ async function generateRssFeedAndReturnPosts() {
     title: 'Blog | Danbi Lee',
     description: 'Personal archive on web, development, and work',
     site_url: URL,
-    feed_url: `${URL}/feed.xml`,
+    feed_url: `${URL}/rss.xml`,
     image_url: 'https://blog.kakaocdn.net/dn/vs0qs/btr2wt0JQlj/xpYtJpYd4szYtdEt5pV27k/img.png',
     pubDate: new Date(),
     copyright: `© ${new Date().getFullYear()} Danbi Lee`,
@@ -76,7 +76,7 @@ async function generateRssFeedAndReturnPosts() {
     });
   });
 
-  fs.writeFileSync(getPublicPath('feed.xml'), feed.xml({ indent: true }));
+  fs.writeFileSync(getPublicPath('rss.xml'), feed.xml({ indent: true }));
 
   return posts;
 }

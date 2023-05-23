@@ -26,7 +26,7 @@ const links: FooterLink[] = [
     channel: 'email',
   },
   {
-    link: 'https://danbileee.com/feed.xml',
+    link: 'https://danbileee.com/rss.xml',
     icon: 'https://cdn2.iconfinder.com/data/icons/font-awesome/1792/rss-64.png',
     channel: 'rss',
   },
