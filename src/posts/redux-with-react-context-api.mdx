@@ -3,12 +3,12 @@ category: React
 title: Redux와 React Context API 함께 사용하기
 publishedAt: '2020-09-18'
 updatedAt: '2020-09-18'
-description: 처음 리액트를 배울 때 개발 자체에 첫 입문하는 단계이다 보니 도움을 받고자 강의를 들었다. 첫 시간부터 상태 관리라는 것이 왜 필요한지도 모르면서 `this.state` 를 따라 쓰고, 또 `this.setState` 를 따라 썼다.
+description: 처음 개발에 입문하는 초심자의 입장에서 상태 관리의 필요성과 방법들을 살펴보았다. redux와 react의 컨텍스트, 그리고 비동기 처리에 대한 요구사항으로 redux-observable과 rxjs를 도입한 과정을 정리해본다.
 tags: ['vary', 'javascript', 'react', 'redux']
 ogImage: 'https://blog.kakaocdn.net/dn/emfMOw/btr02AA7bUV/bA2KVDfI4UnrQ9mAYRFEp1/img.png'
 ---
 
-처음 리액트를 배울 때 개발 자체에 첫 입문하는 단계이다 보니 도움을 받고자 강의를 들었다. 첫 시간부터 상태 관리라는 것이 왜 필요한지도 모르면서 `this.state` 를 따라 쓰고, 또 `this.setState` 를 따라 썼다. 그러다가 작은 것이라도 직접 만들어 봐야 할 필요성을 느꼈다. 그래서 누구나 시작할 때 한 번씩 만들어 본다는 투두 리스트([링크](https://codesandbox.io/s/autumn-dew-pmq8h?fontsize=14&hidenavigation=1&theme=dark))를 만들었다. 프로젝트 구조를 보면 나와있듯이 리덕스를 적용한 예제를 따라 만들었다.
+처음 리액트를 배울 때 상태 관리라는 것이 왜 필요한지도 모르면서 `this.state` 를 따라 쓰고, 또 `this.setState` 를 따라 썼다. 그러다가 작은 것이라도 직접 만들어 봐야 할 필요성을 느꼈다. 그래서 누구나 시작할 때 한 번씩 만들어 본다는 [투두 리스트](https://codesandbox.io/s/autumn-dew-pmq8h?fontsize=14&hidenavigation=1&theme=dark)를 만들었다. 이 투두 리스트에서는 상태 관리에 리덕스를 사용한 예제를 참고했다.
 
 # Redux로 상태를 관리하는 방법
 
@@ -52,7 +52,7 @@ ogImage: 'https://blog.kakaocdn.net/dn/emfMOw/btr02AA7bUV/bA2KVDfI4UnrQ9mAYRFEp1
 
 배리의 프론트엔드에서는 이 문제를 해결하기 위해서 React의 [Context API](https://reactjs.org/docs/context.html)를 함께 사용했다. `createContext` 로 새로운 컨텍스트를 생성한 뒤, 해당 컨텍스트에 포함될 상태들을 `Provider` 의 `value` 값으로 넘겨준다. `Provider` 로는 상태를 공유하고 싶은 범위 내의 최상위 컴포넌트를 감싸주고, 그 하위 컴포넌트들에서 `useContext` 훅을 사용해 상태에 접근할 수 있게 된다. 이때 상태값과 액션에 따른 상태 변화를 정의하기 위해서는 `useState` 또는 `useReducer` 훅을 사용한다. 결과적으로 `Context API`를 활용해 상태를 관리하는 방법은 다음과 같이 정리할 수 있다.
 
-```js
+```jsx
 // create new context
 const NewContext = createContext(null);
 
@@ -61,11 +61,7 @@ const NewContextProvider = ({ children }) => {
   // define state
   const [state, setState] = useState('');
 
-  return (
-    <NewContext.Provider value={{ state, setState }}>
-      {children}
-    </NewContext.Provider>
-  );
+  return <NewContext.Provider value={{ state, setState }}>{children}</NewContext.Provider>;
 };
 
 // define custom context hook
@@ -91,8 +87,32 @@ const Component = () => {
 };
 ```
 
-`Context API` 를 함께 사용하면 리덕스의 복잡한 스토어 문제도 해결된다. 프로젝트 전체적으로 공유할 필요가 있는 상태들에 한에서만 리덕스의 글로벌 스토어를 사용하고, 특정 부분에서만 공유하는 상태들의 경우에 컨텍스트를 사용하면 된다. 다만 Context API를 활용할 때도 리렌더링 이슈를 염두해야 한다. 컨텍스트 상태가 변화하면 하위 모든 컴포넌트가 리렌더링 되는데, 컨텍스트는 글로벌 상태를 다루기 위해 주로 루트에 위치하다 보니 리렌더링으로 인한 이슈가 크리티컬해진다. 이를 해결하기 위해서는 구독 방식으로 상태를 관리하는 새로운 라이브러리를 검토하여 도입해야 할 수도 있다.
+`Context API` 를 함께 사용하면 리덕스의 복잡한 스토어 문제도 해결된다. 프로젝트 전체적으로 공유할 필요가 있는 상태들에 한에서만 리덕스의 글로벌 스토어를 사용하고, 특정 부분에서만 공유하는 상태들의 경우에 컨텍스트를 사용하면 된다. 다만 Context API를 활용할 때도 리렌더링 이슈를 염두해야 한다. 컨텍스트 상태가 변화하면 하위 모든 컴포넌트가 리렌더링 되는데, 컨텍스트는 글로벌 상태를 다루기 위해 주로 루트에 위치하다 보니 리렌더링으로 인한 이슈가 크리티컬해진다. 이런 이유로 리액트 공식 문서에서는 Context API를 컬러 테마처럼 정적이면서 광범위하게 공유되는 데이터 저장소로 활용하는 것을 권장한다. 리렌더링 이슈를 최소화하면서 동적인 글로벌 데이터 관리가 필요하다면 `recoil`처럼 구독 방식으로 상태를 관리하는 새로운 라이브러리를 검토하여 도입하는 것이 나을 수도 있다.
 
 # 비동기 처리를 구현하려면
 
-이렇게 상태 관리의 개념을 이해하고 적절한 방법으로 구현하는 것까지 성공했다. 그런데 만약 상태의 변화가 이전 결과를 참고하며 순차적으로 일어나야 하는데, 결과를 받기까지 텀이 있는 경우(예: API 응답)라면 어떻게 될까? 여기서 비동기 처리에 대한 필요성이 생겨난다. 배리 프로젝트에서는 이를 구현하기 위해 `redux-observable` 과 이의 기반 라이브러리인 `rxjs` 를 활용했다. 이에 대한 자세한 내용을 다음 글에서 정리해보기로 하겠다.
+이렇게 상태 관리의 개념을 이해하고 적절한 방법으로 구현하는 것까지 성공했다. 그런데 만약 상태의 변화가 이전 결과를 참고하며 순차적으로 일어나야 하는데, 결과를 받기까지 텀이 있고 실패의 가능성도 있는 경우라면 어떻게 될까? 여기서 비동기 처리에 대한 필요성이 생겨난다.
+
+배리 에디터에서 처음 마주한 비동기 처리 요구사항은 이메일 콘텐츠의 수정이 발생했을 때 자동 저장 기능을 구현하는 것이다. 자동 저장을 하려면 다음과 같은 흐름에 따라 동작해야 한다.
+
+1. 이메일 콘텐츠가 수정된다.
+2. 500ms동안 수정이 없는지 기다린다. (debounce)
+3. 저장 API를 요청한다.
+4. 저장 성공/실패 여부를 화면에 표시한다.
+
+참고로 텍스트나 이미지 등 이메일 콘텐츠를 수정할 때는 연달아 많은 수정 이벤트가 발생하기 때문에 API 요청 전에 디바운스 처리가 필요하다. 위 흐름 중 사용자가 직접 일으키는 이벤트는 1번만 해당된다. 나머지는 1번 이벤트에 기반하여 프로그래밍해야 한다.
+
+이러한 요구사항에 대응할 수 있는 라이브러리가 여러 가지 있는데 그중에서도 `redux-observable`을 선택했다. 이유는 초심자 입장에서 가장 직관적으로 느껴지는 인터페이스를 제공했기 때문이다. 소위 콜백 헬이 형성되는 것을 지양하고자 비동기 처리를 동기식 흐름으로 프로그래밍하는 기법이 선호되는데, 이렇게 하면 복잡도와 버그 발생 가능성이 줄어든다. `redux-observable`은 파이프 스트림 형태로 input과 output을 연결하면서 비동기 처리를 할 수 있어 이해하기가 편했다. 자동 저장 파이프 스트림을 구현하면 다음과 같은 형태가 된다.
+
+```ts
+action$.pipe(
+  ofType(...modifyContentActionTypes),
+  debounceTime(500),
+  withLatestFrom(state$),
+  mapTo(dataActions.saveContent()),
+);
+```
+
+여기서 pipe 함수의 파라미터를 순차적으로 따라가면 된다. 자동 저장을 트리거해야 하는 리덕스 액션 타입을 나열하고 (`ofType`), 500ms간 디바운스 처리 후 (`debounceTime`), 해당 시점의 콘텐츠를 가져와서 (`withLatestFrom`), 콘텐츠를 저장한다 (`mapTo`). 마지막 스트림 단계에서는 또 다른 리덕스 action으로 연결되기 때문에 저장의 성공/실패 여부에 대한 처리는 `dataActions.saveContent` 에서 담당하고 있는 형태이다.
+
+`redux-observable`는 `rxjs`와 연계된다. 위 예제에서도 `ofType`으로 리덕스 액션을 받아오는 부분을 제외한 나머지 스트림은 rxjs에서 제공하는 오퍼레이터 함수를 사용하고 있다. rxjs의 컨셉은 직관적이나 수많은 오퍼레이터 메소드를 적절하게 조합하려면 요구사항을 분석하고 프로그래밍에 접목할 수 있는 개발자의 역량에 달렸다. 또한 함수형 프로그래밍에 대한 깊은 이해도 필요하다. 그래서인지 진입 장벽이 있다고 느껴지는데, 잘 사용하면 버그로부터 자유롭고 유연한 프로그램을 작성할 수 있다는 것이 rxjs의 장점이라고 한다. 나중에 기회가 되면 함수형을 접목할 수 있는 비즈니스 로직에 적극적으로 도입해봐도 좋을 것 같다. (참고: [rxjs 공식 문서](https://rxjs.dev/guide/overview))

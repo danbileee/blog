@@ -53,7 +53,7 @@ const Container = styled.footer`
   justify-content: space-between;
   width: 100%;
   max-width: 100%;
-  padding: 0 calc(50vw - 430px) 50px;
+  padding: 0 calc(50vw - 350px) 50px;
   left: 0;
   bottom: 0;
 
