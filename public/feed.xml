@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Blog | Danbi Lee]]></title>
+        <description><![CDATA[Personal archive on web, development, and work]]></description>
+        <link>https://danbileee.com</link>
+        <image>
+            <url>https://blog.kakaocdn.net/dn/vs0qs/btr2wt0JQlj/xpYtJpYd4szYtdEt5pV27k/img.png</url>
+            <title>Blog | Danbi Lee</title>
+            <link>https://danbileee.com</link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Tue, 23 May 2023 04:02:32 GMT</lastBuildDate>
+        <atom:link href="https://danbileee.com/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Tue, 23 May 2023 04:02:32 GMT</pubDate>
+        <copyright><![CDATA[© 2023 Danbi Lee]]></copyright>
+        <item>
+            <title><![CDATA[레거시 코드에서 에러 핸들링 시작하기]]></title>
+            <description><![CDATA[에러를 잘 핸들링한다는 것은 어떤 의미일까? 또 레거시 코드베이스에서 에러 핸들링을 시작하려면 어떤 단계로 진행해야 할까? 세 달간 팀원들과 함께 한 프로젝트에서 고민했던 과정, 성과, 그리고 남은 과제에 대해 정리해 본다.]]></description>
+            <link>https://danbileee.com/blog/error-handling-from-scratch</link>
+            <guid isPermaLink="true">https://danbileee.com/blog/error-handling-from-scratch</guid>
+            <category><![CDATA[설계]]></category>
+            <pubDate>Fri, 19 May 2023 00:00:00 GMT</pubDate>
+            <enclosure url="https://blog.kakaocdn.net/dn/bsi4nF/btsg1b5xMqK/QZkXq14OPS56PZ6VsYRWR0/img.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[2022년을 돌아보며]]></title>
+            <description><![CDATA[문득 내가 하고 있는 일들이 그저 내게 맡겨졌기에 하고 있던 것 아닌가 하는 생각이 들었다. 스스로 하고 싶은 일을 찾아서 해 보았고, 그 결과 장점과 단점이 모두 뚜렷한 경험을 하였다. 또한 그 어느 때보다도 협업의 힘을 많이 느낀 한 해였다.]]></description>
+            <link>https://danbileee.com/blog/looking-back-on-2022</link>
+            <guid isPermaLink="true">https://danbileee.com/blog/looking-back-on-2022</guid>
+            <category><![CDATA[회고]]></category>
+            <pubDate>Sat, 25 Feb 2023 00:00:00 GMT</pubDate>
+            <enclosure url="https://blog.kakaocdn.net/dn/VYxxP/btr1dd54iBw/nMnkdwuZC25wjgu8k8mBK1/img.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[Array? or Object?]]></title>
+            <description><![CDATA[자바스크립트 자료구조 중에서 array, object는  여러 데이터를 그룹화하는 두 가지 방법이라는 면에서 서로 유사하면서도 근본적으로 다르다. 그렇다면 둘 중 무엇이 더 효율적이고 좋은 자료구조일까?]]></description>
+            <link>https://danbileee.com/blog/shortqna-array-vs-object</link>
+            <guid isPermaLink="true">https://danbileee.com/blog/shortqna-array-vs-object</guid>
+            <category><![CDATA[JS]]></category>
+            <pubDate>Tue, 18 Oct 2022 00:00:00 GMT</pubDate>
+            <enclosure url="https://blog.kakaocdn.net/dn/eHiSiE/btr1p0RZ3ra/xK6EjHKbyxZuvwHAwvyECk/img.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[JS는 싱글스레드 언어인가?]]></title>
+            <description><![CDATA[1. 자바스크립트는 스크립트 언어이다. JS는 스크립트 언어여서 싱글 스레드 언어인가? 2. 자바스크립트는 싱글 스레드 환경에서 구동된다. 그렇다면 비동기 처리는 어떻게 이루어지는 걸까?]]></description>
+            <link>https://danbileee.com/blog/shortqna-is-js-single-threaded</link>
+            <guid isPermaLink="true">https://danbileee.com/blog/shortqna-is-js-single-threaded</guid>
+            <category><![CDATA[JS]]></category>
+            <pubDate>Mon, 03 Oct 2022 00:00:00 GMT</pubDate>
+            <enclosure url="https://blog.kakaocdn.net/dn/blWtDi/btr1nD3SDbW/K2KUIyn8Ty8QumnkgrCkh0/img.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[로직 분리의 기준에 대하여]]></title>
+            <description><![CDATA[프로그래밍에서는 SOLID 원칙이 중요시된다. 이 중 첫 번째 원칙은 로직이 하나의 역할만을 하도록 작게 분리하라는 것이다. 그렇다면 모든 로직은 분리되어야 할까? 하나의 역할이라는 것은 어떻게 정의할까?]]></description>
+            <link>https://danbileee.com/blog/to-separate-or-not-to</link>
+            <guid isPermaLink="true">https://danbileee.com/blog/to-separate-or-not-to</guid>
+            <category><![CDATA[설계]]></category>
+            <pubDate>Wed, 17 Aug 2022 00:00:00 GMT</pubDate>
+            <enclosure url="https://blog.kakaocdn.net/dn/b2f3nq/btr1ueboRW0/6jLhcK6TgSZkoqAkzzvXsk/img.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[오브젝트 11장 합성과 유연한 설계]]></title>
+            <description><![CDATA[상속과 합성은 객체지향 프로그래밍에서 가장 널리 사용되는 코드 재사용 기법이다. 그러나 코드 재사용이라는 동일한 목적을 제외하면 구현 방법부터 변경을 다루는 방식까지 모든 면에서 차이가 있다.]]></description>
+            <link>https://danbileee.com/blog/object-study-11</link>
+            <guid isPermaLink="true">https://danbileee.com/blog/object-study-11</guid>
+            <category><![CDATA[스터디]]></category>
+            <pubDate>Mon, 07 Jun 2021 00:00:00 GMT</pubDate>
+            <enclosure url="https://blog.kakaocdn.net/dn/bDJwbY/btr1nxCAzk4/PDM6nonhgbPQheTfTT2uTK/img.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[오브젝트 7장 객체 분해]]></title>
+            <description><![CDATA[사람의 기억은 단기 기억과 장기 기억으로 분류되며, 장기 기억의 용량은 거의 무한대에 이른다. 그러나 장기 기억에 접근하려면 단기 기억 영역으로 옮긴 후에 처리해야 한다. 그러나 단기 기억의 저장 공간은 제약이 있다. 따라서 문제 해결에 필요한 요소의 수가 단기 기억 용량을 초과하는 순간 인지 과부하가 발생하며 문제 해결 능력이 급격하게 떨어진다.]]></description>
+            <link>https://danbileee.com/blog/object-study-7</link>
+            <guid isPermaLink="true">https://danbileee.com/blog/object-study-7</guid>
+            <category><![CDATA[스터디]]></category>
+            <pubDate>Mon, 10 May 2021 00:00:00 GMT</pubDate>
+            <enclosure url="https://blog.kakaocdn.net/dn/bIrOMm/btr1dce27W0/SXkeNRM3oF5rSiLnkc1IvK/img.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[WYSIWYG 에디터 선택하기]]></title>
+            <description><![CDATA[WYSIWYG은 텍스트 편집에 대한 다양한 기능을 제공하고 그 편집한 결과를 그대로 출력하여 보여주는 에디터이다. 이메일 제작을 위한 솔루션을 만들 때 WYSIWYG은 아주 중요하다. 이메일을 제작할 때 필요한 가장 기본적인 요소인 텍스트, 이미지, 버튼 중 아무래도 텍스트의 비중이 가장 높기 때문이다. 사용자 경험 중 많은 부분을 차지하고 있는 만큼 얼마나 기능이 다양한가보다도, 있는 기능이 얼마나 안정적으로 작동하는지가 중요하다. 이 명제를 깨닫고 실현할 수 있기까지 시행착오가 있었기에 정리해 보려고 한다.]]></description>
+            <link>https://danbileee.com/blog/how-to-choose-wysiwyg</link>
+            <guid isPermaLink="true">https://danbileee.com/blog/how-to-choose-wysiwyg</guid>
+            <category><![CDATA[에디터]]></category>
+            <pubDate>Wed, 23 Sep 2020 00:00:00 GMT</pubDate>
+            <enclosure url="https://blog.kakaocdn.net/dn/HdO28/btr1bfiRrDc/NXmquPZ8zaaA1oaKfk1V40/img.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[프로젝트 폴더 구조의 변화, 바꾼 이유, 그리고 느낀 점]]></title>
+            <description><![CDATA[배리의 에디터는 아주 작은 단위부터 고민해 본 나의 첫 프로젝트이다. 시작하려고 보니 첫 컴포넌트를 어떤 폴더의 어떤 파일명으로 만들어야 할지가 고민이었다. 그때 조언을 구하며  `container`  컴포넌트와 `presentational` 컴포넌트로 구분하는 방법이 있다는 것을 알았다.]]></description>
+            <link>https://danbileee.com/blog/on-folder-structure-of-vary-editor</link>
+            <guid isPermaLink="true">https://danbileee.com/blog/on-folder-structure-of-vary-editor</guid>
+            <category><![CDATA[설계]]></category>
+            <pubDate>Wed, 23 Sep 2020 00:00:00 GMT</pubDate>
+            <enclosure url="https://blog.kakaocdn.net/dn/bvl3wV/btr01Uff0WE/kOKdZd4WyQQXC8M4geMT40/img.png" length="0" type="image/png"/>
+        </item>
+        <item>
+            <title><![CDATA[Redux와 React Context API 함께 사용하기]]></title>
+            <description><![CDATA[처음 개발에 입문하는 초심자의 입장에서 상태 관리의 필요성과 방법들을 살펴보았다. redux와 react의 컨텍스트, 그리고 비동기 처리에 대한 요구사항으로 redux-observable과 rxjs를 도입한 과정을 정리해본다.]]></description>
+            <link>https://danbileee.com/blog/redux-with-react-context-api</link>
+            <guid isPermaLink="true">https://danbileee.com/blog/redux-with-react-context-api</guid>
+            <category><![CDATA[React]]></category>
+            <pubDate>Fri, 18 Sep 2020 00:00:00 GMT</pubDate>
+            <enclosure url="https://blog.kakaocdn.net/dn/emfMOw/btr02AA7bUV/bA2KVDfI4UnrQ9mAYRFEp1/img.png" length="0" type="image/png"/>
+        </item>
+    </channel>
+</rss>

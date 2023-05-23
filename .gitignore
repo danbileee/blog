@@ -1,7 +1,6 @@
 node_modules
 .next
 .env
-public/feed.xml
 
 # yarn zero-install
 .yarn/*
