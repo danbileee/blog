@@ -18,11 +18,11 @@ export default function Layout({ children }: PropsWithChildren<unknown>) {
 
 const Main = styled.main`
   min-height: calc(100vh - 98px);
-  min-height: -webkit-fill-available;
   padding: 230px calc(50vw - 340px) 138px;
 
   ${mediaQuery.mobile} {
     min-height: calc(100vh - 93px);
+    min-height: -webkit-fill-available;
     padding: 160px 20px;
   }
 `;
