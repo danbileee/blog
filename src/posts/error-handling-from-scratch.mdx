@@ -128,25 +128,25 @@ interface IApiException extends IException {
 이제 API 응답 전 에러 여부를 판단하고 에러일 경우 필요한 정보를 채워서 throw하는 중간 처리 모듈을 정의해 보자. `axios`처럼 대중적인 라이브러리에서는 [interceptor](https://axios-http.com/kr/docs/interceptors)라는 개념으로 이 인터페이스를 제공하고 있다. 사용하는 라이브러리 혹은 API 통신 스펙에 따라 세부적인 구현은 달라지겠지만, 수도코딩 해보면 다음과 같은 형태가 된다.
 
 ```ts
-function middleware() {
-  return (request: Request, response: Response) => {
-    if (response.status >= 400) {
-      const apiException = new ApiException({
-        message: response.message,
-        code: response.code,
-        status: response.status,
-        timestamp: new Date(),
-        ignore: false,
-        request,
-        response,
-      });
+function middleware(request: Request, response: Response) {
+  if (response.status >= 400) {
+    const apiException = new ApiException({
+      message: response.message,
+      code: response.code,
+      status: response.status,
+      timestamp: new Date(),
+      ignore: false,
+      request,
+      response,
+    });
 
-      return Promise.reject(apiException);
-    }
+    return Promise.reject(apiException);
+  }
 
-    return Promise.resolve(response);
-  };
+  return Promise.resolve(response);
 }
+
+api.onBeforeResponse = middleware;
 ```
 
 수도코드 동작에 따르면 실제 HTTP 상태 코드가 200이더라도 API 스펙에 따라 response 내부의 상태 코드를 참조하여 에러를 반환하게 된다.
@@ -185,14 +185,14 @@ function middleware(
 }
 
 // A 서비스
-api.middleware((request: Request, response: Response) => {
+api.onBeforeResponse = middleware((request: Request, response: Response) => {
   if (response.status === 401) {
     window.location.href = '/login';
   }
 });
 
 // B 서비스
-api.middleware(async (request: Request, response: Response) => {
+api.onBeforeResponse = middleware(async (request: Request, response: Response) => {
   if (response.status === 401) {
     const retryResponse = await refreshTokenAndRetry(request);
 
