@@ -1,10 +1,8 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 
 import { useGlobalContext } from '@contexts/global';
 import mediaQuery from '@styles/mediaQuery';
-import { getMetaInfo } from '@utils/getMetaInfo';
 import useScrollDirection, { ScrollDirection } from '@hooks/useScrollDirection';
 import Navigation from './Navigation';
 
@@ -13,9 +11,7 @@ const MOBILE_HEADER_HEIGHT = 80;
 
 export default function Header() {
   const { isMobile } = useGlobalContext();
-  const { pathname } = useRouter();
   const direction = useScrollDirection(isMobile ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT);
-  const { key } = getMetaInfo(pathname) ?? {};
 
   return (
     <Container direction={direction}>
@@ -28,7 +24,7 @@ export default function Header() {
             alt="logo"
           />
         </LogoAnchor>
-        {key !== 'home' && <Navigation />}
+        <Navigation />
       </Wrapper>
     </Container>
   );
@@ -59,7 +55,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   height: ${DESKTOP_HEADER_HEIGHT}px;
-  padding: 0 calc(50vw - 350px);
+  padding: 0 calc(50vw - 340px);
 
   ${mediaQuery.mobile} {
     height: ${MOBILE_HEADER_HEIGHT}px;

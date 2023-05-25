@@ -16,7 +16,6 @@ export default function Code({ children, ...props }: ComponentProps<'pre'>) {
           style={highlighterStyle}
           customStyle={{
             fontFamily: 'monospace',
-            color: colors.white,
             background: colors.gray900,
             padding: 20,
             borderRadius: 6,
@@ -43,8 +42,8 @@ const Container = styled.div`
     }
 
     > code {
+      color: ${({ theme }) => theme.colors.gray100} !important;
       background: transparent !important;
-      color: ${({ theme }) => theme.colors.white} !important;
       text-shadow: transparent !important;
 
       > span {

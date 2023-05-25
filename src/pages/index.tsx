@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import styled from '@emotion/styled';
 
 import mediaQuery from '@styles/mediaQuery';
-import Navigation from '@components/layout/Navigation';
 
 const Home: NextPage = () => {
   return (
@@ -11,7 +10,6 @@ const Home: NextPage = () => {
       <Text>웹 에이전시, SaaS, 커머스 플랫폼에서 프론트엔드 개발 경험이 있습니다.</Text>
       <Text>명확한 문제 해결과 좋은 UX, 그리고 가치를 제공하는 소프트웨어에 관심이 많습니다.</Text>
       <Text>쓰고 싶은 서비스를 만드는 사람이 되고 싶습니다.</Text>
-      <StyledNavigation />
     </Container>
   );
 };
@@ -48,9 +46,4 @@ const Text = styled.p`
   ${mediaQuery.mobile} {
     font-size: 16px;
   }
-`;
-
-const StyledNavigation = styled(Navigation)`
-  justify-content: flex-start;
-  margin-top: 40px;
 `;
