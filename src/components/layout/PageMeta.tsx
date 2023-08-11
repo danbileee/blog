@@ -43,15 +43,15 @@ export default function PageMeta({ title, description, tags = [], category, ogIm
         id="yess-widget-script"
         dangerouslySetInnerHTML={{
           __html: `(function (w, d, m, i) {
-    s = d.createElement("script");
-    s.src = m;
-    s.async = true;
-    d.getElementsByTagName("head")[0].appendChild(s);
-    s.onload = function () {
-      if (!w.yessWidget) return;
-      w.yessWidget.init(i);
-    }
-  })(window, document, "https://cdn.alphacat.app/sdk/main/main.js", "SIG5ytdI_5eJ96cKwXaDd");`,
+  s = d.createElement("script");
+  s.src = m;
+  s.async = true;
+  d.getElementsByTagName("head")[0].appendChild(s);
+  s.onload = function () {
+    if (!w.yessWidget) return;
+    w.yessWidget.init(i);
+  }
+})(window, document, "https://cdn.betacat.app/sdk/main/main.js", "ht9tAQsjg0qWVMii1EiaB");`,
         }}
       />
     </Head>
