@@ -42,16 +42,18 @@ export default function PageMeta({ title, description, tags = [], category, ogIm
       <script
         id="yess-widget-script"
         dangerouslySetInnerHTML={{
-          __html: `(function (w, d, m, i) {
-          s = d.createElement("script");
-          s.src = m;
-          s.async = true;
-          d.getElementsByTagName("head")[0].appendChild(s);
-          s.onload = function () {
-            if (!w.yessWidget) return;
-            w.yessWidget.init(i);
-          }
-        })(window, document, "https://cdn.alphacat.app/sdk/main/main.js", "3UD7lhb6CPgucLQwnkcMq");`,
+          __html: `<script id="yess-widget-script">
+  (function (w, d, m, i) {
+    s = d.createElement("script");
+    s.src = m;
+    s.async = true;
+    d.getElementsByTagName("head")[0].appendChild(s);
+    s.onload = function () {
+      if (!w.yessWidget) return;
+      w.yessWidget.init(i);
+    }
+  })(window, document, "https://cdn.alphacat.app/sdk/main/main.js", "SIG5ytdI_5eJ96cKwXaDd");
+</script>`,
         }}
       />
     </Head>
