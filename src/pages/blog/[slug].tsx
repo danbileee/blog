@@ -7,7 +7,6 @@ import { getPostsPath } from '@utils/getPath';
 import Markdown from '@components/markdown';
 import PostMeta from '@components/post/PostMeta';
 import PageMeta from '@components/layout/PageMeta';
-// import Script from 'next/script';
 
 interface Props {
   frontMatter: PostFrontMatter | null;
@@ -27,7 +26,6 @@ const Slug = ({ frontMatter, content }: Props) => {
         tags={frontMatter.tags}
         ogImage={frontMatter.ogImage}
       />
-      {/* <Script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" /> */}
       <PostMeta frontMatter={frontMatter} />
       <Markdown content={content} />
     </>

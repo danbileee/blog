@@ -68,5 +68,5 @@ const PublishedAt = styled.p`
 
 const Description = styled.p`
   line-height: 1.6;
-  ${getEllipsisStyle(2)}
+  ${getEllipsisStyle(3)}
 `;

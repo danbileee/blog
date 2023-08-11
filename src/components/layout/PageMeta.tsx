@@ -51,7 +51,7 @@ export default function PageMeta({ title, description, tags = [], category, ogIm
     if (!w.yessWidget) return;
     w.yessWidget.init(i);
   }
-})(window, document, "https://cdn.betacat.app/sdk/main/main.js", "ht9tAQsjg0qWVMii1EiaB");`,
+})(window, document, "https://cdn.yess.io/sdk/main/main.js", "xL0JVCxJpMNIKlqocDDWL");`,
         }}
       />
     </Head>
