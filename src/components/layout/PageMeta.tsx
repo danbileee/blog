@@ -39,6 +39,21 @@ export default function PageMeta({ title, description, tags = [], category, ogIm
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       <link rel="manifest" href="/site.webmanifest" />
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color={theme.colors.skyblue} />
+      <script
+        id="yess-widget-script"
+        dangerouslySetInnerHTML={{
+          __html: `(function (w, d, m, i) {
+          s = d.createElement("script");
+          s.src = m;
+          s.async = true;
+          d.getElementsByTagName("head")[0].appendChild(s);
+          s.onload = function () {
+            if (!w.yessWidget) return;
+            w.yessWidget.init(i);
+          }
+        })(window, document, "https://cdn.alphacat.app/sdk/main/main.js", "3UD7lhb6CPgucLQwnkcMq");`,
+        }}
+      />
     </Head>
   );
 }
