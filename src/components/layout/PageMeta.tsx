@@ -42,8 +42,7 @@ export default function PageMeta({ title, description, tags = [], category, ogIm
       <script
         id="yess-widget-script"
         dangerouslySetInnerHTML={{
-          __html: `<script id="yess-widget-script">
-  (function (w, d, m, i) {
+          __html: `(function (w, d, m, i) {
     s = d.createElement("script");
     s.src = m;
     s.async = true;
@@ -52,8 +51,7 @@ export default function PageMeta({ title, description, tags = [], category, ogIm
       if (!w.yessWidget) return;
       w.yessWidget.init(i);
     }
-  })(window, document, "https://cdn.alphacat.app/sdk/main/main.js", "SIG5ytdI_5eJ96cKwXaDd");
-</script>`,
+  })(window, document, "https://cdn.alphacat.app/sdk/main/main.js", "SIG5ytdI_5eJ96cKwXaDd");`,
         }}
       />
     </Head>
