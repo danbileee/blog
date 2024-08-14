@@ -41,6 +41,7 @@ export default function PageMeta({ title, description, tags = [], category, ogIm
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color={theme.colors.skyblue} />
       <script
         id="yess-widget-script"
+        async
         dangerouslySetInnerHTML={{
           __html: `(function (w, d, m, i) {
     s = d.createElement("script");
@@ -51,7 +52,7 @@ export default function PageMeta({ title, description, tags = [], category, ogIm
       if (!w.yessWidget) return;
       w.yessWidget.init(i);
     }
-  })(window, document, "https://cdn.betacat.app/sdk/main/main.js", "ht9tAQsjg0qWVMii1EiaB");`,
+  })(window, document, "https://cdn.betacat.app/sdk/main/main.js", "UOsR-zcs_y4w-lb6Bn4TU");`,
         }}
       />
     </Head>
