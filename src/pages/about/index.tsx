@@ -20,7 +20,7 @@ export default function About({ careers }: Props) {
         careers.map((career) => (
           <li>
             <CareerMeta career={career} />
-            <Markdown content={career.content} withHeadlineAnchor={false} />
+            <Markdown content={career.content} withHeadlineAnchor />
           </li>
         )),
       )}

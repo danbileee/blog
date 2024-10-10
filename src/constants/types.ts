@@ -27,5 +27,6 @@ export interface Career {
   startYear: number;
   endYear?: number;
   description: string;
+  website?: string;
   content: string;
 }

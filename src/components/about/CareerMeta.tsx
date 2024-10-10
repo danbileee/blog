@@ -7,12 +7,18 @@ interface Props {
 }
 
 export default function CareerMeta({ career }: Props) {
-  const { company, startYear, endYear, description } = career;
+  const { company, startYear, endYear, description, website } = career;
 
   return (
     <Container>
       <Wrapper>
-        <Company>{company}</Company>
+        {website ? (
+          <a href={website} target="_blank" rel="noopener noreferrer">
+            <Company style={{ textDecoration: 'underline' }}>{company}</Company>
+          </a>
+        ) : (
+          <Company>{company}</Company>
+        )}
         <Period>{`${startYear}~${endYear ?? ''}`}</Period>
       </Wrapper>
       <Description>{description}</Description>
