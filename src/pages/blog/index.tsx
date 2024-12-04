@@ -5,9 +5,10 @@ import matter from 'gray-matter';
 import styled from '@emotion/styled';
 
 import PostCard from '@components/post/PostCard';
-import { getPostsPath, getPublicPath } from '@utils/getPath';
+import { getPublicPath } from '@utils/getPath';
 import { getSlug } from '@utils/getSlug';
 import { Post, PostFrontMatter } from '@constants/types';
+import { octokitInstance, octokitRequestBase } from '@constants/octokit';
 
 interface Props {
   posts: Post[];
@@ -28,18 +29,38 @@ export default Blog;
 const URL = 'https://danbileee.com';
 
 async function getPosts(): Promise<Post[]> {
-  const files = fs.readdirSync(getPostsPath());
+  const list = await octokitInstance.request('GET /repos/{owner}/{repo}/contents/{path}', {
+    ...octokitRequestBase,
+    path: 'posts',
+  });
 
-  const sorted = files
-    .map((filename) => {
-      const mdxWithMeta = fs.readFileSync(getPostsPath(filename), 'utf-8');
-      const { data } = matter(mdxWithMeta);
+  if (!Array.isArray(list.data)) {
+    return [];
+  }
+
+  const items = await Promise.all(
+    list.data.map((data) =>
+      octokitInstance.request('GET /repos/{owner}/{repo}/contents/{path}', {
+        ...octokitRequestBase,
+        path: data.path,
+        headers: {
+          ...octokitRequestBase.headers,
+          accept: 'application/vnd.github.v3.raw',
+        },
+      }),
+    ),
+  );
+
+  const sorted = items
+    .map((item) => {
+      const { data } = matter(item.data.toString());
 
       return {
         frontMatter: data as PostFrontMatter,
-        slug: getSlug(filename),
+        slug: getSlug(item.url),
       };
     })
+    .filter((item) => (process.env.NODE_ENV === 'development' ? true : !item.frontMatter.devOnly))
     .sort(
       (a, b) =>
         new Date(b.frontMatter?.publishedAt).valueOf() -

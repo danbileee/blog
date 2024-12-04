@@ -9,6 +9,7 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.6.0",
+    "@octokit/core": "^6.1.2",
     "@vercel/analytics": "^0.1.8",
     "dayjs": "^1.11.7",
     "gray-matter": "^4.0.3",

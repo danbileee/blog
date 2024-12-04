@@ -8,16 +8,10 @@ interface GlobalContextType {
 
 export const GlobalContext = createContext<GlobalContextType | null>(null);
 
-export function GlobalContextProvider({
-  children,
-}: PropsWithChildren<unknown>) {
+export function GlobalContextProvider({ children }: PropsWithChildren<unknown>) {
   const isMobile = useIsMobile();
 
-  return (
-    <GlobalContext.Provider value={{ isMobile }}>
-      {children}
-    </GlobalContext.Provider>
-  );
+  return <GlobalContext.Provider value={{ isMobile }}>{children}</GlobalContext.Provider>;
 }
 
 export function useGlobalContext() {
