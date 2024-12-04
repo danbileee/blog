@@ -1,12 +1,11 @@
-import fs from 'fs';
 import matter from 'gray-matter';
 import { GetStaticPropsContext } from 'next';
 
 import { PostFrontMatter } from '@constants/types';
-import { getPostsPath } from '@utils/getPath';
 import Markdown from '@components/markdown';
 import PostMeta from '@components/post/PostMeta';
 import PageMeta from '@components/layout/PageMeta';
+import { octokitInstance, octokitRequestBase } from '@constants/octokit';
 
 interface Props {
   frontMatter: PostFrontMatter | null;
@@ -35,10 +34,18 @@ const Slug = ({ frontMatter, content }: Props) => {
 export default Slug;
 
 export async function getStaticPaths() {
-  const files = fs.readdirSync(getPostsPath());
-  const paths = files.map((filename) => ({
+  const list = await octokitInstance.request('GET /repos/{owner}/{repo}/contents/{path}', {
+    ...octokitRequestBase,
+    path: 'posts',
+  });
+
+  if (!Array.isArray(list.data)) {
+    return [];
+  }
+
+  const paths = list.data.map((data) => ({
     params: {
-      slug: filename.replace('.mdx', ''),
+      slug: data.name.replace('.mdx', ''),
     },
   }));
 
@@ -48,10 +55,18 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const { slug } = params ?? {};
-  const markdownWithMeta = fs.readFileSync(getPostsPath(`${slug}.mdx`), 'utf-8');
-  const { data: frontMatter, content } = matter(markdownWithMeta);
+export async function getStaticProps({ params }: GetStaticPropsContext<{ slug: string }>) {
+  const { slug = '' } = params ?? {};
+  const result = await octokitInstance.request('GET /repos/{owner}/{repo}/contents/{path}', {
+    ...octokitRequestBase,
+    path: `posts/${slug}.mdx`,
+    headers: {
+      ...octokitRequestBase.headers,
+      accept: 'application/vnd.github.v3.raw',
+    },
+  });
+
+  const { data: frontMatter, content } = matter(result.data.toString());
 
   return {
     props: {
