@@ -60,7 +60,7 @@ async function getPosts(): Promise<Post[]> {
         slug: getSlug(item.url),
       };
     })
-    .filter((item) => (process.env.NODE_ENV === 'development' ? true : !item.frontMatter.devOnly))
+    .filter((item) => !item.frontMatter.devOnly)
     .sort(
       (a, b) =>
         new Date(b.frontMatter?.publishedAt).valueOf() -

@@ -1,7 +1,6 @@
-import { cloneElement, ComponentProps, ReactNode } from 'react';
+import { ComponentProps } from 'react';
 import Markdown, { MarkdownToJSX } from 'markdown-to-jsx';
 
-import Heading, { HeadingElementType } from './Heading';
 import ResponsiveImage from './ResponsiveImage';
 import Paragraph from './Paragraph';
 import { ListItem, OrderedList, UnorderedList } from './List';
@@ -9,6 +8,9 @@ import Code from './Code';
 import Blockquote from './Blockquote';
 import Table, { TableRow } from './Table';
 import Anchor from './Anchor';
+import { getHeadingOverride } from './utils/getHeadingOverride';
+import { isChildString } from './utils/isChildString';
+import { cloneChildren } from './utils/cloneChildren';
 
 interface Props {
   content: string;
@@ -17,24 +19,6 @@ interface Props {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type MarkdownProps = ComponentProps<any>;
-
-function getHeadingOverride(as: HeadingElementType, props: ComponentProps<typeof as>) {
-  const getId = () => {
-    if (!props.children) return '';
-
-    return props.children.toString().split(' ').join('-');
-  };
-
-  return <Heading {...props} as={as} id={getId()} />;
-}
-
-function isChildString(child: ReactNode): child is string {
-  return typeof child === 'string';
-}
-
-function cloneChildren({ children, ...props }: MarkdownProps) {
-  return cloneElement(<>{children}</>, { ...props });
-}
 
 const getOptions = ({
   withHeadlineAnchor,
