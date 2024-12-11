@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <Container>
       <Title>Hi, I&apos;m a web developer.</Title>
-      <Text>웹 에이전시, SaaS, 커머스 플랫폼에서 프론트엔드 개발 경험이 있습니다.</Text>
+      <Text>AI-native SaaS, 커머스 플랫폼, 웹 에이전시에서 프론트엔드 개발 경험이 있습니다.</Text>
       <Text>명확한 문제 해결과 좋은 UX, 그리고 가치를 제공하는 소프트웨어에 관심이 많습니다.</Text>
       <Text>쓰고 싶은 서비스를 만드는 사람이 되고 싶습니다.</Text>
     </Container>
