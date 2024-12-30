@@ -48,7 +48,7 @@ export function ListItem({ children }: ComponentProps<'li'>) {
 }
 
 const listStyle = css`
-  margin: 0 0 12px 12px;
+  margin: 0 0 0 12px;
 `;
 
 const listItemStyle = css`
