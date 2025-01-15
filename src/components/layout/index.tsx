@@ -21,7 +21,7 @@ const Main = styled.main`
   padding: 230px calc(50vw - 340px) 138px;
 
   ${mediaQuery.mobile} {
-    min-height: calc(100vh - 93px);
+    min-height: calc(100vh - 120px);
     min-height: -webkit-fill-available;
     padding: 160px 20px;
   }

@@ -59,7 +59,7 @@ const Container = styled.footer`
 
   ${mediaQuery.mobile} {
     flex-direction: column;
-    padding: 0 20px 30px;
+    padding: 0 20px 120px;
   }
 `;
 
