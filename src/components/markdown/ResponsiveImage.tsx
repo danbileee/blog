@@ -8,10 +8,22 @@ type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'placeholder'>;
 export default function ResponsiveImage({ src, ...props }: Props) {
   const [alt, size] = props?.alt?.split('|') ?? [];
 
+  const handleClickImage = (): void => {
+    window.open(src, '_blank', 'noopenner, noreferrer');
+  };
+
   // TODO: 이미지 전체보기 모달 구현
   return (
     <Figure size={size}>
-      <Image src={src ?? ''} layout="fill" placeholder="empty" alt={alt} {...props} />
+      <Image
+        src={src ?? ''}
+        layout="fill"
+        placeholder="empty"
+        alt={alt}
+        {...props}
+        onClick={handleClickImage}
+        style={{ cursor: 'pointer' }}
+      />
       <FigCaption aria-hidden>{alt}</FigCaption>
     </Figure>
   );

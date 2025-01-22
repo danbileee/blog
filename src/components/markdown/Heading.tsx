@@ -28,6 +28,7 @@ export default function Heading({ id, as, children, withHeadlineAnchor = true, .
 
 const commonHeadingStyle = css`
   line-height: 1.65;
+  margin-top: 28px;
 
   :hover {
     > a {
