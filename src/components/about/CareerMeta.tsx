@@ -41,32 +41,27 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 `;
 
 const Company = styled.h2`
-  font-size: 28px;
+  font-size: 30px;
   line-height: 1;
-
-  ${mediaQuery.mobile} {
-    font-size: 26px;
-  }
 `;
 
 const Period = styled.p`
   font-weight: 600;
   line-height: 1;
-  margin-top: 2px;
+  margin-top: 6px;
 
   ${mediaQuery.mobile} {
     font-size: 15px;
-    margin-top: 1px;
   }
 `;
 
 const Description = styled.p`
   line-height: 1.6;
-  margin: 20px 0 40px;
+  margin: 20px 0;
 
   ${mediaQuery.mobile} {
     margin: 16px 0 32px;
