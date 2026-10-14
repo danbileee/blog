@@ -29,4 +29,5 @@ export interface Career {
   description: string;
   website?: string;
   content: string;
+  devOnly?: boolean;
 }

@@ -57,6 +57,7 @@ export async function getStaticProps() {
       const { data, content } = matter(item.data.toString());
       return { id: item.url, ...data, content } as Career;
     })
+    .filter((item) => !item.devOnly)
     .sort((a, b) => new Date(b.startYear).valueOf() - new Date(a.startYear).valueOf());
 
   return {

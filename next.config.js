@@ -6,6 +6,7 @@ module.exports = {
       'cdn4.iconfinder.com',
       'blog.kakaocdn.net',
       'imagedelivery.net',
+      'assets.furigana.app',
     ],
     deviceSizes: [600, 1080, 1920],
   },

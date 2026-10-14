@@ -58,5 +58,5 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "packageManager": "yarn@4.5.0"
+  "packageManager": "yarn@4.18.1"
 }
