@@ -40,23 +40,6 @@ const Home: NextPage = () => {
         </Link>
         . If you&apos;ve ever had the same problem, check it out!
       </Text> */}
-      {/* <Text>
-        I have 6 years of experience in frontend development, having worked at an AI-first SaaS
-        company, a commerce platform, and a web agency. Now, I&apos;m an independent builder working
-        across web development, content communities, and filmmaking.
-      </Text>
-      <Text>
-        I care about clear thinking, thoughtful UX, and building software that delivers real value.
-        I get excited whenever I find software that makes my life better.
-      </Text>
-      <Text>
-        I&apos;ve been learning Japanese for over 10 years, but I still struggle to read Japanese
-        texts with lots of kanji. That&apos;s why I&apos;m building{' '}
-        <Link href="https://furigana.app" target="_blank">
-          Furigana
-        </Link>
-        . If you&apos;ve ever had the same problem, check it out!
-      </Text> */}
     </Container>
   );
 };
