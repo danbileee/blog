@@ -1,27 +1,34 @@
 import styled from '@emotion/styled';
+import NextLink from 'next/link';
 
 import { Post } from '@constants/types';
 import getEllipsisStyle from '@utils/getEllipsisStyle';
 import getDisplayDate from '@utils/getDisplayDate';
 import mediaQuery from '@styles/mediaQuery';
+import { useLocale } from '../../i18n/context';
+import { Locale } from '../../i18n/locales';
 
 interface Props {
   post: Post;
+  contentLocale: Locale;
 }
 
-export default function PostCard({ post }: Props) {
+export default function PostCard({ post, contentLocale }: Props) {
+  const locale = useLocale();
   const {
     frontMatter: { title, publishedAt, description },
     slug,
   } = post;
 
   return (
-    <Container href={`/blog/${slug}`}>
-      {/* {category && <Subtitle>{category}</Subtitle>} */}
-      <Title>{title}</Title>
-      <Description>{description}</Description>
-      <PublishedAt>{getDisplayDate(publishedAt)}</PublishedAt>
-    </Container>
+    <NextLink href={`/${locale}/blog/${slug}`} passHref>
+      <Container lang={contentLocale}>
+        {/* {category && <Subtitle>{category}</Subtitle>} */}
+        <Title>{title}</Title>
+        <Description>{description}</Description>
+        <PublishedAt lang={locale}>{getDisplayDate(publishedAt, locale)}</PublishedAt>
+      </Container>
+    </NextLink>
   );
 }
 

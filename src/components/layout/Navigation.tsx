@@ -3,24 +3,25 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import mediaQuery from '@styles/mediaQuery';
-import { menus as menusConst } from '@constants';
-import { getMenuLink } from '@utils/getMenuLink';
-import { getMetaInfo } from '@utils/getMetaInfo';
+import NextLink from 'next/link';
 import { ComponentProps } from 'react';
-
-const menus: string[] = Object.values(menusConst).map((menu) => menu);
+import { useLocale } from '../../i18n/context';
+import { messages } from '../../i18n/messages';
+import LanguageSelector from './LanguageSelector';
 
 export default function Navigation(props: ComponentProps<'nav'>) {
-  const { pathname } = useRouter();
-  const { key } = getMetaInfo(pathname) ?? {};
-
+  const { asPath } = useRouter();
+  const locale = useLocale();
   return (
     <Nav {...props}>
-      {menus.map((menu) => (
-        <NavAnchor key={menu} href={getMenuLink(menu)} isActive={menu.includes(key)}>
-          {menu}
-        </NavAnchor>
+      {(['career', 'blog'] as const).map((menu) => (
+        <NextLink key={menu} href={`/${locale}/${menu}`} passHref>
+          <NavAnchor isActive={asPath.split(/[/?#]/)[2] === menu}>
+            {messages[locale][menu]}
+          </NavAnchor>
+        </NextLink>
       ))}
+      <LanguageSelector />
     </Nav>
   );
 }
@@ -29,10 +30,10 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 45px;
+  gap: 28px;
 
   ${mediaQuery.mobile} {
-    gap: 24px;
+    gap: 16px;
   }
 `;
 
@@ -42,7 +43,7 @@ const NavAnchor = styled.a<{ isActive: boolean }>`
   font-weight: 800;
 
   ${mediaQuery.mobile} {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   &::after {

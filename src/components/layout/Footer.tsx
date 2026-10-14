@@ -2,6 +2,9 @@ import styled from '@emotion/styled';
 
 import mediaQuery from '@styles/mediaQuery';
 import Image from 'next/image';
+import { useLocale } from '../../i18n/context';
+import { messages } from '../../i18n/messages';
+import { feedPath } from '../../constants/site';
 
 interface FooterLink {
   link: string;
@@ -33,12 +36,19 @@ const links: FooterLink[] = [
 ];
 
 export default function Footer() {
+  const locale = useLocale();
   return (
     <Container>
       <Links>
         {links.map(({ link, icon, channel }) => (
-          <Link key={link} href={link} target="_blank" rel="noopener noreferrer">
-            <Image width={20} height={20} src={icon} alt={`${channel} 아이콘`} />
+          <Link
+            aria-label={channel === 'rss' ? messages[locale].rss : channel}
+            key={link}
+            href={channel === 'rss' ? feedPath(locale) : link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image width={20} height={20} src={icon} alt="" />
           </Link>
         ))}
       </Links>

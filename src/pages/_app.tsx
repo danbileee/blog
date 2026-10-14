@@ -1,14 +1,15 @@
 import { AppProps, NextWebVitalsMetric } from 'next/app';
-import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { GoogleAnalytics, event } from 'nextjs-google-analytics';
 
 import { GlobalContextProvider } from '@contexts/global';
 import GlobalStyle from '@styles/GlobalStyle';
-import { getMetaInfo } from '@utils/getMetaInfo';
 import ThemeProvider from '@styles/ThemeProvider';
 import Layout from '@components/layout';
 import PageMeta from '@components/layout/PageMeta';
+import { isLocale } from '../i18n/locales';
+import { LocaleContext } from '../i18n/context';
 
 export function reportWebVitals({ id, name, label, value }: NextWebVitalsMetric) {
   event(name, {
@@ -20,23 +21,28 @@ export function reportWebVitals({ id, name, label, value }: NextWebVitalsMetric)
 }
 
 function App({ Component, pageProps }: AppProps) {
-  const { pathname } = useRouter();
-  const { value, isDynamic } = getMetaInfo(pathname) ?? {};
-  const { title, description } = value ?? {};
+  const locale = isLocale(pageProps.locale) ? pageProps.locale : 'ko';
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   return (
     <>
-      <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
-      {!isDynamic && <PageMeta title={title} description={description} />}
+      {process.env.NODE_ENV === 'production' && (
+        <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
+      )}
+      {pageProps.seo && <PageMeta seo={pageProps.seo} />}
       <GlobalStyle />
       <ThemeProvider>
         <GlobalContextProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <LocaleContext.Provider value={locale}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </LocaleContext.Provider>
         </GlobalContextProvider>
       </ThemeProvider>
-      <Analytics />
+      {process.env.NODE_ENV === 'production' && <Analytics />}
     </>
   );
 }

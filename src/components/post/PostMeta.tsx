@@ -1,26 +1,28 @@
 import styled from '@emotion/styled';
-
 import { PostFrontMatter } from '@constants/types';
 import getDisplayDate from '@utils/getDisplayDate';
+import { useLocale } from '../../i18n/context';
+import { messages } from '../../i18n/messages';
 
 interface Props {
   frontMatter: PostFrontMatter;
 }
 
 export default function PostMeta({ frontMatter }: Props) {
+  const locale = useLocale();
   const { title, publishedAt, updatedAt } = frontMatter;
 
   return (
     <Section id="postMeta">
       {/* {category && <Subtitle>{category}</Subtitle>} */}
       <Title>{title}</Title>
-      <Date>
-        <span>작성 </span>
-        {getDisplayDate(publishedAt)}
+      <Date lang={locale}>
+        <span>{messages[locale].published} </span>
+        {getDisplayDate(publishedAt, locale)}
       </Date>
-      <Date>
-        <span>업데이트 </span>
-        {getDisplayDate(updatedAt)}
+      <Date lang={locale}>
+        <span>{messages[locale].updated} </span>
+        {getDisplayDate(updatedAt ?? publishedAt, locale)}
       </Date>
     </Section>
   );
