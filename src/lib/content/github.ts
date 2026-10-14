@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop, no-restricted-syntax, no-continue -- bounded server-only fetch workers and retries */
 import https from 'https';
 import { ContentKind, ContentRecord, Snapshot } from './types';
-import { parseDocument, translationDocument } from './localize';
+import { parseDocument, translateDocument, TranslationValidationError } from './localize';
 import { Locale } from '../../i18n/locales';
 
 const repo = '/repos/danbileee/blog-docs';
@@ -126,7 +126,7 @@ export async function loadRecords(
           if (files.includes(sibling)) {
             const translatedRaw = await read(`/contents/${sibling}?ref=${ref}`, true);
             try {
-              record.translations[locale] = translationDocument(
+              record.translations[locale] = translateDocument(
                 translatedRaw,
                 original,
                 kind,
@@ -134,7 +134,11 @@ export async function loadRecords(
               );
             } catch (error) {
               record.invalidLocales.push(locale);
-              console.warn(`Invalid or incomplete translation: ${sibling}`);
+              const reason =
+                error instanceof TranslationValidationError
+                  ? error.message
+                  : 'Unable to parse or validate translation frontmatter';
+              console.warn(`Invalid or incomplete translation: ${sibling}: ${reason}`);
             }
           }
         }

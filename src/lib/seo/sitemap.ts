@@ -11,6 +11,7 @@ export function escapeXML(value: string) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
 }
+
 export function sitemapEntries(snapshot: Snapshot) {
   const result: { url: string; lastmod?: string }[] = [];
   locales.forEach((locale) => {
@@ -30,6 +31,7 @@ export function sitemapEntries(snapshot: Snapshot) {
   });
   return result;
 }
+
 export function sitemapXML(snapshot: Snapshot) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapEntries(
     snapshot,

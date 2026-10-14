@@ -41,7 +41,7 @@ const Select = styled.select`
   background-color: transparent;
   border-radius: 8px;
   border-color: transparent;
-  padding: 6px 28px 6px 10px;
+  padding: 8px 28px 8px 10px;
   margin-left: 4px;
   min-width: 80px;
   flex-shrink: 0;

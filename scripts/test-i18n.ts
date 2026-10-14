@@ -7,7 +7,7 @@ import { randomBytes } from 'crypto';
 import { spawnSync } from 'child_process';
 import { prepare } from './prepare-content';
 import { prepareSnapshot, ReadSource, retry } from '../src/lib/content/github';
-import { localize, parseDocument, translationDocument } from '../src/lib/content/localize';
+import { localize, parseDocument, translateDocument } from '../src/lib/content/localize';
 import { localDraftPosts, isLocalDevelopment } from '../src/lib/content/snapshot';
 import { detectLocale } from '../src/i18n/detect';
 import { localizeContentLink, switchLocale } from '../src/i18n/routes';
@@ -23,6 +23,8 @@ const original = (flag = '') =>
   `---\ntitle: Original\ndescription: Korean description\npublishedAt: '2020-01-01'\nupdatedAt: '2020-01-02'\ntags: [web]\nogImage: 'https://example.com/image.png'\n${flag}\n---\nKorean body`;
 const translated = (locale: string, extra = '') =>
   `---\nlocale: ${locale}\ntranslationStatus: complete\ntitle: ${locale} title\ndescription: ${locale} description\n${extra}\n---\n${locale} whole body`;
+const careerTranslation = (locale: string, body = '') =>
+  `---\ncompany: Company ${locale}\ndescription: Career ${locale}\nlocale: ${locale}\ntranslationStatus: complete\n---\n${body}`;
 const files: Record<string, string> = {
   'posts/public.mdx': original(),
   'posts/public.en.mdx': translated('en'),
@@ -88,6 +90,107 @@ async function main() {
   );
   assert.equal(localize(invalidOptional.posts[0], 'en').state, 'invalid');
   assert.equal(localize(invalidOptional.posts[0], 'en').content.body, 'Korean body');
+  // Metadata-only careers are complete only when the original has no detail body.
+  for (const body of ['', ' \n\t']) {
+    const careers = await prepareSnapshot(
+      source({
+        ...files,
+        'careers/company.mdx': files['careers/company.mdx'].replace('Korean career', body),
+        'careers/company.en.mdx': careerTranslation('en', body),
+        'careers/company.ja.mdx': careerTranslation('ja', body),
+      }),
+    );
+    for (const locale of ['en', 'ja'] as const) {
+      const chosen = localize(careers.careers[0], locale);
+      assert.equal(chosen.state, 'available');
+      assert.equal(chosen.contentLocale, locale);
+      assert.equal(chosen.content.meta.description, `Career ${locale}`);
+      assert.equal(chosen.content.body.trim(), '');
+      assert.equal(pageSEO(careers, 'career', locale).indexable, true);
+    }
+  }
+  const images = { en: 'https://example.com/en.png', ja: 'https://example.com/ja.png' };
+  const localizedImages = await prepareSnapshot(
+    source({
+      ...files,
+      'posts/public.en.mdx': translated('en', `ogImage: '${images.en}'`),
+      'posts/public.ja.mdx': translated('ja', `ogImage: '${images.ja}'`),
+    }),
+  );
+  for (const locale of ['en', 'ja'] as const) {
+    const imageRecord = localizedImages.posts[0];
+    assert.equal(localize(imageRecord, locale).contentLocale, locale);
+    assert.equal(pageSEO(localizedImages, 'article', locale, imageRecord).ogImage, images[locale]);
+    assert(rssXML(localizedImages, locale).includes(`<enclosure url="${images[locale]}"`));
+    assert.equal(
+      pageSEO(snapshot, 'article', locale, record).ogImage,
+      'https://example.com/image.png',
+    );
+  }
+  assert.deepStrictEqual(localizedImages.posts[0].original, record.original);
+
+  // Capture loader diagnostics: invalid files must still select the whole Korean original.
+  const warnings: string[] = [];
+  const { warn } = console;
+  console.warn = (message: string) => warnings.push(message);
+  try {
+    const invalidCases = [
+      [
+        'posts/public.en.mdx',
+        translated('en').replace('en whole body', ' \n\t'),
+        'Missing translated body',
+      ],
+      ['careers/company.en.mdx', careerTranslation('en'), 'Missing translated body'],
+      ['posts/public.en.mdx', translated('en', 'ogImage: ""'), 'Invalid translated ogImage'],
+      ['posts/public.en.mdx', translated('en', 'ogImage: "  "'), 'Invalid translated ogImage'],
+      ['posts/public.en.mdx', translated('en', 'ogImage: 123'), 'Invalid translated ogImage'],
+      ['posts/public.en.mdx', translated('en', 'ogImage: null'), 'Invalid translated ogImage'],
+      [
+        'posts/public.en.mdx',
+        translated('en', "publishedAt: '2020-02-01'"),
+        'Conflicting shared field: publishedAt',
+      ],
+      [
+        'posts/public.en.mdx',
+        translated('en', 'devOnly: true'),
+        'Conflicting shared field: devOnly',
+      ],
+      [
+        'posts/public.en.mdx',
+        translated('en', `${marker}: value`),
+        'Conflicting shared field: (unknown)',
+      ],
+      [
+        'posts/public.en.mdx',
+        `---\nlocale: en\ndescription: [${marker}\n---\n${marker}`,
+        'Unable to parse or validate translation frontmatter',
+      ],
+    ];
+    for (const [file, raw, reason] of invalidCases) {
+      const invalid = await prepareSnapshot(source({ ...files, [file]: raw }));
+      const invalidRecord = file.startsWith('posts/') ? invalid.posts[0] : invalid.careers[0];
+      const chosen = localize(invalidRecord, 'en');
+      assert.equal(chosen.state, 'invalid');
+      assert.equal(chosen.translationAvailable, false);
+      assert.equal(chosen.contentLocale, 'ko');
+      assert.deepStrictEqual(chosen.content, invalidRecord.original);
+      assert(warnings.includes(`Invalid or incomplete translation: ${file}: ${reason}`));
+    }
+    const emptyCareer = parseDocument(
+      files['careers/company.mdx'].replace('Korean career', ''),
+      'careers',
+    );
+    for (const raw of [
+      careerTranslation('en').replace('description: Career en', 'description: ""'),
+      careerTranslation('en').replace('company: Company en', 'company: ""'),
+      careerTranslation('en').replace('locale: en', 'locale: ja'),
+      careerTranslation('en').replace('translationStatus: complete', 'translationStatus: draft'),
+    ])
+      assert.throws(() => translateDocument(raw, emptyCareer, 'careers', 'en'));
+    assert(warnings.every((message) => !message.includes(marker)));
+  } finally {
+    console.warn = warn;
+  }
   const changed = await prepareSnapshot(
     source({
       ...files,
@@ -102,7 +205,7 @@ async function main() {
   ['not-a-date', '2020-01-01T00:00:00', '2020-02-30T00:00:00Z', '2999-01-01T00:00:00Z'].forEach(
     (date) =>
       assert.throws(() =>
-        translationDocument(
+        translateDocument(
           translated('en', `translationPublishedAt: '${date}'`),
           record.original,
           'posts',
@@ -111,7 +214,7 @@ async function main() {
       ),
   );
   assert.equal(
-    translationDocument(
+    translateDocument(
       translated('en', 'translationPublishedAt: 2020-03-01T00:00:00Z'),
       record.original,
       'posts',
