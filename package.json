@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-syntax-highlighter": "^15.5.0",
     "rss": "^1.2.2",
+    "sax": "1.4.1",
     "typescript": "^4.6.3"
   },
   "devDependencies": {
@@ -53,10 +54,14 @@
     "@types/react-dom": "17.0.2"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "yarn prepare:content && next dev --hostname 127.0.0.1",
+    "build": "yarn prepare:content && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare:content": "ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/prepare-content.ts",
+    "test:i18n": "ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/test-i18n.ts",
+    "verify:i18n": "ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/verify-i18n.ts",
+    "probe:deployment": "ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/probe-deployment.ts"
   },
   "packageManager": "yarn@4.18.1"
 }

@@ -1,12 +1,14 @@
 import { Career } from '@constants/types';
 import styled from '@emotion/styled';
 import mediaQuery from '@styles/mediaQuery';
+import { useLocale } from '../../i18n/context';
 
 interface Props {
   career: Career;
 }
 
 export default function CareerMeta({ career }: Props) {
+  const locale = useLocale();
   const { company, startYear, endYear, description, website } = career;
 
   return (
@@ -19,7 +21,7 @@ export default function CareerMeta({ career }: Props) {
         ) : (
           <Company>{company}</Company>
         )}
-        <Period>{`${startYear}~${endYear ?? ''}`}</Period>
+        <Period lang={locale}>{`${startYear}~${endYear ?? ''}`}</Period>
       </Wrapper>
       <Description>{description}</Description>
     </Container>

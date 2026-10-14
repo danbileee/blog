@@ -1,7 +1,5 @@
-import { pageMeta } from '@constants';
+import { Locale } from '../i18n/locales';
 
-export function getMenuLink(currentMenu: string) {
-  const [link] = Object.entries(pageMeta).find(([, { menu }]) => menu === currentMenu) ?? [];
-
-  return `/${link}` ?? '/';
+export function getMenuLink(menu: string, locale: Locale = 'ko') {
+  return `/${locale}${menu === 'career' || menu === 'blog' ? `/${menu}` : ''}`;
 }

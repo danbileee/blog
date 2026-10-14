@@ -29,6 +29,6 @@
       "@utils/*": ["./utils/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mdx", "next.config.js"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mdx", "next.config.js", "scripts/**/*.ts"],
   "exclude": ["node_modules"]
 }

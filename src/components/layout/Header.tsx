@@ -1,29 +1,35 @@
 import Image from 'next/image';
+import NextLink from 'next/link';
 import styled from '@emotion/styled';
 
 import { useGlobalContext } from '@contexts/global';
 import mediaQuery from '@styles/mediaQuery';
 import useScrollDirection, { ScrollDirection } from '@hooks/useScrollDirection';
+import { messages } from '../../i18n/messages';
+import { useLocale } from '../../i18n/context';
 import Navigation from './Navigation';
 
 const DESKTOP_HEADER_HEIGHT = 110;
 const MOBILE_HEADER_HEIGHT = 80;
 
 export default function Header() {
+  const locale = useLocale();
   const { isMobile } = useGlobalContext();
   const direction = useScrollDirection(isMobile ? MOBILE_HEADER_HEIGHT : DESKTOP_HEADER_HEIGHT);
 
   return (
     <Container direction={direction}>
       <Wrapper>
-        <LogoAnchor href="/">
-          <Image
-            width={isMobile ? 28 : 36}
-            height={isMobile ? 28 : 36}
-            src="/logo.png"
-            alt="logo"
-          />
-        </LogoAnchor>
+        <NextLink href={`/${locale}`} passHref>
+          <LogoAnchor>
+            <Image
+              width={isMobile ? 28 : 36}
+              height={isMobile ? 28 : 36}
+              src="/logo.png"
+              alt={messages[locale].logo}
+            />
+          </LogoAnchor>
+        </NextLink>
         <Navigation />
       </Wrapper>
     </Container>

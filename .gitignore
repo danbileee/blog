@@ -11,3 +11,8 @@ public/rss.xml
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.cache/i18n/
+public/sitemap.xml
+public/en/rss.xml
+public/ja/rss.xml
+*.tsbuildinfo
